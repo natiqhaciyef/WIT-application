@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagersaz.presentation.component
+package com.natiqhaciyef.witapplication.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,8 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.natiqhaciyef.voyagersaz.ui.theme.AppDarkBlue
-import com.natiqhaciyef.voyagersaz.ui.theme.AppLightGray
+import com.natiqhaciyef.witapplication.ui.theme.*
 
 
 @Composable

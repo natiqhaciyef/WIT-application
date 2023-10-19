@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.natiqhaciyef.voyagersaz.domain.model.MappedPostModel
-import com.natiqhaciyef.voyagersaz.ui.theme.AppDarkBlue
-import com.natiqhaciyef.voyagersaz.ui.theme.AppDarkGray
+import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
+import com.natiqhaciyef.witapplication.ui.theme.AppDarkGray
 
 @Composable
 fun PostComponent(

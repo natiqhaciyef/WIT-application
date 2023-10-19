@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagersaz.presentation.component
+package com.natiqhaciyef.witapplication.presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,8 +22,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.natiqhaciyef.voyagersaz.R
-import com.natiqhaciyef.voyagersaz.ui.theme.AppDarkGray
+import com.natiqhaciyef.witapplication.R
+import com.natiqhaciyef.witapplication.ui.theme.AppDarkGray
 
 @Preview
 @Composable
@@ -42,7 +42,7 @@ fun NotificationComponent(
         ) {
             Image(
                 modifier = Modifier.size(72.dp),
-                painter = painterResource(id = R.drawable.app_icon),
+                painter = painterResource(id = R.drawable.non),
                 contentDescription = "App icon",
             )
             Column(
