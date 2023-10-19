@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagersaz.data.model.service
+package com.natiqhaciyef.witapplication.data.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -15,6 +15,4 @@ data class UserModel(
     var email: String,
     @SerializedName("password")
     var password: String,
-    @SerializedName("type")
-    var type: String = UserTypes.User.name
 ): Parcelable
