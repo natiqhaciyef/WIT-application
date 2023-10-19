@@ -1,13 +1,19 @@
-package com.natiqhaciyef.voyagersaz.presentation.component
+package com.natiqhaciyef.witapplication.presentation.component
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -32,6 +38,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuBox
@@ -73,6 +80,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -86,6 +94,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
 import com.airbnb.lottie.utils.MiscUtils.*
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -99,6 +108,8 @@ import com.natiqhaciyef.witapplication.common.util.classes.NavItemModel
 import com.natiqhaciyef.witapplication.common.util.helpers.cardTypeToImageFinder
 import com.natiqhaciyef.witapplication.common.util.helpers.formatExpirationDate
 import com.natiqhaciyef.witapplication.common.util.helpers.formatOtherCardNumbers
+import com.natiqhaciyef.witapplication.data.models.MaterialModel
+import com.natiqhaciyef.witapplication.data.worker.util.startDownloadingFile
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.ui.theme.*
 import kotlinx.coroutines.delay
@@ -947,6 +958,177 @@ fun BottomShadow(modifier: Modifier) {
     )
 }
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+@Composable
+fun ItemFile(
+    file: MaterialModel,
+    startDownload: (MaterialModel) -> Unit,
+    openFile: (MaterialModel) -> Unit
+) {
+
+    val permissionGrantBooleanForFile = remember { mutableStateOf(true) }
+
+    val permissionLauncherForFile = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { mapBoolean ->
+        var isGranted = false
+        mapBoolean.forEach { (s, b) ->
+            isGranted = b
+        }
+        permissionGrantBooleanForFile.value = isGranted
+    }
+
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape = RoundedCornerShape(16.dp))
+            .border(width = 1.5.dp, color = AppDarkBlue, shape = RoundedCornerShape(16.dp))
+            .background(color = Color.White)
+            .clickable {
+                permissionLauncherForFile.launch(
+                    arrayOf(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.POST_NOTIFICATIONS
+                    )
+                )
+                if (permissionGrantBooleanForFile.value) {
+                    if (!file.isDownloading) {
+                        if (file.downloadedUri.isNullOrEmpty()) {
+                            startDownload(file)
+                        } else {
+                            openFile(file)
+                        }
+                    }
+                }
+
+            }
+            .padding(16.dp),
+
+        ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Image(
+                modifier = Modifier
+                    .padding(end = 15.dp, start = 5.dp, top = 5.dp, bottom = 5.dp)
+                    .size(45.dp),
+                painter = rememberImagePainter(file.image),
+                contentDescription = "File type image"
+            )
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+            ) {
+                Text(
+                    text = file.title,
+                    fontSize = 18.sp,
+                    color = Color.Black
+                )
+
+                Row {
+                    val description = if (file.isDownloading) {
+                        "Downloading..."
+                    } else {
+                        if (file.downloadedUri.isNullOrEmpty()) "Tap to download the file" else "Tap to open file"
+                    }
+                    androidx.compose.material.Text(
+                        text = description,
+                        fontSize = 16.sp,
+                        color = Color.DarkGray
+                    )
+                }
+
+            }
+
+            if (file.isDownloading) {
+                CircularProgressIndicator(
+                    color = Color.Blue,
+                    modifier = Modifier
+                        .size(32.dp)
+                        .align(Alignment.CenterVertically)
+                )
+            }
+        }
+    }
+}
+
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+@Composable
+fun ItemFileBox(
+    material: MutableState<MaterialModel>,
+    returnMessage: MutableState<String> = mutableStateOf("")
+) {
+    val context = LocalContext.current
+
+    Box(
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .fillMaxWidth()
+    ) {
+        ItemFile(
+            file = material.value,
+            startDownload = {
+                startDownloadingFile(
+                    file = material.value,
+                    success = {
+                        material.value = material.value.copy().apply {
+                            isDownloading = false
+                            downloadedUri = it
+                            println(it)
+                        }
+
+                        returnMessage.value = "File has been downloaded!"
+                    },
+                    failed = {
+                        material.value = material.value.copy().apply {
+                            isDownloading = false
+                            downloadedUri = null
+                            println(it)
+
+                        }
+
+                        returnMessage.value = "Something went wrong!"
+                    },
+                    running = {
+                        material.value = material.value.copy().apply {
+                            isDownloading = true
+                        }
+                        println(it)
+
+                    },
+                    context = context,
+                )
+            },
+            openFile = {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.setDataAndType(
+                    it.downloadedUri?.toUri(),
+                    "application/${material.value.type}"
+                )
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                try {
+                    context.startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+                    println(e.message)
+                    println(e.cause)
+                    Toast.makeText(
+                        context,
+                        "Can't open file",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        )
+    }
+}
 
 @Composable
 fun CustomDropDownTitleSelectionBox(

@@ -5,6 +5,7 @@ enum class ScreenId {
     LoginScreen,
     ForgotPassword,
 
+    MainScreenLine,
     HomeScreen,
     OnlineMaterialsScreen,
     LearnScreen,

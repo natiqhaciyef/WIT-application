@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication
+package com.natiqhaciyef.witapplication.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
