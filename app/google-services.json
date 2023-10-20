@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "493955034274",
+    "project_id": "wit-app-6c770",
+    "storage_bucket": "wit-app-6c770.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493955034274:android:8e2e3ada746061dfdc3bfb",
+        "android_client_info": {
+          "package_name": "com.natiqhaciyef.witapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOsP3lV6DnOY5W4QdVRJvQfwIhtFM4JM4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -29,7 +29,7 @@ interface UserService {
     @POST(UserEndpoint.UPDATE)
     suspend fun updateUser(
         @Query("apiKey") key: String = BuildConfig.API_KEY,
-        @Field("id") id: String,
+        @Field("id") id: Int,
         @Field("name") name: String,
         @Field("email") email: String,
         @Field("password") password: String,
@@ -39,6 +39,6 @@ interface UserService {
     @POST(UserEndpoint.DELETE)
     suspend fun deleteUser(
         @Query("apiKey") key: String = BuildConfig.API_KEY,
-        @Field("id") id: String,
+        @Field("id") id: Int,
     ): CRUDResponse
 }

@@ -6,7 +6,7 @@ plugins {
     kotlin("kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
-//    id("com.google.gms.google-services")
+    id("com.google.gms.google-services")
 //    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
@@ -150,9 +150,9 @@ dependencies {
 
 
     //Firebase
-//    implementation(platform("com.google.firebase:firebase-bom:31.1.0"))
-//    implementation("com.google.firebase:firebase-analytics-ktx")
-//    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation(platform("com.google.firebase:firebase-bom:31.1.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
 //    implementation("com.google.firebase:firebase-firestore-ktx")
 //    implementation("com.google.firebase:firebase-storage-ktx")
 //    implementation("com.google.firebase:firebase-messaging-ktx")

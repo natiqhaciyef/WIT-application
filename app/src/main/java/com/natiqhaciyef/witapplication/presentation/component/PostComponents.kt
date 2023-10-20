@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import com.natiqhaciyef.voyagersaz.domain.model.MappedPostModel
+import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkGray
 

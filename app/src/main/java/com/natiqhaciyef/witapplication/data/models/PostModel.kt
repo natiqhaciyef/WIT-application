@@ -12,7 +12,7 @@ data class PostModel(
     @SerializedName("image")
     var image: String?,
     @SerializedName("like_count")
-    var likeCount: Double,
+    var likeCount: Int,
     @SerializedName("location")
     var location: String?,
     @SerializedName("publish_date")
