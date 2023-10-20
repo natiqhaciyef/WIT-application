@@ -5,7 +5,7 @@ import com.natiqhaciyef.witapplication.data.source.FirebaseDataSource
 import com.natiqhaciyef.witapplication.domain.repository.FirebaseRepository
 
 class FirebaseRepositoryImpl(
-    private val ds: FirebaseDataSource
+    val ds: FirebaseDataSource
 ) : FirebaseRepository {
 
     override suspend fun signInUser(
@@ -29,11 +29,11 @@ class FirebaseRepositoryImpl(
     }
 
     override suspend fun resetPasswordFromEmail(
-        user: UserModel,
+        email: String,
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit
     ) {
-        ds.auth.sendPasswordResetEmail(user.email)
+        ds.auth.sendPasswordResetEmail(email)
             .addOnSuccessListener { onSuccess() }
             .addOnFailureListener(onFail)
     }

@@ -1,9 +1,10 @@
 package com.natiqhaciyef.witapplication.presentation.navigation
 
 enum class ScreenId {
+    SplashScreen,
     RegistrationScreen,
     LoginScreen,
-    ForgotPassword,
+    ForgotPasswordScreen,
 
     MainScreenLine,
     HomeScreen,

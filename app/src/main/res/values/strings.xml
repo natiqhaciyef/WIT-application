@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">WIT application</string>
+
+    <string name="check_message">Please check your email, we will send the reset password link. If it is not show, check spam messages box</string>
+    <string name="send">Send</string>
+    <string name="save_it">Save it</string>
+    <string name="continue_">Continue</string>
+    <string name="reset">Reset</string>
+    <string name="create">Create</string>
+    <string name="create_new_account">Create new account ?</string>
+    <string name="do_you_have_an_account">Do you have an account ?</string>
+    <string name="sign_up">&#160; Sign up</string>
+    <string name="sign_in">&#160; Sign in</string>
+
+
+    <string name="reset_password">Reset password</string>
+    <string name="forgot_password">Forgot password ?</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="full_name">Full name</string>
+
+    <string name="login_n_share">Login &amp; share &#160;</string>
+    <string name="posts">posts</string>
+    <string name="register">Register &#160;</string>
+    <string name="n_join_us">&amp; join us</string>
 </resources>

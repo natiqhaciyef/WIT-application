@@ -16,7 +16,7 @@ interface FirebaseRepository {
     )
 
     suspend fun resetPasswordFromEmail(
-        user: UserModel,
+        email: String,
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit
     )

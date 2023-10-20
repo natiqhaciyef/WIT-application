@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagersaz.presentation.component
+package com.natiqhaciyef.witapplication.presentation.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
@@ -100,7 +100,7 @@ fun PostComponent(
                             .padding(start = 15.dp, end = 15.dp, bottom = 20.dp)
                     )
 
-                    if (mappedPostModel.image.isNotEmpty()) {
+                    if (mappedPostModel.image != null) {
                         Image(
                             modifier = Modifier
                                 .fillMaxWidth()

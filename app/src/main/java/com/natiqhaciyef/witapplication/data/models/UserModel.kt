@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class UserModel(
     @SerializedName("id")
-    var id: Int,
+    var id: Int = 0,
     @SerializedName("name")
     var name: String,
     @SerializedName("email")

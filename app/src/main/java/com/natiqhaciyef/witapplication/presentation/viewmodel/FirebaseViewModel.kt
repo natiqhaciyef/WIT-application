@@ -1,6 +1,8 @@
 package com.natiqhaciyef.witapplication.presentation.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.domain.repository.FirebaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +13,8 @@ import javax.inject.Inject
 class FirebaseViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository
 ) : BaseViewModel() {
+
+    fun getUser() = Firebase.auth
 
     fun signInUser(
         user: UserModel,
@@ -41,13 +45,13 @@ class FirebaseViewModel @Inject constructor(
     }
 
     fun resetPasswordFromEmail(
-        user: UserModel,
+        email: String,
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit
     ) {
         viewModelScope.launch {
             firebaseRepository.resetPasswordFromEmail(
-                user = user,
+                email = email,
                 onSuccess = onSuccess,
                 onFail = onFail
             )
