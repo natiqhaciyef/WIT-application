@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">VoyagersAz</string>
+
+    <!-- Registration screens -->
+    <string name="check_message">Please check your email, we will send the reset password link. If it is not show, check spam messages box</string>
+    <string name="send">Send</string>
+    <string name="continue_message">Continue</string>
+    <string name="reset">Reset</string>
+    <string name="create">Create</string>
+    <string name="sign_in">&#160; Sign in</string>
+    <string name="do_you_have_an_account">Do you have an account ?</string>
+
+    <string name="renew_password">Renew password</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="full_name">Full name</string>
+
+    <string name="forgot_password">Forgot password ?</string>
+    <string name="login_n_search">Login &amp; search &#160;</string>
+    <string name="register">Register &#160;</string>
+    <string name="n_join_us">&amp; join us</string>
+    <string name="new_places">new places</string>
+    <string name="create_new_account">Create new account ?</string>
+    <string name="sign_up">&#160; Sign up</string>
+
+    <!-- Home screen -->
+    <string name="search">Search</string>
+    <string name="welcome">Welcome, &#160;</string>
+    <string name="top_places">Top places</string>
+    <string name="notifications">Notifications</string>
+
+    <!-- Maps screen -->
+    <string name="home_place">Home place</string>
+    <string name="selected_places">Selected place</string>
+
+    <!-- Posts Screens -->
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="days">Days</string>
+    <string name="total_expenses">Total expenses</string>
+    <string name="seasons">Seasons</string>
+    <string name="place">Place or city</string>
+    <string name="country">Country</string>
+    <string name="share">Share</string>
+
+    <!-- Products Screen -->
+    <string name="products_title">The quality and brand products</string>
+    <string name="brands">Brands</string>
+
+
+    <!-- User Profile -->
+    <string name="contents">Contents</string>
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
+    <string name="languages">Languages</string>
+    <string name="saved_posts">Saved posts</string>
+    <string name="saved_products">Saved products</string>
+    <string name="saved_place_info">Saved places</string>
+    <string name="alert">Alert</string>
+    <string name="alert_dialog_title">Do you want to leave ?</string>
+    <string name="alert_dialog_positive_button">Yes</string>
+    <string name="alert_dialog_negative_button">No</string>
+
+
+    <!-- Personal -->
+    <string name="name_surname">Full name</string>
+    <string name="phone">Phone</string>
+    <string name="fin_code">Fin code</string>
+    <string name="submit">Submit</string>
+    <string name="waiting_info">Request sent successfully.\nAfter confirmation, you\nwill be notified</string>
+    <string name="insert_data">Insert data</string>
+    <string name="card_full_name">Full name on card</string>
+    <string name="card_number">Number on card</string>
+    <string name="card_date">xx/xx</string>
+    <string name="select_payment_method">Select payment method</string>
+    <string name="cvv">CVV</string>
+
+    <string name="change_language">Change language</string>
+
+
+</resources>

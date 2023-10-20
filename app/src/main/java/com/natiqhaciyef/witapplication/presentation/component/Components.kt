@@ -97,12 +97,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
 import com.airbnb.lottie.utils.MiscUtils.*
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.calculateCurrentOffsetForPage
-import com.google.accompanist.pager.rememberPagerState
-import com.natiqhaciyef.voyagersaz.data.model.service.PostModel
-import com.natiqhaciyef.voyagersaz.presentation.component.fonts.Lobster
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.common.util.classes.NavItemModel
 import com.natiqhaciyef.witapplication.common.util.helpers.cardTypeToImageFinder
@@ -112,9 +106,6 @@ import com.natiqhaciyef.witapplication.data.models.MaterialModel
 import com.natiqhaciyef.witapplication.data.worker.util.startDownloadingFile
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.ui.theme.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.yield
-import kotlin.math.absoluteValue
 import kotlin.math.ceil
 import kotlin.math.floor
 
@@ -1303,88 +1294,88 @@ fun ImageSelection(
 }
 
 
-@SuppressLint("RestrictedApi")
-@ExperimentalPagerApi
-@Composable
-fun CustomViewPager(list: MutableList<PostModel> = mutableListOf()) {
-    val pagerState = rememberPagerState(
-        initialPage = 0,
-//        pageCount = list.size
-    )
+//@SuppressLint("RestrictedApi")
+//@ExperimentalPagerApi
+//@Composable
+//fun CustomViewPager(list: MutableList<PostModel> = mutableListOf()) {
+//    val pagerState = rememberPagerState(
+//        initialPage = 0,
+////        pageCount = list.size
+//    )
+//
+//    LaunchedEffect(key1 = Unit) {
+//        while (true) {
+//            yield()
+//            delay(4500)
+//            pagerState.animateScrollToPage(
+//                page = (pagerState.currentPage + 1) % (pagerState.pageCount),
+//                animationSpec = tween(600)
+//            )
+//        }
+//    }
+//
+//    HorizontalPager(
+//        state = pagerState,
+//        modifier = Modifier,
+//        count = list.size
+//    ) { page ->
+//        Card(
+//            modifier = Modifier
+//                .graphicsLayer {
+//                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+//                    lerp(
+//                        0.85f,
+//                        1f,
+//                        1f - pageOffset.coerceIn(0f, 1f)
+//                    ).also { scale ->
+//                        scaleX = scale
+//                        scaleY = scale
+//                    }
+//                    alpha = lerp(
+//                        0.5f,
+//                        1f,
+//                        1f - pageOffset.coerceIn(0f, 1f)
+//                    )
+//                }
+//                .fillMaxWidth()
+//                .height(180.dp)
+//                .padding(horizontal = 10.dp),
+//            shape = RoundedCornerShape(15.dp)
+//        ) {
+//            val item = list[page]
+//            ViewPagerItemInside(item)
+//        }
+//    }
+//}
 
-    LaunchedEffect(key1 = Unit) {
-        while (true) {
-            yield()
-            delay(4500)
-            pagerState.animateScrollToPage(
-                page = (pagerState.currentPage + 1) % (pagerState.pageCount),
-                animationSpec = tween(600)
-            )
-        }
-    }
-
-    HorizontalPager(
-        state = pagerState,
-        modifier = Modifier,
-        count = list.size
-    ) { page ->
-        Card(
-            modifier = Modifier
-                .graphicsLayer {
-                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-                    lerp(
-                        0.85f,
-                        1f,
-                        1f - pageOffset.coerceIn(0f, 1f)
-                    ).also { scale ->
-                        scaleX = scale
-                        scaleY = scale
-                    }
-                    alpha = lerp(
-                        0.5f,
-                        1f,
-                        1f - pageOffset.coerceIn(0f, 1f)
-                    )
-                }
-                .fillMaxWidth()
-                .height(180.dp)
-                .padding(horizontal = 10.dp),
-            shape = RoundedCornerShape(15.dp)
-        ) {
-            val item = list[page]
-            ViewPagerItemInside(item)
-        }
-    }
-}
-
-@Composable
-fun ViewPagerItemInside(ads: PostModel) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.White),
-        contentAlignment = Alignment.Center,
-    ) {
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            painter = rememberImagePainter(ads.image),
-            contentDescription = "Ad Image",
-            contentScale = ContentScale.Crop,
-            colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrixGrayLayer))
-        )
-
-        Text(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(10.dp),
-            text = ads.title,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold,
-            fontFamily = Lobster.lobster,
-            color = AppExtraLightBrown
-        )
-    }
-}
+//@Composable
+//fun ViewPagerItemInside(ads: PostModel) {
+//    Box(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .background(color = Color.White),
+//        contentAlignment = Alignment.Center,
+//    ) {
+//        Image(
+//            modifier = Modifier.fillMaxSize(),
+//            painter = rememberImagePainter(ads.image),
+//            contentDescription = "Ad Image",
+//            contentScale = ContentScale.Crop,
+//            colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrixGrayLayer))
+//        )
+//
+//        Text(
+//            modifier = Modifier
+//                .align(Alignment.BottomEnd)
+//                .padding(10.dp),
+//            text = ads.title,
+//            fontSize = 18.sp,
+//            fontWeight = FontWeight.SemiBold,
+//            fontFamily = Lobster.lobster,
+//            color = AppExtraLightBrown
+//        )
+//    }
+//}
 
 
 fun imageSelector(

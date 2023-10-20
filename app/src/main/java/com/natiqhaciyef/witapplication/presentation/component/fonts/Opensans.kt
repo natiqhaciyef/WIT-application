@@ -1,8 +1,8 @@
-package com.natiqhaciyef.voyagersaz.presentation.component.fonts
+package com.natiqhaciyef.witapplication.presentation.component.fonts
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import com.natiqhaciyef.voyagersaz.R
+import com.natiqhaciyef.witapplication.R
 
 object Opensans {
     val opensans = FontFamily(
