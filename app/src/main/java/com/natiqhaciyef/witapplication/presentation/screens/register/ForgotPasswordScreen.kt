@@ -99,7 +99,7 @@ private fun ForgotPasswordTopView() {
         LottieAnimation(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(280.dp),
+                .height(240.dp),
             composition = composition,
             iterations = LottieConstants.IterateForever
         )

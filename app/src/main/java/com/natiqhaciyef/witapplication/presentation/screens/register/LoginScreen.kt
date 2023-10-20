@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -97,18 +98,19 @@ fun LoginScreen(
 @Composable
 private fun LoginTopView() {
     val composition by rememberLottieComposition(
-        spec = LottieCompositionSpec.RawRes(R.raw.login_animation),
+        spec = LottieCompositionSpec.RawRes(R.raw.post_animation),
     )
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(40.dp))
         LottieAnimation(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(270.dp),
+                .height(260.dp),
             composition = composition,
-            iterations = LottieConstants.IterateForever
+            iterations = LottieConstants.IterateForever,
+            contentScale = ContentScale.Crop
         )
 
         Text(
@@ -135,7 +137,7 @@ private fun LoginTopView() {
         )
     }
 
-    Spacer(modifier = Modifier.height(30.dp))
+    Spacer(modifier = Modifier.height(20.dp))
 }
 
 

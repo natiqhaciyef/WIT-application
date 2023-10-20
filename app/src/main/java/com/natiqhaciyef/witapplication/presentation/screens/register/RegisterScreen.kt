@@ -98,7 +98,7 @@ fun RegisterScreen(
 @Composable
 private fun RegisterTopView() {
     val composition by rememberLottieComposition(
-        spec = LottieCompositionSpec.RawRes(R.raw.register_animation),
+        spec = LottieCompositionSpec.RawRes(R.raw.post_animation),
     )
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
