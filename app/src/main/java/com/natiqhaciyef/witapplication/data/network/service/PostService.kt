@@ -5,6 +5,7 @@ import com.natiqhaciyef.witapplication.data.network.PostEndpoint
 import com.natiqhaciyef.witapplication.data.network.result.CRUDResponse
 import com.natiqhaciyef.witapplication.data.network.result.PostResult
 import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -17,6 +18,7 @@ interface PostService {
     ): PostResult
 
     @POST(PostEndpoint.INSERT)
+    @FormUrlEncoded
     suspend fun insertPost(
         @Query("apiKey") key: String = BuildConfig.API_KEY,
         @Field("title") title: String,
@@ -29,6 +31,7 @@ interface PostService {
     ): CRUDResponse
 
     @POST(PostEndpoint.UPDATE)
+    @FormUrlEncoded
     suspend fun updatePost(
         @Query("apiKey") key: String = BuildConfig.API_KEY,
         @Field("id") id: Int,
@@ -42,6 +45,7 @@ interface PostService {
     ): CRUDResponse
 
     @POST(PostEndpoint.DELETE)
+    @FormUrlEncoded
     suspend fun deletePost(
         @Query("apiKey") key: String = BuildConfig.API_KEY,
         @Field("id") id: Int,

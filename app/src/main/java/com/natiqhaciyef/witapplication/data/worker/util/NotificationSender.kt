@@ -42,7 +42,7 @@ object NotificationSender {
             val notification = NotificationCompat.Builder(context, "NEWS")
                 .setContentTitle(title)
                 .setContentText(desc)
-                .setSmallIcon(R.drawable.non)
+                .setSmallIcon(R.drawable.wit_icon)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .setContentIntent(pending)

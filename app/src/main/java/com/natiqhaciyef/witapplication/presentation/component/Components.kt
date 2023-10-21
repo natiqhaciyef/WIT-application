@@ -44,7 +44,9 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuBox
 import androidx.compose.material.ExposedDropdownMenuDefaults
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBalance
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Article
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Explore
@@ -114,8 +116,8 @@ fun NavBar(
     selectedIndex: MutableState<Int>,
     list: MutableList<NavItemModel> = mutableListOf(
         NavItemModel(Icons.Default.Home, title = "Home", id = ScreenId.HomeScreen.name),
-        NavItemModel(Icons.Default.Explore, title = "Materials", id = ScreenId.OnlineMaterialsScreen.name),
-        NavItemModel(Icons.Default.Upcoming, title = "Learn", id = ScreenId.LearnScreen.name),
+        NavItemModel(Icons.Default.Article, title = "Materials", id = ScreenId.OnlineMaterialsScreen.name),
+        NavItemModel(Icons.Default.AccountBalance, title = "Learn", id = ScreenId.LearnScreen.name),
         NavItemModel(Icons.Default.AccountCircle, title = "Profile", id = ScreenId.UserProfileScreen.name),
     )
 ) {

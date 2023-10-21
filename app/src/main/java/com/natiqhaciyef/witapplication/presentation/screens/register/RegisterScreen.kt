@@ -98,19 +98,17 @@ fun RegisterScreen(
 @Composable
 private fun RegisterTopView() {
     val composition by rememberLottieComposition(
-        spec = LottieCompositionSpec.RawRes(R.raw.post_animation),
+        spec = LottieCompositionSpec.RawRes(R.raw.register_animation),
     )
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(30.dp))
         LottieAnimation(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(280.dp),
+                .height(230.dp),
             composition = composition,
-            iterations = LottieConstants.IterateForever,
-            contentScale = ContentScale.Crop
         )
 
         Text(
@@ -137,7 +135,7 @@ private fun RegisterTopView() {
         )
     }
 
-    Spacer(modifier = Modifier.height(30.dp))
+    Spacer(modifier = Modifier.height(20.dp))
 }
 
 
@@ -204,11 +202,17 @@ private fun RegisterMainPart(
                     firebaseViewModel.createAccount(
                         user,
                         onFail = {
-                            Toast.makeText(context, ErrorMessages.SOMETHING_WENT_WRONG, Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                context,
+                                ErrorMessages.SOMETHING_WENT_WRONG,
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         },
                         onSuccess = {
-                            userViewModel.insertUser(userModel = user)
+                            userViewModel.insertUser(userModel = user) {
+                                navController.navigate(ScreenId.LoginScreen.name)
+                            }
                         }
                     )
                 },

@@ -79,7 +79,7 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    fun insertUser(userModel: UserModel) {
+    fun insertUser(userModel: UserModel, onSuccess: () -> Unit = {}) {
         viewModelScope.launch {
             insertUserRemoteUseCase.invoke(userModel).collectLatest { result ->
                 when (result.status) {

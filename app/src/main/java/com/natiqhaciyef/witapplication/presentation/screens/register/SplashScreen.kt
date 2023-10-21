@@ -44,7 +44,7 @@ fun SplashScreen(
             .background(Color.White)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.non),
+            painter = painterResource(id = R.drawable.wit_icon),
             contentDescription = "Voyagers image",
             contentScale = ContentScale.Crop,
             modifier = Modifier

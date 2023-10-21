@@ -42,7 +42,7 @@ fun NotificationComponent(
         ) {
             Image(
                 modifier = Modifier.size(72.dp),
-                painter = painterResource(id = R.drawable.non),
+                painter = painterResource(id = R.drawable.wit_icon),
                 contentDescription = "App icon",
             )
             Column(

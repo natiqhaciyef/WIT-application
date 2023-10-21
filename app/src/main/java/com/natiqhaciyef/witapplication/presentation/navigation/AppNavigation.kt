@@ -30,5 +30,9 @@ fun AppNavigation() {
             RegisterScreen(navController = navController)
         }
 
+        composable(ScreenId.MainScreenLine.name){
+            ForgotPasswordScreen(navController = navController)
+        }
+
     }
 }

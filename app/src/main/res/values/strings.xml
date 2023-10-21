@@ -9,8 +9,8 @@
     <string name="create">Create</string>
     <string name="create_new_account">Create new account ?</string>
     <string name="do_you_have_an_account">Do you have an account ?</string>
-    <string name="sign_up">&#160; Sign up</string>
-    <string name="sign_in">&#160; Sign in</string>
+    <string name="sign_up">&#160;Sign up</string>
+    <string name="sign_in">&#160;Sign in</string>
 
 
     <string name="reset_password">Reset password</string>

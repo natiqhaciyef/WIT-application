@@ -98,7 +98,7 @@ fun LoginScreen(
 @Composable
 private fun LoginTopView() {
     val composition by rememberLottieComposition(
-        spec = LottieCompositionSpec.RawRes(R.raw.post_animation),
+        spec = LottieCompositionSpec.RawRes(R.raw.login_animation),
     )
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
