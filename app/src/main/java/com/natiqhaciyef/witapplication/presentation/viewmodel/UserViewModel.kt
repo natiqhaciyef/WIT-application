@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.natiqhaciyef.voyagersaz.common.Status
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.domain.usecase.remote.user.GetAllUserRemoteUseCase
@@ -18,6 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
+    private val firebaseAuth: FirebaseAuth,
     private val getAllUserRemoteUseCase: GetAllUserRemoteUseCase,
     private val insertUserRemoteUseCase: InsertUserRemoteUseCase,
     private val removeUserRemoteUseCase: RemoveUserRemoteUseCase,
@@ -27,33 +29,6 @@ class UserViewModel @Inject constructor(
 
     init {
         getAllUser()
-    }
-
-    fun clearPassword(
-        userState: MutableState<UIState<UserModel>>,
-        email: MutableState<String>,
-    ) {
-        val filterUser = userState.value.list.filter { it.email == email.value }
-        if (filterUser.isNotEmpty()) {
-            val customUser = filterUser[0]
-            customUser.password = ""
-            updateUser(customUser)
-        }
-    }
-
-    fun changePassword(
-        userState: MutableState<UIState<UserModel>>,
-        email: String,
-        password: String,
-        onSuccess: () -> Unit = {}
-    ) {
-        val filteredUser = userState.value.list.filter { it.email == email }
-        if (filteredUser.isNotEmpty()) {
-            val customUser = filteredUser[0]
-            customUser.password = password
-            updateUser(customUser)
-            onSuccess()
-        }
     }
 
     private fun getAllUser() {
@@ -179,6 +154,44 @@ class UserViewModel @Inject constructor(
             }
         } else {
             onFail()
+        }
+    }
+
+    fun clearPassword(
+        userState: MutableState<UIState<UserModel>>,
+        email: MutableState<String>,
+    ) {
+        val filterUser = userState.value.list.filter { it.email == email.value }
+        if (filterUser.isNotEmpty()) {
+            val customUser = filterUser[0]
+            customUser.password = ""
+            updateUser(customUser)
+        }
+    }
+
+    fun changePassword(
+        userState: MutableState<UIState<UserModel>>,
+        email: String,
+        password: String,
+        onSuccess: () -> Unit = {}
+    ) {
+        val filteredUser = userState.value.list.filter { it.email == email }
+        if (filteredUser.isNotEmpty()) {
+            val customUser = filteredUser[0]
+            customUser.password = password
+            updateUser(customUser)
+            onSuccess()
+        }
+    }
+
+    fun getUser(users: List<UserModel>) {
+        viewModelScope.launch {
+            val auth = firebaseAuth.currentUser
+            val result = users.filter { it.email == auth?.email }
+            if (result.isNotEmpty())
+                userUIState.value = userUIState.value.copy(selectedElement = result[0])
+            else
+                userUIState.value = userUIState.value.copy(selectedElement = null)
         }
     }
 }

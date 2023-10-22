@@ -23,4 +23,11 @@
     <string name="posts">posts</string>
     <string name="register">Register &#160;</string>
     <string name="n_join_us">&amp; join us</string>
+
+    <string name="welcome">Welcome, &#160;</string>
+    <string name="guest">Guest</string>
+    <string name="search">Search</string>
+    <string name="recent_updates">Recent updates</string>
+    <string name="load_more">Load more</string>
+    <string name="app_under_test">Application is under the test\nAfter production mode data will accessible</string>
 </resources>

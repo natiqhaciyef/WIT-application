@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.natiqhaciyef.witapplication.presentation.screens.home.MainScreenLine
 import com.natiqhaciyef.witapplication.presentation.screens.register.ForgotPasswordScreen
 import com.natiqhaciyef.witapplication.presentation.screens.register.LoginScreen
 import com.natiqhaciyef.witapplication.presentation.screens.register.RegisterScreen
@@ -31,7 +32,7 @@ fun AppNavigation() {
         }
 
         composable(ScreenId.MainScreenLine.name){
-            ForgotPasswordScreen(navController = navController)
+            MainScreenLine(navController = navController)
         }
 
     }

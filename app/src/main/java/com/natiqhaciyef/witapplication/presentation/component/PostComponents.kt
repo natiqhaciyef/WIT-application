@@ -1,13 +1,17 @@
 package com.natiqhaciyef.witapplication.presentation.component
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -32,13 +36,13 @@ fun PostComponent(
     mappedPostModel: MappedPostModel
 ) {
     var isVisible by remember { mutableStateOf(false) }
-
     val modifier = if (isVisible) Modifier else Modifier.height(112.dp)
 
     Card(
         modifier = modifier
             .padding(horizontal = 20.dp)
             .fillMaxWidth()
+            .animateContentSize(tween(600, 100))
             .clickable {
                 isVisible = !isVisible
             },
@@ -112,7 +116,7 @@ fun PostComponent(
 
                     Text(
                         modifier = Modifier
-                            .padding(top = 20.dp,bottom = 10.dp, start = 10.dp),
+                            .padding(top = 20.dp, bottom = 10.dp, start = 10.dp),
                         text = "Published: ${mappedPostModel.publishDate}",
                         fontSize = 15.sp,
                         fontWeight = FontWeight.SemiBold,
@@ -120,8 +124,6 @@ fun PostComponent(
                     )
                 }
             }
-
-
         }
     }
 }

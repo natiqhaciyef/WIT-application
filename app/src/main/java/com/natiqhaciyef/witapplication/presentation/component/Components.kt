@@ -116,9 +116,17 @@ fun NavBar(
     selectedIndex: MutableState<Int>,
     list: MutableList<NavItemModel> = mutableListOf(
         NavItemModel(Icons.Default.Home, title = "Home", id = ScreenId.HomeScreen.name),
-        NavItemModel(Icons.Default.Article, title = "Materials", id = ScreenId.OnlineMaterialsScreen.name),
+        NavItemModel(
+            Icons.Default.Article,
+            title = "Materials",
+            id = ScreenId.OnlineMaterialsScreen.name
+        ),
         NavItemModel(Icons.Default.AccountBalance, title = "Learn", id = ScreenId.LearnScreen.name),
-        NavItemModel(Icons.Default.AccountCircle, title = "Profile", id = ScreenId.UserProfileScreen.name),
+        NavItemModel(
+            Icons.Default.AccountCircle,
+            title = "Profile",
+            id = ScreenId.UserProfileScreen.name
+        ),
     )
 ) {
 
@@ -384,8 +392,7 @@ fun InputBoxTitlePassword(
     isSingleLine: Boolean,
     type: KeyboardType = KeyboardType.Text,
     prefix: String = "",
-    trailingIcon: MutableState<ImageVector?> = mutableStateOf(null),
-    leadingIcon: MutableState<ImageVector?> = mutableStateOf(null),
+    trailingIcon: ImageVector? = null,
     isBottomShadowActive: Boolean = true,
     onClick: (String) -> Unit = { },
 ) {
@@ -442,7 +449,7 @@ fun InputBoxTitlePassword(
             visualTransformation = if (passVisibility.value) VisualTransformation.None
             else PasswordVisualTransformation(),
             trailingIcon = {
-                if (trailingIcon.value != null) {
+                if (trailingIcon != null) {
                     Icon(
                         modifier = Modifier
                             .padding(end = 10.dp)
@@ -450,7 +457,7 @@ fun InputBoxTitlePassword(
                             .clickable {
                                 onClick(input.value)
                             },
-                        imageVector = trailingIcon.value!!,
+                        imageVector = trailingIcon!!,
                         contentDescription = "Icon"
                     )
                 }
@@ -504,7 +511,7 @@ fun InputBoxTitlePassword(
             visualTransformation = if (passVisibility.value) VisualTransformation.None
             else PasswordVisualTransformation(),
             trailingIcon = {
-                if (trailingIcon.value != null) {
+                if (trailingIcon != null) {
                     Icon(
                         modifier = Modifier
                             .padding(end = 10.dp)
@@ -512,7 +519,7 @@ fun InputBoxTitlePassword(
                             .clickable {
                                 onClick(input.value)
                             },
-                        imageVector = trailingIcon.value!!,
+                        imageVector = trailingIcon!!,
                         contentDescription = "Icon"
                     )
                 }
@@ -548,11 +555,9 @@ fun InputBoxTitlePassword(
 
 @Composable
 fun InputBoxTitleForCardNumber(
-    modifier: Modifier = Modifier,
-    modifierInput: Modifier = Modifier,
     concept: String,
     input: MutableState<String>,
-    fontSize: Int = 20,
+    fontSize: Int = 16,
     paymentMethod: MutableState<String>,
     onClick: (String) -> Unit = { }
 ) {
@@ -579,7 +584,7 @@ fun InputBoxTitleForCardNumber(
             keyboardType = KeyboardType.Number
         ),
         textStyle = TextStyle.Default.copy(
-            fontSize = 16.sp,
+            fontSize = fontSize.sp,
             fontWeight = FontWeight.Bold,
         ),
         colors = OutlinedTextFieldDefaults.colors(
@@ -618,8 +623,6 @@ fun InputBoxTitleForCardNumber(
 
 @Composable
 fun InputBoxForCardDateAndCVV(
-    modifier: Modifier = Modifier,
-    modifierInput: Modifier = Modifier,
     expireDate: MutableState<String>,
     cvvCode: MutableState<String>,
     onClick: (String) -> Unit = { }
@@ -733,7 +736,9 @@ fun InputBoxForCardDateAndCVV(
 
 @Composable
 fun InputBox(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
+        .padding(horizontal = 20.dp)
+        .fillMaxWidth(),
     concept: String,
     input: MutableState<String>,
     isSingleLine: Boolean,
@@ -751,9 +756,7 @@ fun InputBox(
     val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
-        modifier = modifier
-            .padding(horizontal = 20.dp)
-            .fillMaxWidth(),
+        modifier = modifier,
         value = input.value,
         onValueChange = {
             input.value = it
@@ -829,7 +832,9 @@ fun InputBox(
 
 @Composable
 fun InputBoxPassword(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
+        .padding(horizontal = 20.dp)
+        .fillMaxWidth(),
     concept: String,
     input: MutableState<String>,
     passVisibility: MutableState<Boolean>,
@@ -842,9 +847,7 @@ fun InputBoxPassword(
     val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
-        modifier = modifier
-            .padding(horizontal = 20.dp)
-            .fillMaxWidth(),
+        modifier = modifier,
         value = input.value,
         onValueChange = {
             input.value = it
