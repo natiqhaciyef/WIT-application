@@ -1,8 +1,10 @@
 package com.natiqhaciyef.witapplication.presentation.viewmodel
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.natiqhaciyef.witapplication.data.models.InfoModel
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.domain.repository.FirebaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,6 +15,7 @@ import javax.inject.Inject
 class FirebaseViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository
 ) : BaseViewModel() {
+    val faqState = mutableStateOf<List<InfoModel>>(listOf())
 
     fun getUser() = Firebase.auth
 
@@ -71,5 +74,11 @@ class FirebaseViewModel @Inject constructor(
        viewModelScope.launch {
            firebaseRepository.signOut()
        }
+    }
+
+    fun getAllFAQ(){
+        viewModelScope.launch {
+
+        }
     }
 }

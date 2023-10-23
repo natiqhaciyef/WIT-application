@@ -30,4 +30,7 @@
     <string name="recent_updates">Recent updates</string>
     <string name="load_more">Load more</string>
     <string name="app_under_test">Application is under the test\nAfter production mode data will accessible</string>
+
+    <string name="learn_from">Learn from: </string>
+    <string name="faq">FAQ</string>
 </resources>

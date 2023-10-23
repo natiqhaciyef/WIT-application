@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagersaz.common.util.objects
+package com.natiqhaciyef.witapplication.common.util.objects
 
 object ErrorMessages {
 
@@ -11,4 +11,7 @@ object ErrorMessages {
 
     const val SOMETHING_WENT_WRONG = "Something went wrong"
     const val PERMISSION_DENIED = "Permission denied"
+
+    const val DATA_NOT_FOUND = "Data not found"
+    const val DOCUMENT_NOT_FOUND = "Document not found"
 }
