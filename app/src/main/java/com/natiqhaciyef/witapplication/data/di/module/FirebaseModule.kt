@@ -6,7 +6,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.natiqhaciyef.witapplication.data.source.FirebaseDataSource
-import com.natiqhaciyef.witapplication.domain.repository.FirebaseRepository
 import com.natiqhaciyef.witapplication.domain.repository.impl.FirebaseRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -34,6 +33,6 @@ object FirebaseModule {
     @Provides
     @Singleton
     fun provideFirebaseRepository(ds: FirebaseDataSource) =
-        FirebaseRepositoryImpl(ds) as FirebaseRepository
+        FirebaseRepositoryImpl(ds)
 
 }
