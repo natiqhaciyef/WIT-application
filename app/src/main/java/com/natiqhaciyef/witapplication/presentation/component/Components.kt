@@ -116,11 +116,6 @@ fun NavBar(
     selectedIndex: MutableState<Int>,
     list: MutableList<NavItemModel> = mutableListOf(
         NavItemModel(Icons.Default.Home, title = "Home", id = ScreenId.HomeScreen.name),
-        NavItemModel(
-            Icons.Default.Article,
-            title = "Materials",
-            id = ScreenId.OnlineMaterialsScreen.name
-        ),
         NavItemModel(Icons.Default.AccountBalance, title = "Learn", id = ScreenId.LearnScreen.name),
         NavItemModel(
             Icons.Default.AccountCircle,

@@ -27,14 +27,10 @@ fun MainScreenLine(
             }
 
             1 -> {
-                MaterialScreen(navController)
-            }
-
-            2 -> {
                 LearnScreen(navController)
             }
 
-            3 -> {
+            2 -> {
                 UserProfileScreen(navController)
             }
         }
