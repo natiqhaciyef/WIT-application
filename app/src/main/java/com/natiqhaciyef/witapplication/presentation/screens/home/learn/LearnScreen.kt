@@ -176,7 +176,7 @@ private fun LearnSection(
         modifier = Modifier
             .size(165.dp)
             .clickable {
-
+                navResult()
             },
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(

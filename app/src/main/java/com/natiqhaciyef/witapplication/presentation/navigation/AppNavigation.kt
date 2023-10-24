@@ -44,7 +44,7 @@ fun AppNavigation() {
 
 
         composable(
-            route = "${ScreenId.FieldScreen.name}/info",
+            route = "${ScreenId.FieldScreen.name}/{info}",
             arguments = listOf(
                 navArgument(name = "info") {
                     type = NavType.StringType
@@ -63,7 +63,7 @@ fun AppNavigation() {
         }
 
         composable(
-            route = "${ScreenId.MaterialScreen.name}/field",
+            route = "${ScreenId.MaterialScreen.name}/{field}",
             arguments = listOf(
                 navArgument("field") {
                     type = NavType.StringType
@@ -76,9 +76,9 @@ fun AppNavigation() {
         }
 
         composable(
-            route = "${ScreenId.InterviewQuestionsScreen.name}/field",
+            route = "${ScreenId.InterviewQuestionsScreen.name}/{field}",
             arguments = listOf(
-                navArgument("field"){
+                navArgument("field") {
                     type = NavType.StringType
                 }
             )

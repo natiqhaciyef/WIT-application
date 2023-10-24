@@ -101,8 +101,8 @@ private fun FieldComponent(lsm: LearnSectionModel = DefaultImpl.lsm) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp)
-            .padding(horizontal = 20.dp),
+            .padding(horizontal = 20.dp, vertical = 5.dp)
+            .height(70.dp),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(5.dp),
         colors = CardDefaults.cardColors(
