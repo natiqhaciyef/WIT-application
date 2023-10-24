@@ -5,6 +5,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.natiqhaciyef.witapplication.data.source.FirebaseDataSource
 import com.natiqhaciyef.witapplication.domain.repository.impl.FirebaseRepositoryImpl
 import dagger.Module
@@ -27,8 +29,12 @@ object FirebaseModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseDataSource(auth: FirebaseAuth, firestore: FirebaseFirestore) =
-        FirebaseDataSource(auth, firestore)
+    fun provideStorage() = Firebase.storage
+
+    @Provides
+    @Singleton
+    fun provideFirebaseDataSource(auth: FirebaseAuth, firestore: FirebaseFirestore, storage: FirebaseStorage) =
+        FirebaseDataSource(auth, firestore, storage)
 
     @Provides
     @Singleton

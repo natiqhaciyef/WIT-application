@@ -1,6 +1,6 @@
 package com.natiqhaciyef.witapplication.domain.usecase.remote.post
 
-import com.natiqhaciyef.voyagersaz.common.Resource
+import com.natiqhaciyef.witapplication.common.Resource
 import com.natiqhaciyef.voyagersaz.domain.usecase.config.BaseUseCase
 import com.natiqhaciyef.witapplication.common.mappers.toMappedPost
 import com.natiqhaciyef.witapplication.domain.models.MappedPostModel

@@ -2,7 +2,7 @@ package com.natiqhaciyef.witapplication.presentation.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.natiqhaciyef.voyagersaz.common.Status
+import com.natiqhaciyef.witapplication.common.Status
 import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
 import com.natiqhaciyef.witapplication.domain.usecase.remote.post.GetAllPostRemoteUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.post.InsertPostRemoteUseCase

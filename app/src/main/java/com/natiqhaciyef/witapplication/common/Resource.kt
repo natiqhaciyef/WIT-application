@@ -1,4 +1,5 @@
-package com.natiqhaciyef.voyagersaz.common
+package com.natiqhaciyef.witapplication.common
+
 
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {

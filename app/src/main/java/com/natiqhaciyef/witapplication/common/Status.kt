@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagersaz.common
+package com.natiqhaciyef.witapplication.common
 
 enum class Status {
     SUCCESS,

@@ -1,13 +1,17 @@
 package com.natiqhaciyef.witapplication.presentation.viewmodel
 
+import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.natiqhaciyef.witapplication.data.models.InfoModel
+import com.natiqhaciyef.witapplication.data.models.MaterialModel
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.domain.repository.impl.FirebaseRepositoryImpl
 import com.natiqhaciyef.witapplication.domain.usecase.firebase.GetAllFAQUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.firebase.GetAllMaterialsNameUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.firebase.GetMaterialUseCase
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,9 +20,12 @@ import javax.inject.Inject
 @HiltViewModel
 class FirebaseViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepositoryImpl,
-    private val getAllFAQUseCase: GetAllFAQUseCase
+    private val getAllMaterialsNameUseCase: GetAllMaterialsNameUseCase,
+    private val getMaterialUseCase: GetMaterialUseCase,
+    private val getAllFAQUseCase: GetAllFAQUseCase,
 ) : BaseViewModel() {
-    val faqState = mutableStateOf<UIState<InfoModel>>(UIState())
+    val faqState = mutableStateOf(UIState<InfoModel>())
+    val filesState = mutableStateOf(UIState<MaterialModel>())
 
     init {
         getAllFAQ()
@@ -94,6 +101,22 @@ class FirebaseViewModel @Inject constructor(
                     if (error != null)
                         faqState.value = faqState.value.copy(message = error.localizedMessage)
                 }
+            )
+        }
+    }
+
+    fun getAllMaterials(
+        field: String,
+    ) {
+        val list = mutableListOf<Uri>()
+        viewModelScope.launch {
+            getAllMaterialsNameUseCase.invoke(
+                concept = field,
+                onSuccess = { files ->
+
+                    filesState.value = filesState.value.copy(list = files)
+                },
+                onFail = { }
             )
         }
     }

@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.natiqhaciyef.voyagersaz.common.util.objects.StateHolder.selectedIndex
 import com.natiqhaciyef.witapplication.presentation.component.NavBar
+import com.natiqhaciyef.witapplication.presentation.screens.home.learn.LearnScreen
 
 @Composable
 fun MainScreenLine(

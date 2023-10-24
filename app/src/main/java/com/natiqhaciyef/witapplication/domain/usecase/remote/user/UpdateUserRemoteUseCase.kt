@@ -1,6 +1,6 @@
 package com.natiqhaciyef.witapplication.domain.usecase.remote.user
 
-import com.natiqhaciyef.voyagersaz.common.Resource
+import com.natiqhaciyef.witapplication.common.Resource
 import com.natiqhaciyef.voyagersaz.domain.usecase.config.BaseUseCase
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.domain.repository.UserRepository

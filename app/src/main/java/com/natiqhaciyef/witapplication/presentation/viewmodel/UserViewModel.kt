@@ -1,11 +1,10 @@
 package com.natiqhaciyef.witapplication.presentation.viewmodel
 
-import android.content.Context
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.natiqhaciyef.voyagersaz.common.Status
+import com.natiqhaciyef.witapplication.common.Status
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.domain.usecase.remote.user.GetAllUserRemoteUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.user.InsertUserRemoteUseCase

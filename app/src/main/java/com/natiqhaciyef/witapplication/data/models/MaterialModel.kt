@@ -7,8 +7,9 @@ import kotlinx.parcelize.Parcelize
 data class MaterialModel(
     var id: String = "0",
     var image: String = "",
-    var type: String,
     var title: String,
+    var type: String,
+    var field: String,
     var url: String,
     var downloadedUri: String? = null,
     var isDownloading: Boolean = false,

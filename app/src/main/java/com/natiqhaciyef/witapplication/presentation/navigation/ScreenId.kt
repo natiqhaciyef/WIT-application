@@ -8,9 +8,15 @@ enum class ScreenId {
 
     MainScreenLine,
     HomeScreen,
-    OnlineMaterialsScreen,
     LearnScreen,
     UserProfileScreen,
+
+    CustomPlanScreen,
+    FieldScreen,
+    MaterialScreen,
+    InterviewQuestionsScreen,
+    LiveInterviewScreen,
+
 
     AddPostScreen,
 }

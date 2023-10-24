@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication.presentation.screens.home
+package com.natiqhaciyef.witapplication.presentation.screens.home.learn
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material.icons.filled.Article
 import androidx.compose.material.icons.filled.ContactSupport
+import androidx.compose.material.icons.filled.HourglassEmpty
 import androidx.compose.material.icons.filled.LiveTv
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material3.Card
@@ -52,6 +53,8 @@ import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
 import com.natiqhaciyef.witapplication.data.models.InfoModel
 import com.natiqhaciyef.witapplication.data.models.LearnSectionModel
+import com.natiqhaciyef.witapplication.presentation.navigation.NavStandards
+import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.presentation.viewmodel.FirebaseViewModel
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkGray
@@ -88,11 +91,16 @@ fun LearnScreen(
             Spacer(modifier = Modifier.width(20.dp))
             LearnSection(
                 lsm = LearnSectionModel(title = "Interview practice", icon = Icons.Default.MenuBook)
-            )
+            ) {
+                navController.navigate("${ScreenId.FieldScreen.name}/${NavStandards.INTERVIEW}")
+            }
+
             Spacer(modifier = Modifier.width(15.dp))
             LearnSection(
                 lsm = LearnSectionModel(title = "Live interview", icon = Icons.Default.LiveTv)
-            )
+            ) {
+                navController.navigate(ScreenId.LiveInterviewScreen.name)
+            }
             Spacer(modifier = Modifier.width(20.dp))
         }
 
@@ -103,11 +111,16 @@ fun LearnScreen(
             Spacer(modifier = Modifier.width(20.dp))
             LearnSection(
                 lsm = LearnSectionModel(title = "Materials", icon = Icons.Default.Article)
-            )
+            ) {
+                navController.navigate("${ScreenId.FieldScreen.name}/${NavStandards.MATERIAL}")
+            }
+
             Spacer(modifier = Modifier.width(15.dp))
             LearnSection(
                 lsm = LearnSectionModel(title = "Custom plan", icon = Icons.Default.ContactSupport)
-            )
+            ) {
+                navController.navigate(ScreenId.CustomPlanScreen.name)
+            }
             Spacer(modifier = Modifier.width(20.dp))
         }
 
@@ -128,7 +141,7 @@ fun LearnScreen(
                     FAQInfoBox(infoModel = faqModel)
                 }
             }
-        }else{
+        } else {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -180,7 +193,7 @@ private fun LearnSection(
                     .padding(bottom = 15.dp)
                     .size(70.dp)
                     .align(Alignment.Center),
-                imageVector = lsm.icon,
+                imageVector = lsm.icon ?: Icons.Default.HourglassEmpty,
                 contentDescription = "Learn section icon",
                 tint = AppDarkBlue
             )

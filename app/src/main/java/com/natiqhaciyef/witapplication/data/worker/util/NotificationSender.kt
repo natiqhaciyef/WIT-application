@@ -11,7 +11,7 @@ import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.natiqhaciyef.voyagersaz.common.Resource
+import com.natiqhaciyef.witapplication.common.Resource
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.presentation.MainActivity
 
