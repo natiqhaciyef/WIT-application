@@ -256,12 +256,14 @@ fun InputBoxTitle(
             leadingIcon = {
                 if (icon == null)
                     Icon(
+                        modifier = Modifier.clickable { onClick(input.value) },
                         imageVector = Icons.Default.Email,
                         contentDescription = "Email",
                         tint = AppGray
                     )
                 else
                     Icon(
+                        modifier = Modifier.clickable { onClick(input.value) },
                         imageVector = icon,
                         contentDescription = "Icon",
                         tint = AppGray

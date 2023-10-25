@@ -6,6 +6,7 @@
     <string name="save_it">Save it</string>
     <string name="continue_">Continue</string>
     <string name="reset">Reset</string>
+    <string name="submit">Submit</string>
     <string name="create">Create</string>
     <string name="create_new_account">Create new account ?</string>
     <string name="do_you_have_an_account">Do you have an account ?</string>
@@ -17,6 +18,8 @@
     <string name="forgot_password">Forgot password ?</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="phone">Phone</string>
+    <string name="description">Description</string>
     <string name="full_name">Full name</string>
 
     <string name="login_n_share">Login &amp; share &#160;</string>

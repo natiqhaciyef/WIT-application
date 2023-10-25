@@ -1,13 +1,17 @@
 package com.natiqhaciyef.witapplication.data.di.module
 
-import com.google.gson.Gson
+import com.natiqhaciyef.witapplication.data.local.ContactDao
 import com.natiqhaciyef.witapplication.data.network.NetworkConfig
+import com.natiqhaciyef.witapplication.data.network.service.ContactService
 import com.natiqhaciyef.witapplication.data.network.service.PostService
 import com.natiqhaciyef.witapplication.data.network.service.UserService
+import com.natiqhaciyef.witapplication.data.source.ContactDataSource
 import com.natiqhaciyef.witapplication.data.source.PostDataSource
 import com.natiqhaciyef.witapplication.data.source.UserDataSource
+import com.natiqhaciyef.witapplication.domain.repository.ContactRepository
 import com.natiqhaciyef.witapplication.domain.repository.PostRepository
 import com.natiqhaciyef.witapplication.domain.repository.UserRepository
+import com.natiqhaciyef.witapplication.domain.repository.impl.ContactRepositoryImpl
 import com.natiqhaciyef.witapplication.domain.repository.impl.PostRepositoryImpl
 import com.natiqhaciyef.witapplication.domain.repository.impl.UserRepositoryImpl
 import dagger.Module
@@ -39,6 +43,10 @@ object RemoteModule {
     @Singleton
     fun providePostService(network: Retrofit): PostService = network.create(PostService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideContactService(network: Retrofit): ContactService =
+        network.create(ContactService::class.java)
 
 
     // provide data sources
@@ -50,6 +58,10 @@ object RemoteModule {
     @Singleton
     fun providePostDataSource(service: PostService) = PostDataSource(service)
 
+    @Provides
+    @Singleton
+    fun provideContactDataSource(service: ContactService, dao: ContactDao) =
+        ContactDataSource(service, dao)
 
 
     // provide data sources
@@ -60,4 +72,9 @@ object RemoteModule {
     @Provides
     @Singleton
     fun providePostRepository(ds: PostDataSource) = PostRepositoryImpl(ds) as PostRepository
+
+    @Provides
+    @Singleton
+    fun provideContactRepository(ds: ContactDataSource) =
+        ContactRepositoryImpl(ds) as ContactRepository
 }

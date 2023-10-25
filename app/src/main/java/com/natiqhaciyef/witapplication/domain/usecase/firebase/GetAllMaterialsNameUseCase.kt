@@ -25,7 +25,7 @@ class GetAllMaterialsNameUseCase @Inject constructor(
                         val image = doc["image"].toString()
                         val url = doc["url"].toString()
 
-                        if (field == concept) {
+                        if (field.contains(concept)) {
                             val material = MaterialModel(
                                 title = title,
                                 image = image,

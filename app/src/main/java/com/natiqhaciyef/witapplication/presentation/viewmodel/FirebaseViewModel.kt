@@ -108,7 +108,6 @@ class FirebaseViewModel @Inject constructor(
     fun getAllMaterials(
         field: String,
     ) {
-        val list = mutableListOf<Uri>()
         viewModelScope.launch {
             getAllMaterialsNameUseCase.invoke(
                 concept = field,

@@ -35,6 +35,8 @@ import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
 import com.natiqhaciyef.witapplication.data.models.InfoModel
 import com.natiqhaciyef.witapplication.data.models.LearnSectionModel
+import com.natiqhaciyef.witapplication.presentation.navigation.NavStandards
+import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
 
@@ -89,7 +91,13 @@ fun FieldScreen(
         Spacer(modifier = Modifier.height(20.dp))
         LazyColumn {
             items(fields) { field ->
-                FieldComponent(lsm = field)
+                FieldComponent(lsm = field) {
+                    if (info == NavStandards.MATERIAL) {
+                        navController.navigate("${ScreenId.MaterialScreen.name}/${field.title}")
+                    } else {
+                        navController.navigate("${ScreenId.InterviewQuestionsScreen.name}/${field.title}")
+                    }
+                }
             }
         }
     }
@@ -97,7 +105,10 @@ fun FieldScreen(
 
 @Preview
 @Composable
-private fun FieldComponent(lsm: LearnSectionModel = DefaultImpl.lsm) {
+private fun FieldComponent(
+    lsm: LearnSectionModel = DefaultImpl.lsm,
+    onClick: () -> Unit = { }
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

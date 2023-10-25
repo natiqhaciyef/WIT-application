@@ -22,3 +22,10 @@ object PostEndpoint{
     const val UPDATE = "posts/update_post.php"
     const val INSERT = "posts/insert_post.php"
 }
+
+object ContactEndpoint{
+    const val GET = "contacts/get_contacts.php"
+    const val DELETE = "contacts/delete_contact.php"
+    const val UPDATE = "contacts/update_contact.php"
+    const val INSERT = "contacts/insert_contact.php"
+}
