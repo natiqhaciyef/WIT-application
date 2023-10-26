@@ -25,5 +25,4 @@ object LocalModule {
     @Singleton
     fun provideContactDao(db: AppDatabase) = db.getContactDao()
 
-
 }

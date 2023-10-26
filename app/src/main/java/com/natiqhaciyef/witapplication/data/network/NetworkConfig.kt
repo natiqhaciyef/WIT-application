@@ -26,6 +26,9 @@ object PostEndpoint{
 object ContactEndpoint{
     const val GET = "contacts/get_contacts.php"
     const val DELETE = "contacts/delete_contact.php"
-    const val UPDATE = "contacts/update_contact.php"
     const val INSERT = "contacts/insert_contact.php"
+}
+
+object InterviewQuestionEndpoint{
+    const val GET = "contacts/get_contacts.php"
 }
