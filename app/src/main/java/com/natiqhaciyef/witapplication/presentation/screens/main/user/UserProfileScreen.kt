@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication.presentation.screens.home
+package com.natiqhaciyef.witapplication.presentation.screens.main.user
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController

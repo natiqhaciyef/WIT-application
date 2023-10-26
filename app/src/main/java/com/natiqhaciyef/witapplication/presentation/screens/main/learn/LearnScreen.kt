@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication.presentation.screens.home.learn
+package com.natiqhaciyef.witapplication.presentation.screens.main.learn
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -51,6 +51,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
+import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.data.models.InfoModel
 import com.natiqhaciyef.witapplication.data.models.LearnSectionModel
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
@@ -155,7 +156,7 @@ fun LearnScreen(
                         .padding(horizontal = 20.dp)
                         .padding(bottom = 30.dp)
                         .align(Alignment.Center),
-                    text = stringResource(id = R.string.app_under_test),
+                    text = ErrorMessages.APPLICATION_UNDER_THE_TEST,
                     fontSize = 16.sp,
                     color = Color.Black,
                     fontWeight = FontWeight.SemiBold,

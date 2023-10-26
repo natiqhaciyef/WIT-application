@@ -32,7 +32,6 @@
     <string name="search">Search</string>
     <string name="recent_updates">Recent updates</string>
     <string name="load_more">Load more</string>
-    <string name="app_under_test">Application is under the test\nAfter production mode data will accessible</string>
 
     <string name="learn_from">Learn from: </string>
     <string name="faq">FAQ</string>
@@ -40,4 +39,5 @@
     <string name="fields">Fields</string>
     <string name="fields_info">Choose one field and our team will support you to learn fundamentals, understand concept, and become international developer. Furthermore, you can switch pathway or field, even you are able to get custom plan from us. Best luck to you</string>
     <string name="contact_with_us">Contact with us</string>
+    <string name="materials">Materials</string>
 </resources>

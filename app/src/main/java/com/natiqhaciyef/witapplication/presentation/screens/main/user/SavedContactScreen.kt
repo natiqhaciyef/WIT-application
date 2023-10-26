@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication.presentation.screens.home.user
+package com.natiqhaciyef.witapplication.presentation.screens.main.user
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel

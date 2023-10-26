@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication.presentation.screens.home
+package com.natiqhaciyef.witapplication.presentation.screens.main
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -9,7 +9,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.natiqhaciyef.voyagersaz.common.util.objects.StateHolder.selectedIndex
 import com.natiqhaciyef.witapplication.presentation.component.NavBar
-import com.natiqhaciyef.witapplication.presentation.screens.home.learn.LearnScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.home.HomeScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.learn.LearnScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.user.UserProfileScreen
 
 @Composable
 fun MainScreenLine(

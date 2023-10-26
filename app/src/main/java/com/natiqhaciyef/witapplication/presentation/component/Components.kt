@@ -1269,7 +1269,7 @@ fun ImageSelection(
 
 
 @Composable
-fun SnackbarDemo(returnMessage: MutableState<String>) {
+fun SnackbarDemo(returnMessage: String) {
     val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarHost(
@@ -1302,7 +1302,7 @@ fun SnackbarDemo(returnMessage: MutableState<String>) {
                             .align(Alignment.Center)
                             .padding(horizontal = 10.dp)
                             .fillMaxWidth(),
-                        text = returnMessage.value,
+                        text = returnMessage,
                         fontSize = 17.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
@@ -1316,7 +1316,7 @@ fun SnackbarDemo(returnMessage: MutableState<String>) {
     // Show the Snackbar
     LaunchedEffect(key1 = Unit) {
         snackbarHostState.showSnackbar(
-            message = returnMessage.value,
+            message = returnMessage,
             actionLabel = "Okay",
             duration = SnackbarDuration.Short
         )

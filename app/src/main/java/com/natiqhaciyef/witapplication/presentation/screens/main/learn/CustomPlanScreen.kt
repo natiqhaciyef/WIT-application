@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication.presentation.screens.home.learn
+package com.natiqhaciyef.witapplication.presentation.screens.main.learn
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -34,6 +34,7 @@ import com.natiqhaciyef.witapplication.common.util.objects.SuccessMessages
 import com.natiqhaciyef.witapplication.data.models.ContactModel
 import com.natiqhaciyef.witapplication.data.models.enums.ContactFields
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
+import com.natiqhaciyef.witapplication.presentation.component.SnackbarDemo
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.viewmodel.ContactViewModel
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue

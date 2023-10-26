@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication.presentation.screens.home.learn.interview
+package com.natiqhaciyef.witapplication.presentation.screens.main.learn.interview
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController

@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication.presentation.screens.home
+package com.natiqhaciyef.witapplication.presentation.screens.main.home
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -26,11 +24,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -45,20 +41,18 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.data.models.PostModel
+import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.PostComponent
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
-import com.natiqhaciyef.witapplication.presentation.viewmodel.FirebaseViewModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.PostViewModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.UserViewModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
@@ -229,7 +223,7 @@ private fun HomeBodyView(
     } else {
         Box(
             modifier = Modifier
-                .height(screenHeight/7 * 4)
+                .height(screenHeight / 7 * 4)
                 .background(AppExtraLightBrown)
         ) {
             Text(
@@ -238,7 +232,7 @@ private fun HomeBodyView(
                     .padding(horizontal = 20.dp)
                     .padding(bottom = 30.dp)
                     .align(Alignment.Center),
-                text = stringResource(id = R.string.app_under_test),
+                text = ErrorMessages.APPLICATION_UNDER_THE_TEST,
                 fontSize = 16.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.SemiBold,
