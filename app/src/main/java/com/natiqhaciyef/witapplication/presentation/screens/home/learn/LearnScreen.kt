@@ -53,6 +53,7 @@ import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
 import com.natiqhaciyef.witapplication.data.models.InfoModel
 import com.natiqhaciyef.witapplication.data.models.LearnSectionModel
+import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.NavStandards
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.presentation.viewmodel.FirebaseViewModel
@@ -82,7 +83,8 @@ fun LearnScreen(
             text = stringResource(id = R.string.learn_from),
             fontWeight = FontWeight.Bold,
             color = Color.Black,
-            fontSize = 20.sp
+            fontSize = 22.sp,
+            fontFamily = Opensans.opensans
         )
         Spacer(modifier = Modifier.height(20.dp))
         Row(

@@ -14,4 +14,6 @@ object ErrorMessages {
 
     const val DATA_NOT_FOUND = "Data not found"
     const val DOCUMENT_NOT_FOUND = "Document not found"
+
+    const val MESSAGE_SENT_SUCCESSFULLY = "Message sent successfully"
 }

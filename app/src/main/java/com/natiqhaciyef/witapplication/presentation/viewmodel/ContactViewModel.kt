@@ -1,5 +1,6 @@
 package com.natiqhaciyef.witapplication.presentation.viewmodel
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.natiqhaciyef.witapplication.common.Status
@@ -56,19 +57,25 @@ class ContactViewModel @Inject constructor(
         }
     }
 
-    private fun getAllSavedContactLocal(){
+    private fun getAllSavedContactLocal() {
         viewModelScope.launch {
             getAllSavedContactsUseCase.invoke().collectLatest { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
                         if (result.data != null)
                             savedContactUIState.value =
-                                savedContactUIState.value.copy(list = result.data, isLoading = false)
+                                savedContactUIState.value.copy(
+                                    list = result.data,
+                                    isLoading = false
+                                )
                     }
 
                     Status.ERROR -> {
                         savedContactUIState.value =
-                            savedContactUIState.value.copy(message = result.message, isLoading = false)
+                            savedContactUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.LOADING -> {
@@ -80,13 +87,17 @@ class ContactViewModel @Inject constructor(
     }
 
 
-    fun insertContactRemote(contactModel: ContactModel) {
+    fun insertContactRemote(
+        contactModel: ContactModel,
+        onSuccess: () -> Unit = {},
+    ) {
         viewModelScope.launch {
             insertContactUseCase.invoke(contactModel).collectLatest { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
                         contactUIState.value =
                             contactUIState.value.copy(message = result.message, isLoading = false)
+                        onSuccess()
                     }
 
                     Status.ERROR -> {
@@ -102,18 +113,28 @@ class ContactViewModel @Inject constructor(
         }
     }
 
-    fun saveContactLocal(contactModel: ContactModel) {
+    fun saveContactLocal(
+        contactModel: ContactModel,
+        onSuccess: () -> Unit = {},
+        onSuccessComposable: @Composable () -> Unit = {},
+    ) {
         viewModelScope.launch {
             savedContactUseCase.invoke(contactModel).collectLatest { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
                         savedContactUIState.value =
-                            savedContactUIState.value.copy(message = result.message, isLoading = false)
+                            savedContactUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.ERROR -> {
                         savedContactUIState.value =
-                            savedContactUIState.value.copy(message = result.message, isLoading = false)
+                            savedContactUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.LOADING -> {
@@ -153,12 +174,18 @@ class ContactViewModel @Inject constructor(
                 when (result.status) {
                     Status.SUCCESS -> {
                         savedContactUIState.value =
-                            savedContactUIState.value.copy(message = result.message, isLoading = false)
+                            savedContactUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.ERROR -> {
                         savedContactUIState.value =
-                            savedContactUIState.value.copy(message = result.message, isLoading = false)
+                            savedContactUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.LOADING -> {

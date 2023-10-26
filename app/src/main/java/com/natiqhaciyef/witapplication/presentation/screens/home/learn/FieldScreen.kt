@@ -2,6 +2,7 @@ package com.natiqhaciyef.witapplication.presentation.screens.home.learn
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,10 +12,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -33,10 +37,13 @@ import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
+import com.natiqhaciyef.witapplication.common.util.objects.EnumList
 import com.natiqhaciyef.witapplication.data.models.InfoModel
 import com.natiqhaciyef.witapplication.data.models.LearnSectionModel
+import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.NavStandards
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
+import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
 
@@ -45,36 +52,10 @@ fun FieldScreen(
     navController: NavController,
     info: String
 ) {
-    val fields = listOf(
-        LearnSectionModel(
-            title = "General programming",
-            image = "https://firebasestorage.googleapis.com/v0/b/wit-app-6c770.appspot.com/o/Fields%2Fgeneral_programming.png?alt=media&token=5c3a9f7d-4b70-4228-b788-f392500cb346&_gl=1*z8nn89*_ga*MzcwNDMzNjkzLjE2NzkyMjgzNzk.*_ga_CW55HF8NVT*MTY5ODEzNTczMS4yMTAuMS4xNjk4MTM3ODAzLjQ3LjAuMA.."
-        ),
-        LearnSectionModel(
-            title = "AI",
-            image = "https://firebasestorage.googleapis.com/v0/b/wit-app-6c770.appspot.com/o/Fields%2Fai_engineering.png?alt=media&token=335e2479-5260-4eb3-b81b-d6a029bb69ae&_gl=1*h4wmcm*_ga*MzcwNDMzNjkzLjE2NzkyMjgzNzk.*_ga_CW55HF8NVT*MTY5ODEzNTczMS4yMTAuMS4xNjk4MTM3NTk0LjM2LjAuMA.."
-        ),
-        LearnSectionModel(
-            title = "Mobile",
-            image = "https://firebasestorage.googleapis.com/v0/b/wit-app-6c770.appspot.com/o/Fields%2Fmobile.png?alt=media&token=3070300a-bac2-49b3-a6b8-b7f4f5c5bb60&_gl=1*mffr83*_ga*MzcwNDMzNjkzLjE2NzkyMjgzNzk.*_ga_CW55HF8NVT*MTY5ODEzNTczMS4yMTAuMS4xNjk4MTM3NjY4LjI2LjAuMA.."
-        ),
-        LearnSectionModel(
-            title = "Frontend",
-            image = "https://firebasestorage.googleapis.com/v0/b/wit-app-6c770.appspot.com/o/Fields%2Ffrontend.png?alt=media&token=4f1a549e-5fc9-41ea-b25f-c24eb8360dfc&_gl=1*18g8az7*_ga*MzcwNDMzNjkzLjE2NzkyMjgzNzk.*_ga_CW55HF8NVT*MTY5ODEzNTczMS4yMTAuMS4xNjk4MTM3NjU2LjM4LjAuMA.."
-        ),
-        LearnSectionModel(
-            title = "Backend",
-            image = "https://firebasestorage.googleapis.com/v0/b/wit-app-6c770.appspot.com/o/Fields%2Fbackend.png?alt=media&token=fb8bb05c-7a2f-42c5-9cd1-9a7b98eacf0c&_gl=1*2kc2su*_ga*MzcwNDMzNjkzLjE2NzkyMjgzNzk.*_ga_CW55HF8NVT*MTY5ODEzNTczMS4yMTAuMS4xNjk4MTM3NjE0LjE2LjAuMA.."
-        ),
-        LearnSectionModel(
-            title = "Cyber Security",
-            image = "https://firebasestorage.googleapis.com/v0/b/wit-app-6c770.appspot.com/o/Fields%2Fcybersecurity.png?alt=media&token=a7b70934-57cb-4d0c-8bcb-e769a8ed763e&_gl=1*151puly*_ga*MzcwNDMzNjkzLjE2NzkyMjgzNzk.*_ga_CW55HF8NVT*MTY5ODEzNTczMS4yMTAuMS4xNjk4MTM3NjM0LjYwLjAuMA.."
-        )
-    )
-
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(AppExtraLightBrown),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -86,11 +67,26 @@ fun FieldScreen(
             text = stringResource(id = R.string.fields),
             fontWeight = FontWeight.Bold,
             color = Color.Black,
-            fontSize = 20.sp,
+            fontSize = 22.sp,
+            fontFamily = Opensans.opensans
         )
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            text = stringResource(id = R.string.fields_info),
+            fontWeight = FontWeight.SemiBold,
+            color = AppDarkBlue,
+            fontSize = 16.sp,
+            fontFamily = Opensans.opensans
+        )
+
         Spacer(modifier = Modifier.height(20.dp))
-        LazyColumn {
-            items(fields) { field ->
+        LazyColumn(
+            modifier = Modifier.height(490.dp)
+        ) {
+            items(EnumList.fields) { field ->
                 FieldComponent(lsm = field) {
                     if (info == NavStandards.MATERIAL) {
                         navController.navigate("${ScreenId.MaterialScreen.name}/${field.title}")
@@ -100,6 +96,7 @@ fun FieldScreen(
                 }
             }
         }
+        Spacer(modifier = Modifier.height(30.dp))
     }
 }
 
@@ -113,7 +110,10 @@ private fun FieldComponent(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp, vertical = 5.dp)
-            .height(70.dp),
+            .height(70.dp)
+            .clickable {
+                onClick()
+            },
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(5.dp),
         colors = CardDefaults.cardColors(
@@ -124,12 +124,11 @@ private fun FieldComponent(
             modifier = Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Spacer(modifier = Modifier.width(20.dp))
+            Spacer(modifier = Modifier.width(15.dp))
             Image(
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(vertical = 5.dp)
-                    .aspectRatio(1f),
+                    .size(50.dp)
+                    .padding(vertical = 5.dp),
                 painter = rememberImagePainter(lsm.image ?: ""),
                 contentDescription = "Field image"
             )

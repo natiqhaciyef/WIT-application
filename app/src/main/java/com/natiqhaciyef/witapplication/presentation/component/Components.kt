@@ -43,6 +43,10 @@ import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuBox
 import androidx.compose.material.ExposedDropdownMenuDefaults
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarDuration
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBalance
 import androidx.compose.material.icons.filled.AccountCircle
@@ -184,38 +188,6 @@ fun NavBar(
         }
     }
 }
-
-@Composable
-fun CurvedRectangle(
-    height: Int = 245,
-    curveHeight: Int = 145,
-    color: Color = AppDarkBlue
-) {
-    Canvas(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(height.dp)
-    ) {
-        val path = Path().apply {
-            lineTo(0f, size.height - curveHeight)
-            cubicTo(
-                0f,
-                size.height - curveHeight / 2,
-                size.width / 2,
-                size.height,
-                size.width,
-                size.height - curveHeight / 2
-            )
-            lineTo(size.width, 0f)
-            close()
-        }
-        drawPath(
-            path = path,
-            color = color
-        )
-    }
-}
-
 
 @Composable
 fun InputBoxTitle(
@@ -1293,6 +1265,62 @@ fun ImageSelection(
         contentScale = if (image.value != null) ContentScale.Crop
         else ContentScale.Fit
     )
+}
+
+
+@Composable
+fun SnackbarDemo(returnMessage: MutableState<String>) {
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    SnackbarHost(
+        hostState = snackbarHostState,
+        snackbar = {
+            Snackbar(
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .fillMaxWidth()
+                    .height(60.dp),
+                action = {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 10.dp),
+                        text = "Okay",
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = LightYellow,
+                        textAlign = TextAlign.End
+                    )
+                },
+                backgroundColor = AppDarkBlue,
+                shape = RoundedCornerShape(8.dp),
+            ) {
+                Box(modifier = Modifier
+                    .fillMaxSize()){
+                    Text(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(horizontal = 10.dp)
+                            .fillMaxWidth(),
+                        text = returnMessage.value,
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        textAlign = TextAlign.Start
+                    )
+                }
+            }
+        }
+    )
+
+    // Show the Snackbar
+    LaunchedEffect(key1 = Unit) {
+        snackbarHostState.showSnackbar(
+            message = returnMessage.value,
+            actionLabel = "Okay",
+            duration = SnackbarDuration.Short
+        )
+    }
 }
 
 

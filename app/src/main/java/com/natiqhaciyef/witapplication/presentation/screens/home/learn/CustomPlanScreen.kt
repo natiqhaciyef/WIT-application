@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,19 +26,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.natiqhaciyef.witapplication.R
+import com.natiqhaciyef.witapplication.common.util.objects.SuccessMessages
 import com.natiqhaciyef.witapplication.data.models.ContactModel
 import com.natiqhaciyef.witapplication.data.models.enums.ContactFields
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
+import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
+import com.natiqhaciyef.witapplication.presentation.viewmodel.ContactViewModel
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
 @Preview
 @Composable
 fun CustomPlanScreen(
-    navController: NavController = rememberNavController()
+    navController: NavController = rememberNavController(),
+    contactViewModel: ContactViewModel = hiltViewModel()
 ) {
     val fullName = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
@@ -50,11 +57,24 @@ fun CustomPlanScreen(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(40.dp))
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            text = stringResource(id = R.string.contact_with_us),
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black,
+            fontFamily = Opensans.opensans
+        )
+
+        Spacer(modifier = Modifier.height(25.dp))
         InputBox(
             concept = stringResource(id = R.string.full_name),
             input = fullName,
             isSingleLine = true,
+            isBottomShadowActive = false
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -62,6 +82,7 @@ fun CustomPlanScreen(
             concept = stringResource(id = R.string.email),
             input = email,
             isSingleLine = true,
+            isBottomShadowActive = false
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -69,6 +90,7 @@ fun CustomPlanScreen(
             concept = stringResource(id = R.string.phone),
             input = phone,
             isSingleLine = true,
+            isBottomShadowActive = false
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -76,6 +98,7 @@ fun CustomPlanScreen(
             concept = stringResource(id = R.string.description),
             input = description,
             isSingleLine = false,
+            isBottomShadowActive = false
         )
 
         Spacer(modifier = Modifier.height(45.dp))
@@ -91,6 +114,12 @@ fun CustomPlanScreen(
                     description = description.value,
                     field = ContactFields.CUSTOM_PLAN.name.lowercase()
                 )
+
+                contactViewModel.insertContactRemote(contact) {
+                    contactViewModel.saveContactLocal(contact) {
+                        SnackbarDemo(returnMessage = SuccessMessages.MESSAGE_SENT_SUCCESSFULLY)
+                    }
+                }
 
             },
             shape = RoundedCornerShape(8.dp),
