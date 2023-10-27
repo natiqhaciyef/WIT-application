@@ -1,7 +1,8 @@
-package com.natiqhaciyef.voyagersaz.data.model.service
+package com.natiqhaciyef.witapplication.data.models
 
 import com.google.gson.annotations.SerializedName
 import com.natiqhaciyef.costage.data.models.enums.UserTypes
+import com.natiqhaciyef.witapplication.data.models.top.UserAbstraction
 
 data class VerifiedUserModel(
     @SerializedName("id")
@@ -20,4 +21,4 @@ data class VerifiedUserModel(
     var password: String,
     @SerializedName("type")
     var type: String = UserTypes.VerifiedUser.name
-)
+): UserAbstraction()

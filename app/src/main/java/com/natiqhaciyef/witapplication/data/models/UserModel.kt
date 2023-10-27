@@ -3,6 +3,7 @@ package com.natiqhaciyef.witapplication.data.models
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.natiqhaciyef.costage.data.models.enums.UserTypes
+import com.natiqhaciyef.witapplication.data.models.top.UserAbstraction
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -15,4 +16,4 @@ data class UserModel(
     var email: String,
     @SerializedName("password")
     var password: String,
-): Parcelable
+): Parcelable, UserAbstraction()

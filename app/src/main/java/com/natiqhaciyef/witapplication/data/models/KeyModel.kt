@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagersaz.data.model.service
+package com.natiqhaciyef.witapplication.data.models
 
 data class KeyModel(
     var apiKey: String,

@@ -2,6 +2,7 @@ package com.natiqhaciyef.witapplication.data.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.natiqhaciyef.witapplication.data.models.top.QuestionAbstraction
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -24,4 +25,4 @@ data class InterviewQuestionModel(
     val field: String,
     @SerializedName("date")
     val date: String
-): Parcelable
+): Parcelable, QuestionAbstraction()

@@ -6,6 +6,7 @@ object ErrorMessages {
     const val POST_UPLOAD_FAILED = "Post upload failed"
 
     const val LIVE_INTERVIEW_NOT_ACCESSIBLE_YET = "Live interview not accessible yet"
+    const val INTERVIEW_QUESTIONS_NOT_FOUND = "Interview questions not found"
 
     const val SIGN_IN_FAILED = "Sign in failed"
     const val SIGN_UP_FAILED = "Sign up failed"
