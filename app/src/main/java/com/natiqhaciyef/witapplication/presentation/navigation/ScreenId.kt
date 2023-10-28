@@ -17,6 +17,6 @@ enum class ScreenId {
     InterviewQuestionsScreen,
     LiveInterviewScreen,
 
-
+    DetailsScreen,
     AddPostScreen,
 }

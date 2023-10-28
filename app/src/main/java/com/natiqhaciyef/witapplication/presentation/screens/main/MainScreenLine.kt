@@ -20,7 +20,7 @@ fun MainScreenLine(
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
-            .padding(bottom = 48.dp),
+            .padding(bottom = 45.dp),
         bottomBar = { NavBar(selectedIndex = selectedIndex,) }
     ) {
         it.calculateBottomPadding()

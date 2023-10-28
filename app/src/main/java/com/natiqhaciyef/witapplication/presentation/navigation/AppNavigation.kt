@@ -1,12 +1,17 @@
 package com.natiqhaciyef.witapplication.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
+import com.natiqhaciyef.witapplication.presentation.navigation.type.PostType
 import com.natiqhaciyef.witapplication.presentation.screens.main.MainScreenLine
+import com.natiqhaciyef.witapplication.presentation.screens.main.home.DetailsScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.CustomPlanScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.FieldScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.MaterialScreen
@@ -17,6 +22,7 @@ import com.natiqhaciyef.witapplication.presentation.screens.register.LoginScreen
 import com.natiqhaciyef.witapplication.presentation.screens.register.RegisterScreen
 import com.natiqhaciyef.witapplication.presentation.screens.register.SplashScreen
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
@@ -89,6 +95,20 @@ fun AppNavigation() {
 
         composable(ScreenId.LiveInterviewScreen.name) {
             LiveInterviewScreen(navController)
+        }
+
+
+        composable(
+            route = "${ScreenId.DetailsScreen.name}/{post}",
+            arguments = listOf(
+                navArgument("post") {
+                    type = PostType(false)
+                }
+            )
+        ) {
+            val post = it.arguments?.getParcelable("post") ?: DefaultImpl.post
+
+            DetailsScreen(navController = navController, postModel = post)
         }
     }
 }

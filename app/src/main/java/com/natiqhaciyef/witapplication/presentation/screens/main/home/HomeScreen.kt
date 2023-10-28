@@ -1,5 +1,6 @@
 package com.natiqhaciyef.witapplication.presentation.screens.main.home
 
+import android.net.Uri
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -45,7 +46,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.gson.Gson
 import com.natiqhaciyef.witapplication.R
+import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
 import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
@@ -53,6 +56,7 @@ import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.PostComponent
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
+import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.presentation.viewmodel.PostViewModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.UserViewModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
@@ -62,7 +66,7 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 fun HomeScreen(
     navController: NavController,
     postViewModel: PostViewModel = hiltViewModel(),
-    userViewModel: UserViewModel = hiltViewModel()
+    userViewModel: UserViewModel = hiltViewModel(),
 ) {
     val postState = remember { postViewModel.postUIState }
     val users = remember { userViewModel.userUIState }
@@ -77,18 +81,22 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HomeTopView(searchQuery = searchQuery, users = users)
-        HomeBodyView(searchQuery = searchQuery, postState = postState)
+        HomeBodyView(
+            searchQuery = searchQuery,
+            postState = postState,
+            navController = navController
+        )
     }
 }
 
 @Composable
 private fun HomeTopView(
-    searchQuery: MutableState<String>, users: MutableState<UIState<UserModel>>
+    searchQuery: MutableState<String>, users: MutableState<UIState<UserModel>>,
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(245.dp)
+            .height(240.dp)
             .background(AppDarkBlue)
     ) {
         Box(
@@ -139,7 +147,7 @@ private fun HomeTopView(
 
         }
 
-        Spacer(modifier = Modifier.height(45.dp))
+        Spacer(modifier = Modifier.height(40.dp))
         InputBox(
             concept = "",
             tag = stringResource(id = R.string.search),
@@ -155,27 +163,27 @@ private fun HomeTopView(
                 .height(55.dp),
         )
     }
-
-
 }
 
 
 @Composable
 private fun HomeBodyView(
-    searchQuery: MutableState<String>, postState: MutableState<UIState<MappedPostModel>>
+    searchQuery: MutableState<String>,
+    postState: MutableState<UIState<MappedPostModel>>,
+    navController: NavController,
 ) {
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
 
     var count = 10
     val untilLoad =
-        remember { postState.value.list.filter { postState.value.list.indexOf(it) < count } }
+        listOf(DefaultImpl.post)
+//        remember { postState.value.list.filter { postState.value.list.indexOf(it) < count } }
 
 
     if (untilLoad.isNotEmpty()) {
         Column(
             modifier = Modifier
-                .padding(top = 245.dp)
                 .fillMaxSize()
                 .background(AppExtraLightBrown),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -191,7 +199,7 @@ private fun HomeBodyView(
                 color = Color.Black,
                 fontSize = 20.sp
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(5.dp))
             LazyColumn(
                 modifier = Modifier
                     .animateContentSize(animationSpec = tween(600, 100))
@@ -200,7 +208,10 @@ private fun HomeBodyView(
                     .heightIn(min = 300.dp, max = screenHeight + 300.dp)
             ) {
                 items(untilLoad) { post ->
-                    PostComponent(mappedPostModel = post)
+                    PostComponent(mappedPostModel = post) {
+                        val json = Uri.encode(Gson().toJson(post))
+                        navController.navigate("${ScreenId.DetailsScreen.name}/$json")
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -218,7 +229,7 @@ private fun HomeBodyView(
                     textAlign = TextAlign.Center
                 )
             }
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(55.dp))
         }
     } else {
         Box(
