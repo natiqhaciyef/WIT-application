@@ -4,6 +4,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.natiqhaciyef.witapplication.common.Status
 import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
+import com.natiqhaciyef.witapplication.domain.usecase.local.post.GetAllSavedPostsUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.local.post.RemoveSavedPostUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.local.post.SavePostUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.post.GetAllPostRemoteUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.post.InsertPostRemoteUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.post.RemovePostRemoteUseCase
@@ -20,11 +23,16 @@ class PostViewModel @Inject constructor(
     private val insertPostRemoteUseCase: InsertPostRemoteUseCase,
     private val removePostRemoteUseCase: RemovePostRemoteUseCase,
     private val updatePostRemoteUseCase: UpdatePostRemoteUseCase,
+    private val savePostUseCase: SavePostUseCase,
+    private val getAllSavedPostsUseCase: GetAllSavedPostsUseCase,
+    private val removeSavedPostUseCase: RemoveSavedPostUseCase,
 ) : BaseViewModel() {
     val postUIState = mutableStateOf(UIState<MappedPostModel>())
+    val savedPostUIState = mutableStateOf(UIState<MappedPostModel>())
 
     init {
         getAllPosts()
+        getAllSavedPosts()
     }
 
     private fun getAllPosts() {
@@ -66,7 +74,10 @@ class PostViewModel @Inject constructor(
                     Status.SUCCESS -> {
                         if (result.data != null)
                             postUIState.value =
-                                postUIState.value.copy(isLoading = false, message = result.data.message)
+                                postUIState.value.copy(
+                                    isLoading = false,
+                                    message = result.data.message
+                                )
                     }
                 }
             }
@@ -90,7 +101,10 @@ class PostViewModel @Inject constructor(
                     Status.SUCCESS -> {
                         if (result.data != null)
                             postUIState.value =
-                                postUIState.value.copy(isLoading = false, message = result.data.message)
+                                postUIState.value.copy(
+                                    isLoading = false,
+                                    message = result.data.message
+                                )
                     }
                 }
             }
@@ -114,11 +128,85 @@ class PostViewModel @Inject constructor(
                     Status.SUCCESS -> {
                         if (result.data != null)
                             postUIState.value =
-                                postUIState.value.copy(isLoading = false, message = result.data.message)
+                                postUIState.value.copy(
+                                    isLoading = false,
+                                    message = result.data.message
+                                )
                     }
                 }
             }
         }
     }
 
+
+    fun getAllSavedPosts() {
+        viewModelScope.launch {
+            getAllSavedPostsUseCase.invoke().collectLatest { result ->
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        if (result.data != null)
+                            savedPostUIState.value =
+                                savedPostUIState.value.copy(list = result.data, isLoading = false)
+                    }
+
+                    Status.ERROR -> {
+                        savedPostUIState.value =
+                            savedPostUIState.value.copy(message = result.message, isLoading = false)
+                    }
+
+                    Status.LOADING -> {
+                        savedPostUIState.value =
+                            savedPostUIState.value.copy(isLoading = true)
+                    }
+                }
+            }
+        }
+    }
+
+
+    fun removeSavedPost(postModel: MappedPostModel) {
+        viewModelScope.launch {
+            removeSavedPostUseCase.invoke(postModel).collectLatest { result ->
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        savedPostUIState.value =
+                            savedPostUIState.value.copy(message = result.message, isLoading = false)
+                    }
+
+                    Status.ERROR -> {
+                        savedPostUIState.value =
+                            savedPostUIState.value.copy(message = result.message, isLoading = false)
+                    }
+
+                    Status.LOADING -> {
+                        savedPostUIState.value =
+                            savedPostUIState.value.copy(isLoading = true)
+                    }
+                }
+            }
+        }
+    }
+
+    fun savePost(postModel: MappedPostModel) {
+        viewModelScope.launch {
+            savePostUseCase.invoke(postModel).collectLatest { result ->
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        savedPostUIState.value =
+                            savedPostUIState.value.copy(message = result.message, isLoading = false)
+                    }
+
+                    Status.ERROR -> {
+                        savedPostUIState.value =
+                            savedPostUIState.value.copy(message = result.message, isLoading = false)
+                    }
+
+                    Status.LOADING -> {
+                        savedPostUIState.value =
+                            savedPostUIState.value.copy(isLoading = true)
+                    }
+                }
+            }
+        }
+    }
 }

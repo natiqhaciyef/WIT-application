@@ -25,4 +25,8 @@ object LocalModule {
     @Singleton
     fun provideContactDao(db: AppDatabase) = db.getContactDao()
 
+    @Provides
+    @Singleton
+    fun providePostDao(db: AppDatabase) = db.getPostDao()
+
 }

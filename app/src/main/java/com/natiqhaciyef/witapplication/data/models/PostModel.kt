@@ -1,8 +1,12 @@
 package com.natiqhaciyef.witapplication.data.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity("post_table")
 data class PostModel(
+    @PrimaryKey(autoGenerate = false)
     @SerializedName("id")
     var id: Int,
     @SerializedName("title")

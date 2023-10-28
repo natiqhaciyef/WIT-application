@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication.domain.usecase.local
+package com.natiqhaciyef.witapplication.domain.usecase.local.contact
 
 import com.natiqhaciyef.voyagersaz.domain.usecase.config.BaseUseCase
 import com.natiqhaciyef.witapplication.common.Resource

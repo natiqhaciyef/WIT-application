@@ -14,4 +14,10 @@ interface PostRepository {
 
     suspend fun removePost(id: Int): CRUDResponse
 
+    suspend fun getAllSavedPosts(): List<PostModel>?
+
+    suspend fun savePostLocal(postModel: PostModel)
+
+    suspend fun removePostLocal(postModel: PostModel)
+
 }

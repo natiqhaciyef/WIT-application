@@ -16,4 +16,10 @@ class PostRepositoryImpl(
     override suspend fun updatePost(postModel: PostModel): CRUDResponse = ds.updatePost(postModel)
 
     override suspend fun removePost(id: Int): CRUDResponse = ds.removePost(id)
+
+    override suspend fun getAllSavedPosts(): List<PostModel>? = ds.getAllSavedPosts()
+
+    override suspend fun savePostLocal(postModel: PostModel) = ds.savePostLocal(postModel)
+
+    override suspend fun removePostLocal(postModel: PostModel) = ds.removePostLocal(postModel)
 }

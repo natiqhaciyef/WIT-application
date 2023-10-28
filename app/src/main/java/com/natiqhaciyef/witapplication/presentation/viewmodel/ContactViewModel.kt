@@ -5,9 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.natiqhaciyef.witapplication.common.Status
 import com.natiqhaciyef.witapplication.data.models.ContactModel
-import com.natiqhaciyef.witapplication.domain.usecase.local.GetAllSavedContactsUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.local.RemoveSavedContactUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.local.SaveContactUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.local.contact.GetAllSavedContactsUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.local.contact.RemoveSavedContactUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.local.contact.SaveContactUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.contact.GetAllContactUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.contact.InsertContactUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.contact.RemoveContactUseCase
@@ -24,7 +24,7 @@ class ContactViewModel @Inject constructor(
     private val removeContactUseCase: RemoveContactUseCase,
     private val getAllSavedContactsUseCase: GetAllSavedContactsUseCase,
     private val removeSavedContactUseCase: RemoveSavedContactUseCase,
-    private val savedContactUseCase: SaveContactUseCase
+    private val saveContactUseCase: SaveContactUseCase
 ) : BaseViewModel() {
     val contactUIState = mutableStateOf(UIState<ContactModel>())
     val savedContactUIState = mutableStateOf(UIState<ContactModel>())
@@ -119,7 +119,7 @@ class ContactViewModel @Inject constructor(
         onSuccessComposable: @Composable () -> Unit = {},
     ) {
         viewModelScope.launch {
-            savedContactUseCase.invoke(contactModel).collectLatest { result ->
+            saveContactUseCase.invoke(contactModel).collectLatest { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
                         savedContactUIState.value =

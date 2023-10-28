@@ -15,11 +15,6 @@ class ContactDataSource(
         service.getAllContacts()
     }
 
-    suspend fun getAllSavedContacts() = withContext(Dispatchers.IO) {
-        dao.getAllSavedContact()
-    }
-
-
     suspend fun insertContact(contactModel: ContactModel) = withContext(Dispatchers.IO) {
         service.insertContact(
             name = contactModel.name,
@@ -32,13 +27,16 @@ class ContactDataSource(
         )
     }
 
-    suspend fun saveContactLocal(contactModel: ContactModel) = withContext(Dispatchers.IO){
-        dao.saveContact(contactModel)
-    }
-
-
     suspend fun removeContact(id: Int) = withContext(Dispatchers.IO) {
         service.removeContact(id = id)
+    }
+
+    suspend fun getAllSavedContacts() = withContext(Dispatchers.IO) {
+        dao.getAllSavedContact()
+    }
+
+    suspend fun saveContactLocal(contactModel: ContactModel) = withContext(Dispatchers.IO){
+        dao.saveContact(contactModel)
     }
 
     suspend fun removeContactLocal(contactModel: ContactModel) = withContext(Dispatchers.IO){

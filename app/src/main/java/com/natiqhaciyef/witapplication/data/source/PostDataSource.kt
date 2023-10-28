@@ -1,12 +1,14 @@
 package com.natiqhaciyef.witapplication.data.source
 
+import com.natiqhaciyef.witapplication.data.local.PostDao
 import com.natiqhaciyef.witapplication.data.models.PostModel
 import com.natiqhaciyef.witapplication.data.network.service.PostService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class PostDataSource(
-    private val service: PostService
+    private val service: PostService,
+    private val dao: PostDao
 ) {
 
     suspend fun getAllPosts() = withContext(Dispatchers.IO){
@@ -40,5 +42,18 @@ class PostDataSource(
 
     suspend fun removePost(id: Int) = withContext(Dispatchers.IO){
         service.deletePost(id = id)
+    }
+
+
+    suspend fun getAllSavedPosts() = withContext(Dispatchers.IO){
+        dao.getAllSavedPosts()
+    }
+
+    suspend fun savePostLocal(postModel: PostModel) = withContext(Dispatchers.IO){
+        dao.savePost(postModel)
+    }
+
+    suspend fun removePostLocal(postModel: PostModel) = withContext(Dispatchers.IO){
+        dao.removePost(postModel)
     }
 }
