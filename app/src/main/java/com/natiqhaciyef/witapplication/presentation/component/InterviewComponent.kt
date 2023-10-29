@@ -36,10 +36,8 @@ import com.natiqhaciyef.witapplication.ui.theme.AppDarkGray
 fun <T : QuestionAbstraction> QuestionComponent(question: T) {
     var isVisible by remember { mutableStateOf(false) }
 
-    when (question.getExactType(question)) {
-        "Interview" -> {
-            question as InterviewQuestionModel
-
+    when (question) {
+        is InterviewQuestionModel -> {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -154,10 +152,10 @@ fun <T : QuestionAbstraction> QuestionComponent(question: T) {
             }
         }
 
-        "Standard" -> {
-            question as InterviewQuestionModel
-
-        }
+//         -> {
+//            question as InterviewQuestionModel
+//
+//        }
         else -> {}
 
     }
