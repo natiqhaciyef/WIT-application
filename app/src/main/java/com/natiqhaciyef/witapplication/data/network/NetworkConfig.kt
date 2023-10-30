@@ -30,5 +30,6 @@ object ContactEndpoint{
 }
 
 object InterviewQuestionEndpoint{
-    const val GET = "contacts/get_contacts.php"
+    const val GET = "interview/get_questions.php"
+    const val INSERT = "interview/insert_question.php"
 }

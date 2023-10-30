@@ -16,4 +16,34 @@ data class UserModel(
     var email: String,
     @SerializedName("password")
     var password: String,
-): Parcelable, UserAbstraction()
+) : Parcelable, UserAbstraction()
+
+@Parcelize
+data class UserWithoutPasswordModel(
+    @SerializedName("id")
+    var id: Int = 0,
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("email")
+    var email: String,
+) : Parcelable
+
+@Parcelize
+data class VerifiedUserModel(
+    @SerializedName("id")
+    var id: Int,
+    @SerializedName("name")
+    var name: String,
+    @SerializedName("email")
+    var email: String,
+    @SerializedName("phone")
+    var phone: String,
+    @SerializedName("image")
+    var image: String,
+    @SerializedName("id_image")
+    var idImage: String,
+    @SerializedName("password")
+    var password: String,
+    @SerializedName("type")
+    var type: String = UserTypes.VerifiedUser.name,
+) : UserAbstraction(), Parcelable

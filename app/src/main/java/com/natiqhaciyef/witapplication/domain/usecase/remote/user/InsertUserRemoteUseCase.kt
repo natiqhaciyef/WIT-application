@@ -16,7 +16,7 @@ class InsertUserRemoteUseCase @Inject constructor(
 
         val result = repository.insertUser(userModel = userModel)
         if (result.success > 0){
-            emit(Resource.success(result))
+            emit(Resource.success(result.message))
         }else{
             emit(Resource.error(BaseUseCase.INSERT_FAIL, null))
         }

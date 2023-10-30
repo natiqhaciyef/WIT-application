@@ -165,7 +165,7 @@ fun LearnScreen(
             }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(80.dp))
     }
 }
 

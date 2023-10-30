@@ -15,7 +15,7 @@ class RemoveUserRemoteUseCase @Inject constructor(
 
         val result = repository.removeUser(id)
         if (result.success > 0){
-            emit(Resource.success(result))
+            emit(Resource.success(result.message))
         }else{
             emit(Resource.error(BaseUseCase.REMOVE_FAIL, null))
         }

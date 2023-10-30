@@ -39,8 +39,7 @@ fun InterviewQuestions(
     interviewQuestionViewModel: InterviewQuestionViewModel = hiltViewModel(),
 ) {
     val interviewQuestions = remember { interviewQuestionViewModel.interviewQuestionsUIState }
-    val filteredList =
-        interviewQuestionViewModel.filterQuestionsByField(field, interviewQuestions.value.list)
+
 
     Column(
         modifier = Modifier
@@ -60,10 +59,10 @@ fun InterviewQuestions(
             fontSize = 20.sp
         )
 
-        if (filteredList.isNotEmpty()) {
+        if (interviewQuestionViewModel.filterQuestionsByField(field, interviewQuestions.value.list).isNotEmpty()) {
             Spacer(modifier = Modifier.height(20.dp))
             LazyColumn {
-                items(filteredList) { question ->
+                items(interviewQuestionViewModel.filterQuestionsByField(field, interviewQuestions.value.list)) { question ->
                     QuestionComponent(question = question)
                 }
             }
@@ -80,7 +79,7 @@ fun InterviewQuestions(
                         .padding(horizontal = 20.dp)
                         .padding(bottom = 30.dp)
                         .align(Alignment.Center),
-                    text = ErrorMessages.APPLICATION_UNDER_THE_TEST,
+                    text = ErrorMessages.INTERVIEW_QUESTIONS_NOT_FOUND,
                     fontSize = 16.sp,
                     color = Color.Black,
                     fontWeight = FontWeight.SemiBold,

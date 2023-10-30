@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MenuBook
 import com.natiqhaciyef.witapplication.data.models.LearnSectionModel
 import com.natiqhaciyef.witapplication.data.models.UserModel
+import com.natiqhaciyef.witapplication.data.models.UserWithoutPasswordModel
 import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
 
 
@@ -23,11 +24,10 @@ object DefaultImpl {
         likeCount = 5,
         location = null,
         publishDate = "18.10.2023 13:21",
-        user = UserModel(
+        user = UserWithoutPasswordModel(
             id = 0,
             name = "Google",
             email = "google.com",
-            password = "google123"
         )
     )
 }

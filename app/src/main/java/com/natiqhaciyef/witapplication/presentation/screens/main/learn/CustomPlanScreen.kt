@@ -12,6 +12,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -44,7 +49,7 @@ import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 @Composable
 fun CustomPlanScreen(
     navController: NavController = rememberNavController(),
-    contactViewModel: ContactViewModel = hiltViewModel()
+    contactViewModel: ContactViewModel = hiltViewModel(),
 ) {
     val fullName = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
@@ -75,7 +80,8 @@ fun CustomPlanScreen(
             concept = stringResource(id = R.string.full_name),
             input = fullName,
             isSingleLine = true,
-            isBottomShadowActive = false
+            isBottomShadowActive = false,
+            leadingIcon = Icons.Default.AccountCircle
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -83,7 +89,8 @@ fun CustomPlanScreen(
             concept = stringResource(id = R.string.email),
             input = email,
             isSingleLine = true,
-            isBottomShadowActive = false
+            isBottomShadowActive = false,
+            leadingIcon = Icons.Default.Email
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -91,7 +98,8 @@ fun CustomPlanScreen(
             concept = stringResource(id = R.string.phone),
             input = phone,
             isSingleLine = true,
-            isBottomShadowActive = false
+            isBottomShadowActive = false,
+            leadingIcon = Icons.Default.Phone
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -99,7 +107,8 @@ fun CustomPlanScreen(
             concept = stringResource(id = R.string.description),
             input = description,
             isSingleLine = false,
-            isBottomShadowActive = false
+            isBottomShadowActive = false,
+            leadingIcon = Icons.Default.Description
         )
 
         Spacer(modifier = Modifier.height(45.dp))

@@ -65,10 +65,8 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 @Composable
 fun HomeScreen(
     navController: NavController,
-    postViewModel: PostViewModel = hiltViewModel(),
     userViewModel: UserViewModel = hiltViewModel(),
 ) {
-    val postState = remember { postViewModel.postUIState }
     val users = remember { userViewModel.userUIState }
     val searchQuery = remember { mutableStateOf("") }
     userViewModel.getUser(users.value.list)
@@ -83,7 +81,6 @@ fun HomeScreen(
         HomeTopView(searchQuery = searchQuery, users = users)
         HomeBodyView(
             searchQuery = searchQuery,
-            postState = postState,
             navController = navController
         )
     }
@@ -169,19 +166,15 @@ private fun HomeTopView(
 @Composable
 private fun HomeBodyView(
     searchQuery: MutableState<String>,
-    postState: MutableState<UIState<MappedPostModel>>,
+    postViewModel: PostViewModel = hiltViewModel(),
     navController: NavController,
 ) {
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
-
+    val postState = remember { postViewModel.postUIState }
     var count = 10
-    val untilLoad =
-        listOf(DefaultImpl.post)
-//        remember { postState.value.list.filter { postState.value.list.indexOf(it) < count } }
 
-
-    if (untilLoad.isNotEmpty()) {
+    if (postState.value.list.filter { postState.value.list.indexOf(it) < count }.isNotEmpty()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -207,7 +200,7 @@ private fun HomeBodyView(
                     .fillMaxWidth()
                     .heightIn(min = 300.dp, max = screenHeight + 300.dp)
             ) {
-                items(untilLoad) { post ->
+                items(postState.value.list.filter { postState.value.list.indexOf(it) < count }) { post ->
                     PostComponent(mappedPostModel = post) {
                         val json = Uri.encode(Gson().toJson(post))
                         navController.navigate("${ScreenId.DetailsScreen.name}/$json")
@@ -229,7 +222,7 @@ private fun HomeBodyView(
                     textAlign = TextAlign.Center
                 )
             }
-            Spacer(modifier = Modifier.height(55.dp))
+            Spacer(modifier = Modifier.height(80.dp))
         }
     } else {
         Box(

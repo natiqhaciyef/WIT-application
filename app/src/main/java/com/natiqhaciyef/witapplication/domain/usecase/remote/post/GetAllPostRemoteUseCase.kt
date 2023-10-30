@@ -16,12 +16,12 @@ class GetAllPostRemoteUseCase @Inject constructor(
         emit(Resource.loading(null))
 
         val result = repository.getAllPosts().postResult
+
         if (result != null) {
             val mappedPosts = mutableListOf<MappedPostModel>()
             for (post in result) {
                 mappedPosts.add(post.toMappedPost())
             }
-
             emit(Resource.success(mappedPosts))
         } else {
             emit(Resource.error(BaseUseCase.LOADING_FAIL, null))

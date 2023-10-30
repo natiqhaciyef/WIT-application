@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class InsertPostRemoteUseCase @Inject constructor(
-    private val repository: PostRepository
+    private val repository: PostRepository,
 ) {
 
     suspend operator fun invoke(postModel: MappedPostModel) = flow {
@@ -17,9 +17,9 @@ class InsertPostRemoteUseCase @Inject constructor(
 
         val unMappedPost = postModel.toPost()
         val result = repository.insertPost(postModel = unMappedPost)
-        if (result.success > 0){
-            emit(Resource.success(result))
-        }else{
+        if (result.success > 0) {
+            emit(Resource.success(result.message))
+        } else {
             emit(Resource.error(BaseUseCase.INSERT_FAIL, null))
         }
 
