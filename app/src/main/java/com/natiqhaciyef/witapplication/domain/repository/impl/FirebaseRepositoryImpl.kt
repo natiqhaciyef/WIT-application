@@ -7,7 +7,7 @@ class FirebaseRepositoryImpl(
     val ds: FirebaseDataSource
 ) {
 
-    suspend fun signInUser(
+    fun signInUser(
         user: UserModel,
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit
@@ -17,7 +17,7 @@ class FirebaseRepositoryImpl(
             .addOnFailureListener(onFail)
     }
 
-    suspend fun createAccount(
+    fun createAccount(
         user: UserModel,
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit
@@ -27,7 +27,7 @@ class FirebaseRepositoryImpl(
             .addOnFailureListener(onFail)
     }
 
-    suspend fun resetPasswordFromEmail(
+    fun resetPasswordFromEmail(
         email: String,
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit
@@ -37,14 +37,14 @@ class FirebaseRepositoryImpl(
             .addOnFailureListener(onFail)
     }
 
-    suspend fun updatePassword(
+    fun updatePassword(
         user: UserModel,
     ) {
         ds.auth.currentUser?.updatePassword(user.password)
     }
 
 
-    suspend fun signOut() {
+    fun signOut() {
         ds.auth.signOut()
     }
 

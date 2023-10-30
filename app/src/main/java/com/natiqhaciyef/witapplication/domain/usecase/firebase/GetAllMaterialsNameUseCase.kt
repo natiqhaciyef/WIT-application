@@ -9,7 +9,7 @@ class GetAllMaterialsNameUseCase @Inject constructor(
     private val firebaseRepositoryImpl: FirebaseRepositoryImpl,
 ) {
 
-    suspend operator fun invoke(
+    operator fun invoke(
         concept: String,
         onSuccess: (List<MaterialModel>) -> Unit,
         onFail: (Exception?) -> Unit,

@@ -10,7 +10,7 @@ class GetAllFAQUseCase @Inject constructor(
 ) {
 
 
-    suspend operator fun invoke(
+    operator fun invoke(
         onSuccess: (List<InfoModel>) -> Unit,
         onFail: (Exception?) -> Unit
     ) {
