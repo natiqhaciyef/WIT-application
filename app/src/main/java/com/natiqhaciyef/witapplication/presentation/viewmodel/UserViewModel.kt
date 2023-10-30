@@ -36,17 +36,21 @@ class UserViewModel @Inject constructor(
                 when (result.status) {
                     Status.SUCCESS -> {
                         if (result.data != null)
-                            userUIState.value =
-                                userUIState.value.copy(list = result.data, isLoading = false)
+                            userUIState.value.apply {
+                                this.list = result.data
+                                this.isLoading = false
+                            }
                     }
 
                     Status.ERROR -> {
-                        userUIState.value =
-                            userUIState.value.copy(message = result.message, isLoading = false)
+                        userUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
                     Status.LOADING -> {
-                        userUIState.value = userUIState.value.copy(isLoading = true)
+                        userUIState.value.isLoading = true
                     }
                 }
             }
@@ -59,19 +63,21 @@ class UserViewModel @Inject constructor(
                 when (result.status) {
                     Status.SUCCESS -> {
                         if (result.data != null)
-                            userUIState.value = userUIState.value.copy(
-                                message = result.data.message,
-                                isLoading = false
-                            )
+                            userUIState.value.apply {
+                                this.message = result.data
+                                this.isLoading = false
+                            }
                     }
 
                     Status.ERROR -> {
-                        userUIState.value =
-                            userUIState.value.copy(message = result.message, isLoading = false)
+                        userUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
                     Status.LOADING -> {
-                        userUIState.value = userUIState.value.copy(isLoading = true)
+                        userUIState.value.isLoading = true
                     }
                 }
             }
@@ -85,20 +91,21 @@ class UserViewModel @Inject constructor(
                 when (result.status) {
                     Status.SUCCESS -> {
                         if (result.data != null)
-                            userUIState.value =
-                                userUIState.value.copy(
-                                    message = result.data.message,
-                                    isLoading = false
-                                )
+                            userUIState.value.apply {
+                                this.message = result.data
+                                this.isLoading = false
+                            }
                     }
 
                     Status.ERROR -> {
-                        userUIState.value =
-                            userUIState.value.copy(message = result.message, isLoading = false)
+                        userUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
                     Status.LOADING -> {
-                        userUIState.value = userUIState.value.copy(isLoading = true)
+                        userUIState.value.isLoading = true
                     }
                 }
             }
@@ -112,20 +119,21 @@ class UserViewModel @Inject constructor(
                 when (result.status) {
                     Status.SUCCESS -> {
                         if (result.data != null)
-                            userUIState.value =
-                                userUIState.value.copy(
-                                    message = result.data.message,
-                                    isLoading = false
-                                )
+                            userUIState.value.apply {
+                                this.message = result.data
+                                this.isLoading = false
+                            }
                     }
 
                     Status.ERROR -> {
-                        userUIState.value =
-                            userUIState.value.copy(message = result.message, isLoading = false)
+                        userUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
                     Status.LOADING -> {
-                        userUIState.value = userUIState.value.copy(isLoading = true)
+                        userUIState.value.isLoading = true
                     }
                 }
             }
@@ -138,7 +146,7 @@ class UserViewModel @Inject constructor(
         email: String,
         password: String,
         onSuccess: () -> Unit = { },
-        onFail: () -> Unit = { }
+        onFail: () -> Unit = { },
     ) {
         if (userState.value.list.any { it.email == email && it.password == password }) {
             onSuccess()
@@ -172,7 +180,7 @@ class UserViewModel @Inject constructor(
         userState: MutableState<UIState<UserModel>>,
         email: String,
         password: String,
-        onSuccess: () -> Unit = {}
+        onSuccess: () -> Unit = {},
     ) {
         val filteredUser = userState.value.list.filter { it.email == email }
         if (filteredUser.isNotEmpty()) {
