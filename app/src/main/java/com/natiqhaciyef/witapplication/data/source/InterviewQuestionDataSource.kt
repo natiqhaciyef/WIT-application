@@ -1,5 +1,6 @@
 package com.natiqhaciyef.witapplication.data.source
 
+import com.natiqhaciyef.witapplication.data.local.dao.InterviewQuestionDao
 import com.natiqhaciyef.witapplication.data.models.InterviewQuestionModel
 import com.natiqhaciyef.witapplication.data.network.service.InterviewQuestionService
 import kotlinx.coroutines.Dispatchers
@@ -7,6 +8,7 @@ import kotlinx.coroutines.withContext
 
 class InterviewQuestionDataSource(
     private val service: InterviewQuestionService,
+    private val dao: InterviewQuestionDao,
 ) {
 
     suspend fun getAllInterviewQuestions() = withContext(Dispatchers.IO) {
@@ -26,5 +28,18 @@ class InterviewQuestionDataSource(
                 subfield = questionModel.subfield,
                 date = questionModel.date
             )
+        }
+
+    suspend fun getAllSavedInterviewQuestions() = withContext(Dispatchers.IO) {
+        dao.getAllSavedInterviewQuestions()
+    }
+
+    suspend fun saveInterviewQuestion(questionModel: InterviewQuestionModel) = withContext(Dispatchers.IO) {
+        dao.saveInterviewQuestion(questionModel)
+    }
+
+    suspend fun removeSavedInterviewQuestion(questionModel: InterviewQuestionModel) =
+        withContext(Dispatchers.IO) {
+            dao.removeSavedInterviewQuestion(questionModel)
         }
 }

@@ -8,6 +8,9 @@ import com.natiqhaciyef.witapplication.common.util.helpers.toSQLiteList
 import com.natiqhaciyef.witapplication.common.util.helpers.toSQLiteString
 import com.natiqhaciyef.witapplication.data.models.InterviewQuestionModel
 import com.natiqhaciyef.witapplication.data.models.enums.QuestionLevels
+import com.natiqhaciyef.witapplication.domain.usecase.local.interview_question.GetAllSavedInterviewQuestionsUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.local.interview_question.RemoveSavedInterviewQuestionUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.local.interview_question.SaveInterviewQuestionUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.interview_question.GetAllInterviewQuestionsUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.interview_question.InsertInterviewQuestionUseCase
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
@@ -20,8 +23,12 @@ import javax.inject.Inject
 class InterviewQuestionViewModel @Inject constructor(
     private val getAllInterviewQuestionsUseCase: GetAllInterviewQuestionsUseCase,
     private val insertInterviewQuestionUseCase: InsertInterviewQuestionUseCase,
+    private val saveInterviewQuestionUseCase: SaveInterviewQuestionUseCase,
+    private val removeSavedInterviewQuestionUseCase: RemoveSavedInterviewQuestionUseCase,
+    private val getAllSavedInterviewQuestionsUseCase: GetAllSavedInterviewQuestionsUseCase,
 ) : BaseViewModel() {
     val interviewQuestionsUIState = mutableStateOf(UIState<InterviewQuestionModel>())
+    val savedInterviewQuestionsUIState = mutableStateOf(UIState<InterviewQuestionModel>())
 
     init {
         getAllInterviewQuestions()
@@ -90,6 +97,86 @@ class InterviewQuestionViewModel @Inject constructor(
                             this.message = result.message
                             this.isLoading = false
                         }
+                    }
+                }
+            }
+        }
+    }
+
+
+    fun getAllSavedQuestions() {
+        viewModelScope.launch {
+            getAllSavedInterviewQuestionsUseCase.invoke().collectLatest { result ->
+                when (result.status) {
+                    Status.LOADING -> {
+                        savedInterviewQuestionsUIState.value.isLoading = true
+                    }
+
+                    Status.ERROR -> {
+                        savedInterviewQuestionsUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
+                    }
+
+                    Status.SUCCESS -> {
+                        if (result.data != null)
+                            savedInterviewQuestionsUIState.value.apply {
+                                this.list = result.data
+                                this.isLoading = false
+                            }
+                    }
+                }
+            }
+        }
+    }
+
+    fun saveInterviewQuestion(questionModel: InterviewQuestionModel) {
+        viewModelScope.launch {
+            saveInterviewQuestionUseCase.invoke(questionModel).collectLatest { result ->
+                when (result.status) {
+                    Status.ERROR -> {
+                        savedInterviewQuestionsUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
+                    }
+
+                    Status.SUCCESS -> {
+                        savedInterviewQuestionsUIState.value.apply {
+                            this.message = result.data
+                            this.isLoading = false
+                        }
+                    }
+
+                    Status.LOADING -> {
+                        savedInterviewQuestionsUIState.value.isLoading = true
+                    }
+                }
+            }
+        }
+    }
+
+    fun removeInterviewQuestion(questionModel: InterviewQuestionModel) {
+        viewModelScope.launch {
+            removeSavedInterviewQuestionUseCase.invoke(questionModel).collectLatest { result ->
+                when (result.status) {
+                    Status.ERROR -> {
+                        savedInterviewQuestionsUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
+                    }
+
+                    Status.SUCCESS -> {
+                        savedInterviewQuestionsUIState.value.apply {
+                            this.message = result.data
+                            this.isLoading = false
+                        }
+                    }
+
+                    Status.LOADING -> {
+                        savedInterviewQuestionsUIState.value.isLoading = true
                     }
                 }
             }

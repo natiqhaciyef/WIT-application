@@ -9,4 +9,10 @@ interface InterviewQuestionRepository {
     suspend fun getAllInterviewQuestion(): InterviewQuestionResult
 
     suspend fun insertInterviewQuestion(questionModel: InterviewQuestionModel): CRUDResponse
+
+    suspend fun getAllSavedInterviewQuestions(): List<InterviewQuestionModel>?
+
+    suspend fun saveInterviewQuestion(questionModel: InterviewQuestionModel)
+
+    suspend fun removeSavedInterviewQuestion(questionModel: InterviewQuestionModel)
 }

@@ -1,7 +1,8 @@
 package com.natiqhaciyef.witapplication.data.di.module
 
-import com.natiqhaciyef.witapplication.data.local.ContactDao
-import com.natiqhaciyef.witapplication.data.local.PostDao
+import com.natiqhaciyef.witapplication.data.local.dao.ContactDao
+import com.natiqhaciyef.witapplication.data.local.dao.InterviewQuestionDao
+import com.natiqhaciyef.witapplication.data.local.dao.PostDao
 import com.natiqhaciyef.witapplication.data.network.NetworkConfig
 import com.natiqhaciyef.witapplication.data.network.service.ContactService
 import com.natiqhaciyef.witapplication.data.network.service.InterviewQuestionService
@@ -76,8 +77,10 @@ object RemoteModule {
 
     @Provides
     @Singleton
-    fun provideInterviewQuestionDataSource(service: InterviewQuestionService) =
-        InterviewQuestionDataSource(service)
+    fun provideInterviewQuestionDataSource(
+        service: InterviewQuestionService,
+        dao: InterviewQuestionDao,
+    ) = InterviewQuestionDataSource(service, dao)
 
 
     // provide data sources

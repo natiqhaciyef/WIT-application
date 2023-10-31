@@ -14,4 +14,13 @@ class InterviewQuestionRepositoryImpl(
 
     override suspend fun insertInterviewQuestion(questionModel: InterviewQuestionModel): CRUDResponse =
         ds.insertInterviewQuestion(questionModel)
+
+    override suspend fun getAllSavedInterviewQuestions(): List<InterviewQuestionModel>? =
+        ds.getAllSavedInterviewQuestions()
+
+    override suspend fun saveInterviewQuestion(questionModel: InterviewQuestionModel) =
+        ds.saveInterviewQuestion(questionModel)
+
+    override suspend fun removeSavedInterviewQuestion(questionModel: InterviewQuestionModel) =
+        ds.removeSavedInterviewQuestion(questionModel)
 }
