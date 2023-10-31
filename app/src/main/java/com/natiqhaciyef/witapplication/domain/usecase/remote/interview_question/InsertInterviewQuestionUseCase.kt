@@ -20,7 +20,5 @@ class InsertInterviewQuestionUseCase @Inject constructor(
         } else {
             emit(Resource.error(result.message, null))
         }
-
     }
-
 }

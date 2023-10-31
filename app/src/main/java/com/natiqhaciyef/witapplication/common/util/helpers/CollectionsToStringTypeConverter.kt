@@ -55,7 +55,7 @@ fun String.toSQLiteMutableMap(): MutableMap<String, String> {
 }
 
 
-fun <T> MutableList<T>.toSQLiteString(): String {
+fun <T> List<T>.toSQLiteString(): String {
     var str = ""
     for (element in this) {
         str += element
@@ -65,7 +65,7 @@ fun <T> MutableList<T>.toSQLiteString(): String {
 }
 
 
-fun String.toSQLiteMutableList(): MutableList<String> {
+fun String.toSQLiteList(): List<String> {
     val list = mutableListOf<String>()
     var word = ""
     for (element in this) {

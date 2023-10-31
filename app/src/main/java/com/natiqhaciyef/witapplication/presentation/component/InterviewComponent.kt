@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -41,6 +42,8 @@ fun <T : QuestionAbstraction> QuestionComponent(question: T) {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(horizontal = 20.dp)
                     .animateContentSize(tween(600, 100))
                     .clickable {
                         isVisible = !isVisible
@@ -51,57 +54,38 @@ fun <T : QuestionAbstraction> QuestionComponent(question: T) {
                 ),
             ) {
                 Column(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 5.dp)
                 ) {
                     Spacer(modifier = Modifier.height(15.dp))
 
-                    if (!isVisible)
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 15.dp),
-                            text = question.title,
-                            maxLines = 1,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = AppDarkBlue
-                        )
-                    else
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 15.dp),
-                            text = question.title,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = AppDarkBlue
-                        )
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 15.dp),
+                        text = question.title,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = AppDarkBlue
+                    )
 
-                    Spacer(modifier = Modifier.height(17.dp))
-                    if (!isVisible)
-                        Text(
-                            text = "Description: ${question.description}",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = AppDarkGray,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 15.dp),
-                        )
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     AnimatedVisibility(visible = isVisible) {
                         Column(
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text(
-                                text = "Description: ${question.description}",
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = AppDarkGray,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 10.dp, vertical = 10.dp)
-                            )
+                            if (question.description.isNotEmpty())
+                                Text(
+                                    text = "Description: ${question.description}",
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = AppDarkGray,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 10.dp, vertical = 10.dp)
+                                )
 
                             if (question.image != null) {
                                 Image(
@@ -131,7 +115,7 @@ fun <T : QuestionAbstraction> QuestionComponent(question: T) {
                                 text = "Field: ${question.field} (${question.level})",
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = AppDarkGray,
+                                color = Color.Black,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(horizontal = 10.dp)
@@ -144,7 +128,7 @@ fun <T : QuestionAbstraction> QuestionComponent(question: T) {
                                 text = "Published: ${question.date}",
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.SemiBold,
-                                color = AppDarkGray
+                                color = Color.Black
                             )
                         }
                     }

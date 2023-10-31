@@ -23,6 +23,8 @@ data class InterviewQuestionModel(
     val origin: String,
     @SerializedName("field")
     val field: String,
+    @SerializedName("subfield")
+    val subfield: String,
     @SerializedName("date")
     val date: String
 ): Parcelable, QuestionAbstraction()

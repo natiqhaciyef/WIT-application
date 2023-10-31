@@ -6,6 +6,7 @@ import com.natiqhaciyef.witapplication.data.network.ContactEndpoint
 import com.natiqhaciyef.witapplication.data.network.result.CRUDResponse
 import com.natiqhaciyef.witapplication.data.network.result.ContactResult
 import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -17,6 +18,7 @@ interface ContactService {
     ): ContactResult
 
     @POST(ContactEndpoint.INSERT)
+    @FormUrlEncoded
     suspend fun insertContact(
         @Query("apiKey") key: String = BuildConfig.API_KEY,
         @Field("name") name: String,
@@ -29,6 +31,7 @@ interface ContactService {
     ): CRUDResponse
 
     @POST(ContactEndpoint.DELETE)
+    @FormUrlEncoded
     suspend fun removeContact(
         @Query("apiKey") key: String = BuildConfig.API_KEY,
         @Field("id") id: Int,

@@ -23,6 +23,7 @@ class InterviewQuestionDataSource(
                 level = questionModel.level,
                 origin = questionModel.origin,
                 field = questionModel.field,
+                subfield = questionModel.subfield,
                 date = questionModel.date
             )
         }

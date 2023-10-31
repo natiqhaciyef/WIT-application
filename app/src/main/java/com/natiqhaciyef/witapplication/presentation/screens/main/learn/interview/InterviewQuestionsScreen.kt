@@ -40,29 +40,33 @@ fun InterviewQuestions(
 ) {
     val interviewQuestions = remember { interviewQuestionViewModel.interviewQuestionsUIState }
 
-
+    println(interviewQuestions.value.list.filter { it.field.lowercase() == field.lowercase() })
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppExtraLightBrown),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(35.dp))
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
-            text = stringResource(id = R.string.interview_questions),
-            fontFamily = Opensans.opensans,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            fontSize = 20.sp
-        )
+//        println(interviewQuestions.value.list)
+        if (interviewQuestions.value.list.any { it.field.lowercase() == field.lowercase() }) {
 
-        if (interviewQuestionViewModel.filterQuestionsByField(field, interviewQuestions.value.list).isNotEmpty()) {
+            Spacer(modifier = Modifier.height(35.dp))
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                text = stringResource(id = R.string.interview_questions),
+                fontFamily = Opensans.opensans,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                fontSize = 20.sp
+            )
+
             Spacer(modifier = Modifier.height(20.dp))
             LazyColumn {
-                items(interviewQuestionViewModel.filterQuestionsByField(field, interviewQuestions.value.list)) { question ->
+                items(
+                    interviewQuestions.value.list.filter { it.field.lowercase() == field.lowercase() }
+                ) { question ->
                     QuestionComponent(question = question)
                 }
             }

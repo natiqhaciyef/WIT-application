@@ -3,7 +3,11 @@ package com.natiqhaciyef.witapplication.presentation.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.natiqhaciyef.witapplication.common.Status
+import com.natiqhaciyef.witapplication.common.util.helpers.getNow
+import com.natiqhaciyef.witapplication.common.util.helpers.toSQLiteList
+import com.natiqhaciyef.witapplication.common.util.helpers.toSQLiteString
 import com.natiqhaciyef.witapplication.data.models.InterviewQuestionModel
+import com.natiqhaciyef.witapplication.data.models.enums.QuestionLevels
 import com.natiqhaciyef.witapplication.domain.usecase.remote.interview_question.GetAllInterviewQuestionsUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.interview_question.InsertInterviewQuestionUseCase
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
@@ -21,6 +25,21 @@ class InterviewQuestionViewModel @Inject constructor(
 
     init {
         getAllInterviewQuestions()
+//        insertInterviewQuestion(
+//            questionModel = InterviewQuestionModel(
+//                id = 0,
+//                title = "Difference between const val and val ?",
+//                description = "",
+//                solution = "Val - mutable (partly-modifiable) data type which can modify while it refers to function. This data type is read-only and static until runtime.\n" +
+//                        "Const - immutable data type which are not able to modify after run and only programmatically modifiable. It is static until compile time.",
+//                image = null,
+//                level = QuestionLevels.Easy.title,
+//                origin = "https://www.geeksforgeeks.org/whats-the-difference-between-const-and-val-in-kotlin/",
+//                field = "Mobile",
+//                subfield = listOf("Kotlin", "Android").toSQLiteString(),
+//                date = getNow()
+//            )
+//        )
     }
 
     private fun getAllInterviewQuestions() {
@@ -50,8 +69,6 @@ class InterviewQuestionViewModel @Inject constructor(
         }
     }
 
-    fun filterQuestionsByField(field: String, list: List<InterviewQuestionModel>) =
-        list.filter { it.field.lowercase() == field.lowercase() }
 
     fun insertInterviewQuestion(questionModel: InterviewQuestionModel) {
         viewModelScope.launch {
