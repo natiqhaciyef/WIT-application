@@ -95,11 +95,15 @@ class FirebaseViewModel @Inject constructor(
         getAllFAQUseCase.invoke(
             onSuccess = { result ->
                 if (result.isNotEmpty())
-                    faqState.value = faqState.value.copy(list = result)
+                    faqState.value.apply {
+                        this.list = result
+                    }
             },
             onFail = { error ->
                 if (error != null)
-                    faqState.value = faqState.value.copy(message = error.localizedMessage)
+                    faqState.value.apply {
+                        this.message = error.localizedMessage
+                    }
             }
         )
 
@@ -112,11 +116,11 @@ class FirebaseViewModel @Inject constructor(
         getAllMaterialsNameUseCase.invoke(
             concept = field,
             onSuccess = { files ->
-
-                filesState.value = filesState.value.copy(list = files)
+                filesState.value.apply {
+                    this.list = files
+                }
             },
             onFail = { }
         )
     }
-
 }

@@ -10,6 +10,7 @@ data class MaterialModel(
     var title: String,
     var type: String,
     var field: String,
+    var subfield: List<String>,
     var url: String,
     var downloadedUri: String? = null,
     var isDownloading: Boolean = false,
