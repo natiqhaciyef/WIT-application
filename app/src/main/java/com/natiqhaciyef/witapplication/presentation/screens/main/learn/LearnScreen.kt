@@ -154,7 +154,7 @@ fun LearnScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp)
-                        .padding(bottom = 30.dp)
+                        .padding(bottom = 55.dp)
                         .align(Alignment.Center),
                     text = ErrorMessages.APPLICATION_UNDER_THE_TEST,
                     fontSize = 16.sp,

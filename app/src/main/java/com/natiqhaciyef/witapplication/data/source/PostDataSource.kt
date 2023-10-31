@@ -1,6 +1,6 @@
 package com.natiqhaciyef.witapplication.data.source
 
-import com.natiqhaciyef.witapplication.data.local.PostDao
+import com.natiqhaciyef.witapplication.data.local.dao.PostDao
 import com.natiqhaciyef.witapplication.data.models.PostModel
 import com.natiqhaciyef.witapplication.data.network.service.PostService
 import kotlinx.coroutines.Dispatchers

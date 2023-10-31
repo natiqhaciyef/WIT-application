@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication.data.local
+package com.natiqhaciyef.witapplication.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete

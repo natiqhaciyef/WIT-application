@@ -1,6 +1,6 @@
 package com.natiqhaciyef.witapplication.data.source
 
-import com.natiqhaciyef.witapplication.data.local.ContactDao
+import com.natiqhaciyef.witapplication.data.local.dao.ContactDao
 import com.natiqhaciyef.witapplication.data.models.ContactModel
 import com.natiqhaciyef.witapplication.data.network.service.ContactService
 import kotlinx.coroutines.Dispatchers

@@ -17,6 +17,8 @@ import com.natiqhaciyef.witapplication.presentation.screens.main.learn.FieldScre
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.MaterialScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.interview.InterviewQuestions
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.interview.LiveInterviewScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.user.SavedContactScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.user.SavedQuestionsScreen
 import com.natiqhaciyef.witapplication.presentation.screens.register.ForgotPasswordScreen
 import com.natiqhaciyef.witapplication.presentation.screens.register.LoginScreen
 import com.natiqhaciyef.witapplication.presentation.screens.register.RegisterScreen
@@ -110,5 +112,15 @@ fun AppNavigation() {
 
             DetailsScreen(navController = navController, postModel = post)
         }
+
+
+        composable(ScreenId.SavedContactScreen.name) {
+            SavedContactScreen(navController = navController)
+        }
+
+        composable(ScreenId.SavedQuestionsScreen.name) {
+            SavedQuestionsScreen(navController = navController)
+        }
+
     }
 }
