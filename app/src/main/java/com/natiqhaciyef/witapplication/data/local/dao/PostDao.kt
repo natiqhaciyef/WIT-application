@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.natiqhaciyef.witapplication.data.models.PostModel
 
 @Dao
@@ -16,6 +17,9 @@ interface PostDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun savePost(postModel: PostModel)
 
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun updateSavedPost(postModel: PostModel)
+
     @Delete
-    suspend fun removePost(postModel: PostModel)
+    suspend fun removeSavedPost(postModel: PostModel)
 }

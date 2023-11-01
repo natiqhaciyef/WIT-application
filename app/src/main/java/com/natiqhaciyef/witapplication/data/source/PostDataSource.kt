@@ -49,11 +49,15 @@ class PostDataSource(
         dao.getAllSavedPosts()
     }
 
-    suspend fun savePostLocal(postModel: PostModel) = withContext(Dispatchers.IO){
+    suspend fun savePost(postModel: PostModel) = withContext(Dispatchers.IO){
         dao.savePost(postModel)
     }
 
-    suspend fun removePostLocal(postModel: PostModel) = withContext(Dispatchers.IO){
-        dao.removePost(postModel)
+    suspend fun updateSavedPost(postModel: PostModel) = withContext(Dispatchers.IO){
+        dao.updateSavedPost(postModel)
+    }
+
+    suspend fun removeSavedPost(postModel: PostModel) = withContext(Dispatchers.IO){
+        dao.removeSavedPost(postModel)
     }
 }

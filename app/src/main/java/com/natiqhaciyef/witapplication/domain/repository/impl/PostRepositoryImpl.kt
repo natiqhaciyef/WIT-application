@@ -19,7 +19,9 @@ class PostRepositoryImpl(
 
     override suspend fun getAllSavedPosts(): List<PostModel>? = ds.getAllSavedPosts()
 
-    override suspend fun savePostLocal(postModel: PostModel) = ds.savePostLocal(postModel)
+    override suspend fun savePost(postModel: PostModel) = ds.savePost(postModel)
 
-    override suspend fun removePostLocal(postModel: PostModel) = ds.removePostLocal(postModel)
+    override suspend fun updateSavedPost(postModel: PostModel) = ds.updateSavedPost(postModel)
+
+    override suspend fun removeSavedPost(postModel: PostModel) = ds.removeSavedPost(postModel)
 }

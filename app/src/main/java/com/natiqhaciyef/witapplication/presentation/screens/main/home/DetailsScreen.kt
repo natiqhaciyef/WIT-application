@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
@@ -44,12 +45,14 @@ import com.natiqhaciyef.witapplication.common.util.helpers.majorStringToDateChan
 import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
 import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
+import com.natiqhaciyef.witapplication.presentation.viewmodel.PostViewModel
 import com.natiqhaciyef.witapplication.ui.theme.*
 
 @Composable
 fun DetailsScreen(
     navController: NavController = rememberNavController(),
     postModel: MappedPostModel = DefaultImpl.post,
+    postViewModel: PostViewModel = hiltViewModel(),
 ) {
     var isLiked by remember { mutableStateOf(false) }
 
@@ -98,10 +101,15 @@ fun DetailsScreen(
                     onClick = {
                         isLiked = !isLiked
 
-                        if (isLiked)
+                        if (isLiked) {
                             postModel.likeCount += 1
-                        else
+                        } else {
                             postModel.likeCount -= 1
+                        }
+
+                        postViewModel.updatePostRemote(postModel) {
+                            postViewModel.updateSavedPost(postModel)
+                        }
                     }
                 ) {
                     Icon(

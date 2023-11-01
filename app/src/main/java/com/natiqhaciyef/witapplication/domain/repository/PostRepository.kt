@@ -16,8 +16,10 @@ interface PostRepository {
 
     suspend fun getAllSavedPosts(): List<PostModel>?
 
-    suspend fun savePostLocal(postModel: PostModel)
+    suspend fun savePost(postModel: PostModel)
 
-    suspend fun removePostLocal(postModel: PostModel)
+    suspend fun updateSavedPost(postModel: PostModel)
+
+    suspend fun removeSavedPost(postModel: PostModel)
 
 }

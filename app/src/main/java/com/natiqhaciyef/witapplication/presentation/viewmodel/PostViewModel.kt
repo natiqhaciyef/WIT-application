@@ -10,6 +10,7 @@ import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
 import com.natiqhaciyef.witapplication.domain.usecase.local.post.GetAllSavedPostsUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.local.post.RemoveSavedPostUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.local.post.SavePostUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.local.post.UpdateSavedPostUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.post.GetAllPostRemoteUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.post.InsertPostRemoteUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.post.RemovePostRemoteUseCase
@@ -29,6 +30,7 @@ class PostViewModel @Inject constructor(
     private val savePostUseCase: SavePostUseCase,
     private val getAllSavedPostsUseCase: GetAllSavedPostsUseCase,
     private val removeSavedPostUseCase: RemoveSavedPostUseCase,
+    private val updateSavedPostUseCase: UpdateSavedPostUseCase
 ) : BaseViewModel() {
     val postUIState = mutableStateOf(UIState<MappedPostModel>())
     val savedPostUIState = mutableStateOf(UIState<MappedPostModel>())
@@ -148,7 +150,10 @@ class PostViewModel @Inject constructor(
     }
 
 
-    fun updatePostRemote(postModel: MappedPostModel) {
+    fun updatePostRemote(
+        postModel: MappedPostModel,
+        onSuccess: () -> Unit = {},
+    ) {
         viewModelScope.launch {
             updatePostRemoteUseCase.invoke(postModel).collectLatest { result ->
                 when (result.status) {
@@ -169,6 +174,8 @@ class PostViewModel @Inject constructor(
                                 isLoading = false
                                 message = result.data
                             }
+
+                        onSuccess()
                     }
                 }
             }
@@ -233,6 +240,32 @@ class PostViewModel @Inject constructor(
     fun savePost(postModel: MappedPostModel) {
         viewModelScope.launch {
             savePostUseCase.invoke(postModel).collectLatest { result ->
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        savedPostUIState.value.apply {
+                            this.message = result.data
+                            this.isLoading = false
+                        }
+                    }
+
+                    Status.ERROR -> {
+                        savedPostUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
+                    }
+
+                    Status.LOADING -> {
+                        savedPostUIState.value.isLoading = true
+                    }
+                }
+            }
+        }
+    }
+
+    fun updateSavedPost(postModel: MappedPostModel) {
+        viewModelScope.launch {
+            updateSavedPostUseCase.invoke(postModel).collectLatest { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
                         savedPostUIState.value.apply {
