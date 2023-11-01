@@ -1,6 +1,5 @@
 package com.natiqhaciyef.witapplication.presentation.screens.main.user
 
-import android.content.Context
 import android.net.ConnectivityManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -28,7 +27,6 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.work.impl.utils.getActiveNetworkCompat
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.data.models.ContactModel
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
@@ -37,7 +35,7 @@ import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
 @Suppress("DEPRECATION")
 @Composable
-fun SavedContactScreen(
+fun LastContactScreen(
     navController: NavController,
     contactViewModel: ContactViewModel = hiltViewModel()
 ) {

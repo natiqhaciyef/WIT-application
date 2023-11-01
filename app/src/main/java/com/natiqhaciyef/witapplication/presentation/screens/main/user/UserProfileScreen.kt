@@ -17,14 +17,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Assignment
 import androidx.compose.material.icons.outlined.Assignment
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Logout
-import androidx.compose.material.icons.outlined.School
 import androidx.compose.material.icons.outlined.Tab
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -116,11 +114,11 @@ private fun UserProfileMainView(
         Spacer(modifier = Modifier.height(5.dp))
         SubComponent(
             navigationId = {
-                navController.navigate(ScreenId.SavedPostsScreen.name)
+                navController.navigate(ScreenId.LikedPostsScreen.name)
             },
             icon = Icons.Outlined.BookmarkBorder,
             iconSize = 28.dp,
-            textId = R.string.saved_posts
+            textId = R.string.liked_posts
         )
         Spacer(modifier = Modifier.height(5.dp))
         SubComponent(
@@ -134,7 +132,7 @@ private fun UserProfileMainView(
         Spacer(modifier = Modifier.height(5.dp))
         SubComponent(
             navigationId = {
-                navController.navigate(ScreenId.SavedContactScreen.name)
+                navController.navigate(ScreenId.LastContactScreen.name)
             },
             icon = Icons.Outlined.Tab,
             iconSize = 24.dp,

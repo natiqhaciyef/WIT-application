@@ -20,9 +20,9 @@ enum class ScreenId {
     DetailsScreen,
     AddPostScreen,
 
-    SavedContactScreen,
+    LastContactScreen,
     SavedQuestionsScreen,
-    SavedPostsScreen,
+    LikedPostsScreen,
     ResetPasswordScreen,
     LanguageScreen,
     HelpScreen,
