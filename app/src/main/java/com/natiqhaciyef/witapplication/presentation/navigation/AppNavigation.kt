@@ -17,7 +17,11 @@ import com.natiqhaciyef.witapplication.presentation.screens.main.learn.FieldScre
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.MaterialScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.interview.InterviewQuestions
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.interview.LiveInterviewScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.user.HelpScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.user.LanguageScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.user.ResetPasswordScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.user.SavedContactScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.user.SavedPostScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.user.SavedQuestionsScreen
 import com.natiqhaciyef.witapplication.presentation.screens.register.ForgotPasswordScreen
 import com.natiqhaciyef.witapplication.presentation.screens.register.LoginScreen
@@ -114,12 +118,29 @@ fun AppNavigation() {
         }
 
 
+
         composable(ScreenId.SavedContactScreen.name) {
             SavedContactScreen(navController = navController)
         }
 
         composable(ScreenId.SavedQuestionsScreen.name) {
             SavedQuestionsScreen(navController = navController)
+        }
+
+        composable(ScreenId.SavedPostsScreen.name) {
+            SavedPostScreen(navController = navController)
+        }
+
+        composable(ScreenId.HelpScreen.name) {
+            HelpScreen()
+        }
+
+        composable(ScreenId.LanguageScreen.name) {
+            LanguageScreen(navController = navController)
+        }
+
+        composable(ScreenId.ResetPasswordScreen.name) {
+            ResetPasswordScreen(navController = navController)
         }
 
     }

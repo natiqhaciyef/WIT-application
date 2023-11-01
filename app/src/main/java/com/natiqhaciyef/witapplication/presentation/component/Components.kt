@@ -126,7 +126,7 @@ fun NavBar(
             title = "Profile",
             id = ScreenId.UserProfileScreen.name
         ),
-    )
+    ),
 ) {
 
     Box(
@@ -204,7 +204,7 @@ fun InputBoxTitle(
     prefix: String = "",
     icon: ImageVector? = null,
     isBottomShadowActive: Boolean = true,
-    onClick: (String) -> Unit = { }
+    onClick: (String) -> Unit = { },
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -528,7 +528,7 @@ fun InputBoxTitleForCardNumber(
     input: MutableState<String>,
     fontSize: Int = 16,
     paymentMethod: MutableState<String>,
-    onClick: (String) -> Unit = { }
+    onClick: (String) -> Unit = { },
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -594,7 +594,7 @@ fun InputBoxTitleForCardNumber(
 fun InputBoxForCardDateAndCVV(
     expireDate: MutableState<String>,
     cvvCode: MutableState<String>,
-    onClick: (String) -> Unit = { }
+    onClick: (String) -> Unit = { },
 ) {
     Row(
         modifier = Modifier
@@ -898,7 +898,7 @@ fun InputBoxPassword(
 @Composable
 fun BottomShadow(
     alpha: Float = 0.1f, height: Dp = 8.dp,
-    padding: Dp = 0.dp
+    padding: Dp = 0.dp,
 ) {
     Box(
         modifier = Modifier
@@ -928,7 +928,7 @@ fun BottomShadow(modifier: Modifier) {
 fun ItemFile(
     file: MaterialModel,
     startDownload: (MaterialModel) -> Unit,
-    openFile: (MaterialModel) -> Unit
+    openFile: (MaterialModel) -> Unit,
 ) {
 
     val permissionGrantBooleanForFile = remember { mutableStateOf(true) }
@@ -949,7 +949,10 @@ fun ItemFile(
         modifier = Modifier
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(16.dp))
-            .border(width = 1.5.dp, color = AppDarkBlue, shape = RoundedCornerShape(16.dp))
+            .border(
+                width = 1.5.dp, color = AppDarkBlue,
+                shape = RoundedCornerShape(16.dp)
+            )
             .background(color = Color.White)
             .clickable {
                 permissionLauncherForFile.launch(
@@ -1029,7 +1032,7 @@ fun ItemFile(
 @Composable
 fun ItemFileBox(
     material: MutableState<MaterialModel>,
-    returnMessage: MutableState<String> = mutableStateOf("")
+    returnMessage: MutableState<String> = mutableStateOf(""),
 ) {
     val context = LocalContext.current
 
@@ -1084,6 +1087,8 @@ fun ItemFileBox(
                 } catch (e: ActivityNotFoundException) {
                     println(e.message)
                     println(e.cause)
+
+                    // Snackbar
                     Toast.makeText(
                         context,
                         "Can't open file",
@@ -1102,7 +1107,7 @@ fun CustomDropDownTitleSelectionBox(
     nonSelectedOption: String = "Options",
     list: List<String>,
     isEnabled: Boolean = true,
-    fontSize: Int = 20
+    fontSize: Int = 20,
 ) {
     Text(
         modifier = Modifier
@@ -1134,7 +1139,7 @@ fun CustomDropDownMenu(
     list: List<String>,
     selectedOption: MutableState<String>,
     isEnabled: Boolean = true,
-    extraAction: () -> Unit = { }
+    extraAction: () -> Unit = { },
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -1295,8 +1300,10 @@ fun SnackbarDemo(returnMessage: String) {
                 backgroundColor = AppDarkBlue,
                 shape = RoundedCornerShape(8.dp),
             ) {
-                Box(modifier = Modifier
-                    .fillMaxSize()){
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
                     Text(
                         modifier = Modifier
                             .align(Alignment.Center)
@@ -1412,7 +1419,7 @@ fun imageSelector(
     context: Context,
     permissionLauncher: ActivityResultLauncher<String>,
     activityResultLauncher: ActivityResultLauncher<Intent>,
-    isPermissionGranted: MutableState<Boolean>
+    isPermissionGranted: MutableState<Boolean>,
 ) {
 
     if (ContextCompat.checkSelfPermission(
