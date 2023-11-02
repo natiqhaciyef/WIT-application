@@ -52,8 +52,9 @@ import androidx.navigation.compose.rememberNavController
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
 import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
-import com.natiqhaciyef.witapplication.data.models.InfoModel
+import com.natiqhaciyef.witapplication.data.models.service.InfoModel
 import com.natiqhaciyef.witapplication.data.models.LearnSectionModel
+import com.natiqhaciyef.witapplication.data.models.enums.ContactFields
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.NavStandards
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
@@ -122,7 +123,7 @@ fun LearnScreen(
             LearnSection(
                 lsm = LearnSectionModel(title = "Custom plan", icon = Icons.Default.ContactSupport)
             ) {
-                navController.navigate(ScreenId.CustomPlanScreen.name)
+                navController.navigate("${ScreenId.CustomPlanScreen.name}/${ContactFields.CUSTOM_PLAN.name.lowercase()}")
             }
             Spacer(modifier = Modifier.width(20.dp))
         }

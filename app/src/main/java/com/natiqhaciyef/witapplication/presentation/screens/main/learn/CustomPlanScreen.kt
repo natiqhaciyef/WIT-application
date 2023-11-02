@@ -50,6 +50,7 @@ import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 fun CustomPlanScreen(
     navController: NavController = rememberNavController(),
     contactViewModel: ContactViewModel = hiltViewModel(),
+    field: String = ""
 ) {
     val fullName = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
@@ -122,7 +123,7 @@ fun CustomPlanScreen(
                     email = email.value,
                     phone = phone.value,
                     description = description.value,
-                    field = ContactFields.CUSTOM_PLAN.name.lowercase()
+                    field = field
                 )
 
                 contactViewModel.insertContactRemote(contact) {

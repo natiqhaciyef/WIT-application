@@ -1,7 +1,11 @@
 package com.natiqhaciyef.witapplication.common.util.objects
 
+import android.content.Context
 import com.natiqhaciyef.voyagersaz.data.model.enums.Season
+import com.natiqhaciyef.witapplication.R
+import com.natiqhaciyef.witapplication.data.models.service.LanguageModel
 import com.natiqhaciyef.witapplication.data.models.LearnSectionModel
+import com.natiqhaciyef.witapplication.data.models.service.InfoModel
 
 
 object EnumList {
@@ -36,6 +40,41 @@ object EnumList {
         LearnSectionModel(
             title = "Cyber Security",
             image = "https://firebasestorage.googleapis.com/v0/b/wit-app-6c770.appspot.com/o/Fields%2Fcybersecurity.png?alt=media&token=a7b70934-57cb-4d0c-8bcb-e769a8ed763e&_gl=1*151puly*_ga*MzcwNDMzNjkzLjE2NzkyMjgzNzk.*_ga_CW55HF8NVT*MTY5ODEzNTczMS4yMTAuMS4xNjk4MTM3NjM0LjYwLjAuMA.."
+        )
+    )
+
+
+    val languages = listOf(
+        LanguageModel(title = "az", "Azerbaijani", false),
+        LanguageModel(title = "tr", "Turkish", false),
+        LanguageModel(title = "", "English", false),
+    )
+
+
+    fun getAllHelpInformation(context: Context) = listOf(
+        InfoModel(
+            title = context.getString(R.string.how_to_verify),
+            description = context.getString(R.string.how_to_verify_description)
+        ),
+        InfoModel(
+            title = context.getString(R.string.how_to_learn_from_mentor),
+            description = context.getString(R.string.how_to_learn_from_mentor_description)
+        ),
+        InfoModel(
+            title = context.getString(R.string.how_to_become_partner),
+            description = context.getString(R.string.how_to_become_partner_description)
+        ),
+        InfoModel(
+            title = context.getString(R.string.how_to_configure_custom_events),
+            description = context.getString(R.string.how_to_configure_custom_events_description)
+        ),
+        InfoModel(
+            title = context.getString(R.string.how_to_ticket_system_works_for_events),
+            description = context.getString(R.string.how_to_ticket_system_works_for_events_description)
+        ),
+        InfoModel(
+            title = context.getString(R.string.other),
+            description = ""
         )
     )
 

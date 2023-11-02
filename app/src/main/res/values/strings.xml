@@ -57,4 +57,23 @@
     <string name="alert_dialog_title">Do you want to leave ?</string>
     <string name="alert_dialog_negative_button">No</string>
     <string name="alert_dialog_positive_button">Yes</string>
+
+    <string name="change_language">Change language</string>
+    <string name="general_questions">General questions</string>
+
+
+    <string name="how_to_verify">How to verify account?</string>
+    <string name="how_to_verify_description">Now, it is not available to verify account, but after new releases you can be able to modify account verification type.</string>
+    <string name="how_to_become_partner">How to become partner?</string>
+    <string name="how_to_become_partner_description">If you want become a partner you have to fill this form and after 7 &#45; 10 days respond will send. Please, be careful while filling.</string>
+    <string name="how_to_learn_from_mentor">How to apply course or mentor for specific field?</string>
+    <string name="how_to_learn_from_mentor_description">You can go to learn screen and select Custom Plan. Write message to us and we will inform you after 5 &#45; 10 days</string>
+    <string name="how_to_configure_custom_events">How to configure custom events?</string>
+    <string name="how_to_configure_custom_events_description">After becoming partner you will accessible to create events and live meetings for everyone or your own students with ticket.</string>
+    <string name="how_to_ticket_system_works_for_events">How ticket system works for events?</string>
+    <string name="how_to_ticket_system_works_for_events_description">After you buy ticket, it will save to tickets panel (in user profile screen). While you clicking ticket, it will generate QR code. With QR code you are be able to check it from event security check or online QR searching. You don’t need physically version of ticket while buying over app.</string>
+    <string name="other">Other</string>
+    <string name="how_help">How we can help ?</string>
+
+
 </resources>

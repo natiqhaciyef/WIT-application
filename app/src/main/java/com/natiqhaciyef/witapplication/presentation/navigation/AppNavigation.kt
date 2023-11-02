@@ -70,8 +70,16 @@ fun AppNavigation() {
             )
         }
 
-        composable(ScreenId.CustomPlanScreen.name) {
-            CustomPlanScreen(navController)
+        composable(
+            route = "${ScreenId.CustomPlanScreen.name}/{field}",
+            arguments = listOf(
+                navArgument("field"){
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val field = it.arguments?.getString("field") ?: ""
+            CustomPlanScreen(navController = navController, field = field)
         }
 
         composable(
@@ -132,7 +140,7 @@ fun AppNavigation() {
         }
 
         composable(ScreenId.HelpScreen.name) {
-            HelpScreen()
+            HelpScreen(navController)
         }
 
         composable(ScreenId.LanguageScreen.name) {
