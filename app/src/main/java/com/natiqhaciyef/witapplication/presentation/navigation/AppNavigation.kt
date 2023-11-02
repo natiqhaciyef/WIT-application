@@ -12,6 +12,7 @@ import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
 import com.natiqhaciyef.witapplication.presentation.navigation.type.PostType
 import com.natiqhaciyef.witapplication.presentation.screens.main.MainScreenLine
 import com.natiqhaciyef.witapplication.presentation.screens.main.home.DetailsScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.home.NotificationScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.CustomPlanScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.FieldScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.MaterialScreen
@@ -112,6 +113,7 @@ fun AppNavigation() {
         }
 
 
+
         composable(
             route = "${ScreenId.DetailsScreen.name}/{post}",
             arguments = listOf(
@@ -123,6 +125,10 @@ fun AppNavigation() {
             val post = it.arguments?.getParcelable("post") ?: DefaultImpl.post
 
             DetailsScreen(navController = navController, postModel = post)
+        }
+
+        composable(ScreenId.NotificationScreen.name){
+            NotificationScreen()
         }
 
 

@@ -18,7 +18,7 @@ enum class ScreenId {
     LiveInterviewScreen,
 
     DetailsScreen,
-    AddPostScreen,
+    NotificationScreen,
 
     LastContactScreen,
     SavedQuestionsScreen,

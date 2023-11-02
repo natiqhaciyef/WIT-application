@@ -78,7 +78,7 @@ fun HomeScreen(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HomeTopView(searchQuery = searchQuery, users = users)
+        HomeTopView(searchQuery = searchQuery, users = users, navController = navController)
         HomeBodyView(
             searchQuery = searchQuery,
             navController = navController
@@ -89,6 +89,7 @@ fun HomeScreen(
 @Composable
 private fun HomeTopView(
     searchQuery: MutableState<String>, users: MutableState<UIState<UserModel>>,
+    navController: NavController,
 ) {
     Column(
         modifier = Modifier
@@ -136,7 +137,10 @@ private fun HomeTopView(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
                     .padding(end = 30.dp)
-                    .size(30.dp),
+                    .size(30.dp)
+                    .clickable {
+                        navController.navigate(ScreenId.NotificationScreen.name)
+                    },
                 imageVector = Icons.Default.Notifications,
                 contentDescription = "Notification",
                 tint = AppYellow

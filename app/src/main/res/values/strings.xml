@@ -61,6 +61,8 @@
     <string name="change_language">Change language</string>
     <string name="general_questions">General questions</string>
 
+    <string name="notifications">Notifications</string>
+
 
     <string name="how_to_verify">How to verify account?</string>
     <string name="how_to_verify_description">Now, it is not available to verify account, but after new releases you can be able to modify account verification type.</string>
