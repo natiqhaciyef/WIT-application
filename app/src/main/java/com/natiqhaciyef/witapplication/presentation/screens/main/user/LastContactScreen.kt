@@ -36,7 +36,6 @@ import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 @Suppress("DEPRECATION")
 @Composable
 fun LastContactScreen(
-    navController: NavController,
     contactViewModel: ContactViewModel = hiltViewModel()
 ) {
     val contactLocal = remember { contactViewModel.savedContactUIState }

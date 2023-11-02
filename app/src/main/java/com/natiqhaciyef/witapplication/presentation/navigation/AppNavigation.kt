@@ -128,7 +128,7 @@ fun AppNavigation() {
 
 
         composable(ScreenId.LastContactScreen.name) {
-            LastContactScreen(navController = navController)
+            LastContactScreen()
         }
 
         composable(ScreenId.SavedQuestionsScreen.name) {

@@ -104,7 +104,7 @@ private fun UserProfileMainView(
     navController: NavController,
     openDialog: MutableState<Boolean>,
 ) {
-    Spacer(modifier = Modifier.height(30.dp))
+    Spacer(modifier = Modifier.height(20.dp))
 
     Column(
         modifier = Modifier
