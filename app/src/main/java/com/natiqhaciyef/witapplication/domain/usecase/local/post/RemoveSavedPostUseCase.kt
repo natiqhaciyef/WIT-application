@@ -16,7 +16,7 @@ class RemoveSavedPostUseCase @Inject constructor(
         emit(Resource.loading(null))
         val post = postModel.toPost()
 
-        postRepository.removePostLocal(post)
+        postRepository.removeSavedPost(post)
         emit(Resource.success(BaseUseCase.REMOVE_SUCCESS))
     }
 }

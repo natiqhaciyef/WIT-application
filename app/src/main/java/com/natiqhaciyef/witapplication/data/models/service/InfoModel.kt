@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication.data.models
+package com.natiqhaciyef.witapplication.data.models.service
 
 
 data class InfoModel(

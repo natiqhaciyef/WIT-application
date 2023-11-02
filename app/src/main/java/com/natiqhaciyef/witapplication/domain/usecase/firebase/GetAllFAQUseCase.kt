@@ -1,7 +1,7 @@
 package com.natiqhaciyef.witapplication.domain.usecase.firebase
 
 import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
-import com.natiqhaciyef.witapplication.data.models.InfoModel
+import com.natiqhaciyef.witapplication.data.models.service.InfoModel
 import com.natiqhaciyef.witapplication.domain.repository.impl.FirebaseRepositoryImpl
 import javax.inject.Inject
 

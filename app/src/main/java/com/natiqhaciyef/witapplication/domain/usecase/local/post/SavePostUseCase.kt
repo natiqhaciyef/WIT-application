@@ -16,7 +16,7 @@ class SavePostUseCase @Inject constructor(
         emit(Resource.loading(null))
         val post = postModel.toPost()
 
-        postRepository.insertPost(post)
+        postRepository.savePost(post)
         emit(Resource.success(BaseUseCase.INSERT_SUCCESS))
     }
 }
