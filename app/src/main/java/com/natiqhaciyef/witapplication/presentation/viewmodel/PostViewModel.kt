@@ -1,5 +1,6 @@
 package com.natiqhaciyef.witapplication.presentation.viewmodel
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.natiqhaciyef.witapplication.common.Status
@@ -30,7 +31,7 @@ class PostViewModel @Inject constructor(
     private val savePostUseCase: SavePostUseCase,
     private val getAllSavedPostsUseCase: GetAllSavedPostsUseCase,
     private val removeSavedPostUseCase: RemoveSavedPostUseCase,
-    private val updateSavedPostUseCase: UpdateSavedPostUseCase
+    private val updateSavedPostUseCase: UpdateSavedPostUseCase,
 ) : BaseViewModel() {
     val postUIState = mutableStateOf(UIState<MappedPostModel>())
     val savedPostUIState = mutableStateOf(UIState<MappedPostModel>())
@@ -105,7 +106,6 @@ class PostViewModel @Inject constructor(
                         postUIState.value.apply {
                             this.isLoading = false
                             this.message = result.message
-
                         }
                     }
 
@@ -287,5 +287,12 @@ class PostViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun refresh(count: MutableState<Int>): MutableState<Int> {
+        postUIState.value.isLoading = true
+        count.value += 10
+        postUIState.value.isLoading = false
+        return count
     }
 }

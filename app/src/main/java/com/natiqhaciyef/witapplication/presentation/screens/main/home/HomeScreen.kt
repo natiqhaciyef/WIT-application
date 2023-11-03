@@ -21,9 +21,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -183,8 +186,7 @@ private fun HomeBodyView(
     val screenHeight = configuration.screenHeightDp.dp
     val postState = remember { postViewModel.postUIState }
 
-    if (postState.value.list.filter { postState.value.list.indexOf(it) < count.value }
-            .isNotEmpty()) {
+    if (postState.value.list.any { postState.value.list.indexOf(it) < count.value }) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -211,10 +213,22 @@ private fun HomeBodyView(
                         .fillMaxWidth()
                         .heightIn(min = 300.dp, max = screenHeight + 300.dp)
                 ) {
-                    items(postState.value.list.filter { postState.value.list.indexOf(it) < count.value }) { post ->
-                        PostComponent(mappedPostModel = post) {
-                            val json = Uri.encode(Gson().toJson(post))
-                            navController.navigate("${ScreenId.DetailsScreen.name}/$json")
+                    if (searchQuery.value.isEmpty()) {
+                        items(postState.value.list.filter { postState.value.list.indexOf(it) < count.value }) { post ->
+                            PostComponent(mappedPostModel = post) {
+                                val json = Uri.encode(Gson().toJson(post))
+                                navController.navigate("${ScreenId.DetailsScreen.name}/$json")
+                            }
+                        }
+                    } else {
+                        items(postState.value.list.filter {
+                            it.title.contains(searchQuery.value)
+                                    || it.description.contains(searchQuery.value)
+                        }) { post ->
+                            PostComponent(mappedPostModel = post) {
+                                val json = Uri.encode(Gson().toJson(post))
+                                navController.navigate("${ScreenId.DetailsScreen.name}/$json")
+                            }
                         }
                     }
                 }
@@ -231,9 +245,7 @@ private fun HomeBodyView(
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp)
                         .clickable {
-                            postState.value.isLoading = true
-                            count.value += 1
-                            postState.value.isLoading = false
+                            postViewModel.refresh(count)
                         },
                     text = stringResource(id = R.string.load_more),
                     fontSize = 16.sp,

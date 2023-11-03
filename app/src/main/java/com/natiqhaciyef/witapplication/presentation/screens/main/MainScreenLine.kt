@@ -19,7 +19,7 @@ import com.natiqhaciyef.witapplication.presentation.screens.main.user.UserProfil
 fun MainScreenLine(
     navController: NavController
 ) {
-    val count = remember { mutableIntStateOf(1) }
+    val count = remember { mutableIntStateOf(10) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
