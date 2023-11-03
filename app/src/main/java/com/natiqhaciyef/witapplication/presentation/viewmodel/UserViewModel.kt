@@ -20,7 +20,6 @@ import javax.inject.Inject
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val getAllUserRemoteUseCase: GetAllUserRemoteUseCase,
     private val getUserByEmailUseCase: GetUserByEmailUseCase,
     private val insertUserRemoteUseCase: InsertUserRemoteUseCase,
     private val removeUserRemoteUseCase: RemoveUserRemoteUseCase,
@@ -29,62 +28,61 @@ class UserViewModel @Inject constructor(
     val userUIState = mutableStateOf(UIState<UserModel>())
 
     init {
-        getAllUser()
-    }
-
-    private fun getAllUser() {
-        viewModelScope.launch {
-            getAllUserRemoteUseCase.invoke().collectLatest { result ->
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        if (result.data != null)
-                            userUIState.value.apply {
-                                this.list = result.data
-                                this.isLoading = false
-                                this.selectedElement = result.data[0]
-                            }
-                    }
-
-                    Status.ERROR -> {
-                        userUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
-                    }
-
-                    Status.LOADING -> {
-                        userUIState.value.isLoading = true
-                    }
-                }
-            }
-        }
+        getUserByEmail()
     }
 
     fun getUserByEmail(email: String = "") {
         viewModelScope.launch {
             if (FirebaseAuth.getInstance().currentUser != null && email.isEmpty()) {
-                getUserByEmailUseCase.invoke(email).collectLatest { result ->
-                    when (result.status) {
-                        Status.SUCCESS -> {
-                            if (result.data != null)
+                getUserByEmailUseCase.invoke(FirebaseAuth.getInstance().currentUser?.email.toString())
+                    .collectLatest { result ->
+                        when (result.status) {
+                            Status.SUCCESS -> {
+                                if (result.data != null)
+                                    userUIState.value.apply {
+                                        this.list = result.data
+                                        this.isLoading = false
+                                        this.selectedElement = result.data[0]
+                                    }
+                            }
+
+                            Status.ERROR -> {
                                 userUIState.value.apply {
-                                    this.list = result.data
+                                    this.message = result.message
                                     this.isLoading = false
                                 }
-                        }
+                            }
 
-                        Status.ERROR -> {
-                            userUIState.value.apply {
-                                this.message = result.message
-                                this.isLoading = false
+                            Status.LOADING -> {
+                                userUIState.value.isLoading = true
                             }
                         }
+                    }
+            } else {
+                getUserByEmailUseCase.invoke(email)
+                    .collectLatest { result ->
+                        when (result.status) {
+                            Status.SUCCESS -> {
+                                if (result.data != null)
+                                    userUIState.value.apply {
+                                        this.list = result.data
+                                        this.isLoading = false
+                                        this.selectedElement = result.data[0]
+                                    }
+                            }
 
-                        Status.LOADING -> {
-                            userUIState.value.isLoading = true
+                            Status.ERROR -> {
+                                userUIState.value.apply {
+                                    this.message = result.message
+                                    this.isLoading = false
+                                }
+                            }
+
+                            Status.LOADING -> {
+                                userUIState.value.isLoading = true
+                            }
                         }
                     }
-                }
             }
         }
     }

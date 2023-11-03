@@ -17,6 +17,14 @@ object UserEndpoint{
     const val INSERT = "users/insert_user.php"
 }
 
+object VerifiedUserEndpoint{
+    const val GET = "users/verified_users/get_verified_users.php"
+    const val GET_BY_EMAIL = "users/verified_users/get_verified_user_by_email.php"
+    const val DELETE = "users/verified_users/delete_verified_user.php"
+    const val UPDATE = "users/verified_users/update_verified_user.php"
+    const val INSERT = "users/verified_users/insert_verified_user.php"
+}
+
 object PostEndpoint{
     const val GET = "posts/get_posts.php"
     const val DELETE = "posts/delete_post.php"

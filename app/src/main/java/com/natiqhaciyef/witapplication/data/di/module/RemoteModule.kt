@@ -8,18 +8,22 @@ import com.natiqhaciyef.witapplication.data.network.service.ContactService
 import com.natiqhaciyef.witapplication.data.network.service.InterviewQuestionService
 import com.natiqhaciyef.witapplication.data.network.service.PostService
 import com.natiqhaciyef.witapplication.data.network.service.UserService
+import com.natiqhaciyef.witapplication.data.network.service.VerifiedUserService
 import com.natiqhaciyef.witapplication.data.source.ContactDataSource
 import com.natiqhaciyef.witapplication.data.source.InterviewQuestionDataSource
 import com.natiqhaciyef.witapplication.data.source.PostDataSource
 import com.natiqhaciyef.witapplication.data.source.UserDataSource
+import com.natiqhaciyef.witapplication.data.source.VerifiedUserDataSource
 import com.natiqhaciyef.witapplication.domain.repository.ContactRepository
 import com.natiqhaciyef.witapplication.domain.repository.InterviewQuestionRepository
 import com.natiqhaciyef.witapplication.domain.repository.PostRepository
 import com.natiqhaciyef.witapplication.domain.repository.UserRepository
+import com.natiqhaciyef.witapplication.domain.repository.VerifiedUserRepository
 import com.natiqhaciyef.witapplication.domain.repository.impl.ContactRepositoryImpl
 import com.natiqhaciyef.witapplication.domain.repository.impl.InterviewQuestionRepositoryImpl
 import com.natiqhaciyef.witapplication.domain.repository.impl.PostRepositoryImpl
 import com.natiqhaciyef.witapplication.domain.repository.impl.UserRepositoryImpl
+import com.natiqhaciyef.witapplication.domain.repository.impl.VerifiedUserRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,6 +52,11 @@ object RemoteModule {
 
     @Provides
     @Singleton
+    fun provideVerifiedUserService(network: Retrofit): VerifiedUserService =
+        network.create(VerifiedUserService::class.java)
+
+    @Provides
+    @Singleton
     fun providePostService(network: Retrofit): PostService = network.create(PostService::class.java)
 
     @Provides
@@ -65,6 +74,11 @@ object RemoteModule {
     @Provides
     @Singleton
     fun provideUserDataSource(service: UserService) = UserDataSource(service)
+
+    @Provides
+    @Singleton
+    fun provideVerifiedUserDataSource(service: VerifiedUserService) =
+        VerifiedUserDataSource(service)
 
     @Provides
     @Singleton
@@ -87,6 +101,11 @@ object RemoteModule {
     @Provides
     @Singleton
     fun provideUserRepository(ds: UserDataSource) = UserRepositoryImpl(ds) as UserRepository
+
+    @Provides
+    @Singleton
+    fun provideVerifiedUserRepository(ds: VerifiedUserDataSource) =
+        VerifiedUserRepositoryImpl(ds) as VerifiedUserRepository
 
     @Provides
     @Singleton

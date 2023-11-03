@@ -34,6 +34,7 @@ fun SplashScreen(
     firebaseViewModel: FirebaseViewModel = hiltViewModel(),
     userViewModel: UserViewModel = hiltViewModel(),
 ) {
+    userViewModel.getUserByEmail()
     val coroutineScope = rememberCoroutineScope()
     val userUIState = remember { userViewModel.userUIState }
 
@@ -54,11 +55,11 @@ fun SplashScreen(
         )
 
         coroutineScope.launch(Dispatchers.Main) {
-            delay(1500)
             if (firebaseViewModel.getUser().currentUser != null) {
-                userViewModel.getUserByEmail(FirebaseAuth.getInstance().currentUser?.email.toString())
+                delay(1500)
+                println(userViewModel.userUIState.value)
 
-                if (userUIState.value.list.isNotEmpty()) {
+                if (userUIState.value.selectedElement != null) {
                     navController.navigate(ScreenId.MainScreenLine.name) {
                         navController.popBackStack(ScreenId.SplashScreen.name, inclusive = true)
                     }

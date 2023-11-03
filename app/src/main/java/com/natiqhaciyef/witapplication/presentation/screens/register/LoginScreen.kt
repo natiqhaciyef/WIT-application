@@ -226,7 +226,6 @@ private fun LoginMainPart(
                                     navController.navigate(ScreenId.MainScreenLine.name){
                                         navController.popBackStack(ScreenId.LoginScreen.name, inclusive = true)
                                     }
-
                                 },
                                 onFail = {
                                     Toast.makeText(
