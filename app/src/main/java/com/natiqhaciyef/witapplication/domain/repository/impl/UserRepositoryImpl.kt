@@ -11,6 +11,8 @@ class UserRepositoryImpl(
 ): UserRepository {
     override suspend fun getAllUsers(): UserResult = ds.getAllUsers()
 
+    override suspend fun getUserByEmail(email: String): UserResult = ds.getUserByEmail(email)
+
     override suspend fun insertUser(userModel: UserModel): CRUDResponse = ds.insertUser(userModel)
 
     override suspend fun updateUser(userModel: UserModel): CRUDResponse = ds.updateUser(userModel)

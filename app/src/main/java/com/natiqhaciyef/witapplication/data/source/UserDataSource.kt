@@ -13,6 +13,10 @@ class UserDataSource(
         service.getAllUsers()
     }
 
+    suspend fun getUserByEmail(email: String) = withContext(Dispatchers.IO){
+        service.getUserByEmail(email = email)
+    }
+
     suspend fun insertUser(userModel: UserModel) = withContext(Dispatchers.IO){
         service.insertUser(
             name = userModel.name,

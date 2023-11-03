@@ -24,10 +24,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -65,11 +67,9 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 @Composable
 fun HomeScreen(
     navController: NavController,
-    userViewModel: UserViewModel = hiltViewModel(),
+    count: MutableState<Int>,
 ) {
-    val users = remember { userViewModel.userUIState }
     val searchQuery = remember { mutableStateOf("") }
-    userViewModel.getUser(users.value.list)
 
     Column(
         modifier = Modifier
@@ -78,19 +78,24 @@ fun HomeScreen(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HomeTopView(searchQuery = searchQuery, users = users, navController = navController)
+        HomeTopView(searchQuery = searchQuery, navController = navController)
         HomeBodyView(
             searchQuery = searchQuery,
-            navController = navController
+            navController = navController,
+            count = count
         )
     }
 }
 
 @Composable
 private fun HomeTopView(
-    searchQuery: MutableState<String>, users: MutableState<UIState<UserModel>>,
+    searchQuery: MutableState<String>,
     navController: NavController,
+    userViewModel: UserViewModel = hiltViewModel(),
 ) {
+    userViewModel.getUserByEmail()
+    val users = remember { userViewModel.userUIState }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -170,15 +175,16 @@ private fun HomeTopView(
 @Composable
 private fun HomeBodyView(
     searchQuery: MutableState<String>,
-    postViewModel: PostViewModel = hiltViewModel(),
     navController: NavController,
+    count: MutableState<Int>,
+    postViewModel: PostViewModel = hiltViewModel(),
 ) {
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
     val postState = remember { postViewModel.postUIState }
-    var count = 10
 
-    if (postState.value.list.filter { postState.value.list.indexOf(it) < count }.isNotEmpty()) {
+    if (postState.value.list.filter { postState.value.list.indexOf(it) < count.value }
+            .isNotEmpty()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -197,18 +203,24 @@ private fun HomeBodyView(
                 fontSize = 20.sp
             )
             Spacer(modifier = Modifier.height(5.dp))
-            LazyColumn(
-                modifier = Modifier
-                    .animateContentSize(animationSpec = tween(600, 100))
+            if (!postState.value.isLoading) {
+                LazyColumn(
+                    modifier = Modifier
+                        .animateContentSize(animationSpec = tween(600, 100))
 //                .wrapContentHeight()
-                    .fillMaxWidth()
-                    .heightIn(min = 300.dp, max = screenHeight + 300.dp)
-            ) {
-                items(postState.value.list.filter { postState.value.list.indexOf(it) < count }) { post ->
-                    PostComponent(mappedPostModel = post) {
-                        val json = Uri.encode(Gson().toJson(post))
-                        navController.navigate("${ScreenId.DetailsScreen.name}/$json")
+                        .fillMaxWidth()
+                        .heightIn(min = 300.dp, max = screenHeight + 300.dp)
+                ) {
+                    items(postState.value.list.filter { postState.value.list.indexOf(it) < count.value }) { post ->
+                        PostComponent(mappedPostModel = post) {
+                            val json = Uri.encode(Gson().toJson(post))
+                            navController.navigate("${ScreenId.DetailsScreen.name}/$json")
+                        }
                     }
+                }
+            } else {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -218,7 +230,11 @@ private fun HomeBodyView(
                         .align(Alignment.BottomCenter)
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp)
-                        .clickable { count += 10 },
+                        .clickable {
+                            postState.value.isLoading = true
+                            count.value += 1
+                            postState.value.isLoading = false
+                        },
                     text = stringResource(id = R.string.load_more),
                     fontSize = 16.sp,
                     color = Color.Black,

@@ -24,6 +24,7 @@ import com.natiqhaciyef.witapplication.presentation.screens.main.user.ResetPassw
 import com.natiqhaciyef.witapplication.presentation.screens.main.user.LastContactScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.user.LikedPostScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.user.SavedQuestionsScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.user.VerifyAccountScreen
 import com.natiqhaciyef.witapplication.presentation.screens.register.ForgotPasswordScreen
 import com.natiqhaciyef.witapplication.presentation.screens.register.LoginScreen
 import com.natiqhaciyef.witapplication.presentation.screens.register.RegisterScreen
@@ -74,7 +75,7 @@ fun AppNavigation() {
         composable(
             route = "${ScreenId.CustomPlanScreen.name}/{field}",
             arguments = listOf(
-                navArgument("field"){
+                navArgument("field") {
                     type = NavType.StringType
                 }
             )
@@ -127,7 +128,7 @@ fun AppNavigation() {
             DetailsScreen(navController = navController, postModel = post)
         }
 
-        composable(ScreenId.NotificationScreen.name){
+        composable(ScreenId.NotificationScreen.name) {
             NotificationScreen()
         }
 
@@ -151,6 +152,10 @@ fun AppNavigation() {
 
         composable(ScreenId.LanguageScreen.name) {
             LanguageScreen(navController = navController)
+        }
+
+        composable(ScreenId.VerifyAccountScreen.name) {
+            VerifyAccountScreen(navController = navController)
         }
 
         composable(ScreenId.ResetPasswordScreen.name) {

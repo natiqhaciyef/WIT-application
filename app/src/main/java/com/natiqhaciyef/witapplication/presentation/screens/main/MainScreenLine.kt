@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -17,6 +19,7 @@ import com.natiqhaciyef.witapplication.presentation.screens.main.user.UserProfil
 fun MainScreenLine(
     navController: NavController
 ) {
+    val count = remember { mutableIntStateOf(1) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -26,7 +29,7 @@ fun MainScreenLine(
         it.calculateBottomPadding()
         when (selectedIndex.value) {
             0 -> {
-                HomeScreen(navController)
+                HomeScreen(navController, count)
             }
 
             1 -> {

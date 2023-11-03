@@ -55,22 +55,20 @@ fun SplashScreen(
 
         coroutineScope.launch(Dispatchers.Main) {
             delay(1500)
-            if (firebaseViewModel.getUser().currentUser != null){
-                val isContains = userUIState.value.list.any {
-                    it.email == FirebaseAuth.getInstance().currentUser?.email
-                }
+            if (firebaseViewModel.getUser().currentUser != null) {
+                userViewModel.getUserByEmail(FirebaseAuth.getInstance().currentUser?.email.toString())
 
-                if (isContains) {
-                    navController.navigate(ScreenId.MainScreenLine.name){
+                if (userUIState.value.list.isNotEmpty()) {
+                    navController.navigate(ScreenId.MainScreenLine.name) {
                         navController.popBackStack(ScreenId.SplashScreen.name, inclusive = true)
                     }
                 } else {
-                    navController.navigate(ScreenId.LoginScreen.name){
+                    navController.navigate(ScreenId.LoginScreen.name) {
                         navController.popBackStack(ScreenId.SplashScreen.name, inclusive = true)
                     }
                 }
-            }else{
-                navController.navigate(ScreenId.LoginScreen.name){
+            } else {
+                navController.navigate(ScreenId.LoginScreen.name) {
                     navController.popBackStack(ScreenId.SplashScreen.name, inclusive = true)
                 }
             }

@@ -8,6 +8,8 @@ interface UserRepository {
 
     suspend fun getAllUsers(): UserResult
 
+    suspend fun getUserByEmail(email: String): UserResult
+
     suspend fun insertUser(userModel: UserModel): CRUDResponse
 
     suspend fun updateUser(userModel: UserModel): CRUDResponse

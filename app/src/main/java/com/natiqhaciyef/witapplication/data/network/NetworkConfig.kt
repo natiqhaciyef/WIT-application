@@ -11,6 +11,7 @@ object NetworkConfig{
 
 object UserEndpoint{
     const val GET = "users/get_users.php"
+    const val GET_BY_EMAIL = "users/get_user_by_email.php"
     const val DELETE = "users/delete_user.php"
     const val UPDATE = "users/update_user.php"
     const val INSERT = "users/insert_user.php"

@@ -25,5 +25,6 @@ enum class ScreenId {
     LikedPostsScreen,
     ResetPasswordScreen,
     LanguageScreen,
+    VerifyAccountScreen,
     HelpScreen,
 }

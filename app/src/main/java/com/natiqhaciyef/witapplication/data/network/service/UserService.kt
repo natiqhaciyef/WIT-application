@@ -14,9 +14,15 @@ import retrofit2.http.Query
 interface UserService {
     @GET(UserEndpoint.GET)
     suspend fun getAllUsers(
-        @Query("apiKey") key: String = BuildConfig.API_KEY
+        @Query("apiKey") key: String = BuildConfig.API_KEY,
     ): UserResult
 
+    @POST(UserEndpoint.GET_BY_EMAIL)
+    @FormUrlEncoded
+    suspend fun getUserByEmail(
+        @Query("apiKey") key: String = BuildConfig.API_KEY,
+        @Field("email") email: String,
+    ): UserResult
 
     @POST(UserEndpoint.INSERT)
     @FormUrlEncoded

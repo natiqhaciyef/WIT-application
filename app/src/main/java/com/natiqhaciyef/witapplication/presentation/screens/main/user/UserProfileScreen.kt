@@ -24,6 +24,7 @@ import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Logout
 import androidx.compose.material.icons.outlined.Tab
+import androidx.compose.material.icons.outlined.Verified
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -72,11 +73,13 @@ fun UserProfileScreen(
             navController = navController,
             openDialog = openDialog
         )
-        Spacer(modifier = Modifier.height(45.dp))
 
 
-
-        Spacer(modifier = Modifier.height(60.dp))
+        Box(
+            modifier = Modifier
+                .height(65.dp)
+                .background(Color.White)
+        )
         if (openDialog.value)
             AlertDialogSample(
                 openDialog = openDialog,
@@ -152,6 +155,15 @@ private fun UserProfileMainView(
             iconSize = 27.dp,
             textId = R.string.reset_password
         )
+        Spacer(modifier = Modifier.height(5.dp))
+        SubComponent(
+            navigationId = {
+                navController.navigate(ScreenId.VerifyAccountScreen.name)
+            },
+            icon = Icons.Outlined.Verified,
+            iconSize = 27.dp,
+            textId = R.string.verify_account
+        )
 
         Spacer(modifier = Modifier.height(5.dp))
         SubComponent(
@@ -182,8 +194,6 @@ private fun UserProfileMainView(
             iconSize = 27.dp,
             textId = R.string.log_out
         )
-        Spacer(modifier = Modifier.height(5.dp))
-
     }
 }
 

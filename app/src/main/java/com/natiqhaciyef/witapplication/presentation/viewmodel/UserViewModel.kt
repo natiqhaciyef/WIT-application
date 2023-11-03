@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.natiqhaciyef.witapplication.common.Status
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.domain.usecase.remote.user.GetAllUserRemoteUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.remote.user.GetUserByEmailUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.user.InsertUserRemoteUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.user.RemoveUserRemoteUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.user.UpdateUserRemoteUseCase
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val getAllUserRemoteUseCase: GetAllUserRemoteUseCase,
+    private val getUserByEmailUseCase: GetUserByEmailUseCase,
     private val insertUserRemoteUseCase: InsertUserRemoteUseCase,
     private val removeUserRemoteUseCase: RemoveUserRemoteUseCase,
     private val updateUserRemoteUseCase: UpdateUserRemoteUseCase,
@@ -39,6 +41,7 @@ class UserViewModel @Inject constructor(
                             userUIState.value.apply {
                                 this.list = result.data
                                 this.isLoading = false
+                                this.selectedElement = result.data[0]
                             }
                     }
 
@@ -51,6 +54,35 @@ class UserViewModel @Inject constructor(
 
                     Status.LOADING -> {
                         userUIState.value.isLoading = true
+                    }
+                }
+            }
+        }
+    }
+
+    fun getUserByEmail(email: String = "") {
+        viewModelScope.launch {
+            if (FirebaseAuth.getInstance().currentUser != null && email.isEmpty()) {
+                getUserByEmailUseCase.invoke(email).collectLatest { result ->
+                    when (result.status) {
+                        Status.SUCCESS -> {
+                            if (result.data != null)
+                                userUIState.value.apply {
+                                    this.list = result.data
+                                    this.isLoading = false
+                                }
+                        }
+
+                        Status.ERROR -> {
+                            userUIState.value.apply {
+                                this.message = result.message
+                                this.isLoading = false
+                            }
+                        }
+
+                        Status.LOADING -> {
+                            userUIState.value.isLoading = true
+                        }
                     }
                 }
             }
