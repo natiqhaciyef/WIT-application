@@ -1,6 +1,7 @@
 package com.natiqhaciyef.witapplication.presentation.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.natiqhaciyef.witapplication.data.models.service.InfoModel
@@ -14,6 +15,7 @@ import com.natiqhaciyef.witapplication.domain.usecase.firebase.GetAllNotificatio
 import com.natiqhaciyef.witapplication.domain.usecase.firebase.GetMaterialUseCase
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,11 +41,13 @@ class FirebaseViewModel @Inject constructor(
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit,
     ) {
-        firebaseRepository.signInUser(
-            user = user,
-            onSuccess = onSuccess,
-            onFail = onFail
-        )
+        viewModelScope.launch {
+            firebaseRepository.signInUser(
+                user = user,
+                onSuccess = onSuccess,
+                onFail = onFail
+            )
+        }
     }
 
     fun createAccount(
@@ -51,11 +55,13 @@ class FirebaseViewModel @Inject constructor(
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit,
     ) {
-        firebaseRepository.createAccount(
-            user = user,
-            onSuccess = onSuccess,
-            onFail = onFail
-        )
+        viewModelScope.launch {
+            firebaseRepository.createAccount(
+                user = user,
+                onSuccess = onSuccess,
+                onFail = onFail
+            )
+        }
     }
 
     fun resetPasswordFromEmail(
@@ -63,11 +69,13 @@ class FirebaseViewModel @Inject constructor(
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit,
     ) {
-        firebaseRepository.resetPasswordFromEmail(
-            email = email,
-            onSuccess = onSuccess,
-            onFail = onFail
-        )
+        viewModelScope.launch {
+            firebaseRepository.resetPasswordFromEmail(
+                email = email,
+                onSuccess = onSuccess,
+                onFail = onFail
+            )
+        }
     }
 
     fun updatePassword(

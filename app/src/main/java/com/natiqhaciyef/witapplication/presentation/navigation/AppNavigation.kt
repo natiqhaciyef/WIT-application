@@ -106,7 +106,7 @@ fun AppNavigation() {
             )
         ) {
             val field = it.arguments?.getString("field") ?: ""
-            InterviewQuestions(navController, field)
+            InterviewQuestions(field = field, navController = navController)
         }
 
         composable(ScreenId.LiveInterviewScreen.name) {

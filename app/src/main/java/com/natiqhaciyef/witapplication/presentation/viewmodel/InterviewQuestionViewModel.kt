@@ -65,11 +65,13 @@ class InterviewQuestionViewModel @Inject constructor(
                     }
 
                     Status.SUCCESS -> {
-                        if (result.data != null)
-                            interviewQuestionsUIState.value.apply {
-                                this.list = result.data
-                                this.isLoading = false
-                            }
+                        if (result.data != null) {
+                            interviewQuestionsUIState.value =
+                                interviewQuestionsUIState.value.apply {
+                                    this.list = result.data
+                                    this.isLoading = false
+                                }
+                        }
                     }
                 }
             }
@@ -181,5 +183,9 @@ class InterviewQuestionViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun refresh() {
+
     }
 }
