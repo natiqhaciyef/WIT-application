@@ -58,6 +58,7 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 fun UserProfileScreen(
     navController: NavController,
     viewModel: UserViewModel = hiltViewModel(),
+    firebaseViewModel: FirebaseViewModel = hiltViewModel(),
 ) {
     val openDialog = remember { mutableStateOf(false) }
     Column(
@@ -81,9 +82,12 @@ fun UserProfileScreen(
                 .background(Color.White)
         )
         if (openDialog.value)
-            AlertDialogSample(
-                openDialog = openDialog,
-            )
+            AlertDialogSample(openDialog = openDialog){
+                firebaseViewModel.signOut()
+                navController.navigate(ScreenId.LoginScreen.name){
+                    navController.popBackStack(ScreenId.MainScreenLine.name, inclusive = true)
+                }
+            }
     }
 }
 
@@ -317,7 +321,7 @@ private fun SubComponent(
 @Composable
 fun AlertDialogSample(
     openDialog: MutableState<Boolean>,
-    viewModel: FirebaseViewModel = hiltViewModel(),
+    onClick: () -> Unit = { }
 ) {
     Column {
         if (openDialog.value) {
@@ -384,7 +388,7 @@ fun AlertDialogSample(
                             .height(55.dp),
                         onClick = {
                             openDialog.value = false
-                            viewModel.signOut()
+                            onClick()
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = AppDarkBlue
