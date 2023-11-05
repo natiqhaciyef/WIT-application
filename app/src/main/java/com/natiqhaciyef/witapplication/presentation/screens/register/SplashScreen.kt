@@ -31,13 +31,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun SplashScreen(
     navController: NavController,
-    firebaseViewModel: FirebaseViewModel = hiltViewModel(),
     userViewModel: UserViewModel = hiltViewModel(),
 ) {
-    userViewModel.getUserByEmail()
     val coroutineScope = rememberCoroutineScope()
     val userUIState = remember { userViewModel.userUIState }
-
 
     Box(
         modifier = Modifier
@@ -55,11 +52,10 @@ fun SplashScreen(
         )
 
         coroutineScope.launch(Dispatchers.Main) {
-            if (firebaseViewModel.getUser().currentUser != null) {
+            if (FirebaseAuth.getInstance().currentUser != null) {
                 delay(1500)
-                println(userViewModel.userUIState.value)
-
-                if (userUIState.value.selectedElement != null) {
+                val list = userUIState.value.list
+                if (list.any { it.email == FirebaseAuth.getInstance().currentUser?.email }) {
                     navController.navigate(ScreenId.MainScreenLine.name) {
                         navController.popBackStack(ScreenId.SplashScreen.name, inclusive = true)
                     }
@@ -73,8 +69,6 @@ fun SplashScreen(
                     navController.popBackStack(ScreenId.SplashScreen.name, inclusive = true)
                 }
             }
-
         }
-
     }
 }

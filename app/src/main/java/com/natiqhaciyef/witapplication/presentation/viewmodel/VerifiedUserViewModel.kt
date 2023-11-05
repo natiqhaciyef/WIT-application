@@ -32,22 +32,24 @@ class VerifiedUserViewModel @Inject constructor(
                         when (result.status) {
                             Status.SUCCESS -> {
                                 if (result.data != null)
-                                    verifiedUserUIState.value.apply {
-                                        this.list = result.data
-                                        this.isLoading = false
-                                        this.selectedElement = result.data[0]
-                                    }
+                                    verifiedUserUIState.value = verifiedUserUIState.value.copy(
+                                        list = result.data,
+                                        isLoading = false,
+                                        selectedElement = result.data[0],
+
+                                        )
                             }
 
                             Status.ERROR -> {
-                                verifiedUserUIState.value.apply {
-                                    this.message = result.message
-                                    this.isLoading = false
-                                }
+                                verifiedUserUIState.value = verifiedUserUIState.value.copy(
+                                    message = result.message,
+                                    isLoading = false
+                                )
                             }
 
                             Status.LOADING -> {
-                                verifiedUserUIState.value.isLoading = true
+                                verifiedUserUIState.value =
+                                    verifiedUserUIState.value.copy(isLoading = true)
                             }
                         }
                     }
@@ -57,22 +59,24 @@ class VerifiedUserViewModel @Inject constructor(
                         when (result.status) {
                             Status.SUCCESS -> {
                                 if (result.data != null)
-                                    verifiedUserUIState.value.apply {
-                                        this.list = result.data
-                                        this.isLoading = false
-                                        this.selectedElement = result.data[0]
-                                    }
+                                    verifiedUserUIState.value = verifiedUserUIState.value.copy(
+                                        list = result.data,
+                                        isLoading = false,
+                                        selectedElement = result.data[0],
+
+                                        )
                             }
 
                             Status.ERROR -> {
-                                verifiedUserUIState.value.apply {
-                                    this.message = result.message
-                                    this.isLoading = false
-                                }
+                                verifiedUserUIState.value = verifiedUserUIState.value.copy(
+                                    message = result.message,
+                                    isLoading = false
+                                )
                             }
 
                             Status.LOADING -> {
-                                verifiedUserUIState.value.isLoading = true
+                                verifiedUserUIState.value =
+                                    verifiedUserUIState.value.copy(isLoading = true)
                             }
                         }
                     }
@@ -85,21 +89,23 @@ class VerifiedUserViewModel @Inject constructor(
             removeVerifiedUserUseCase.invoke(id).collectLatest { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
-                        verifiedUserUIState.value.apply {
-                            this.message = result.data
-                            this.isLoading = false
-                        }
+                        if (result.data != null)
+                            verifiedUserUIState.value = verifiedUserUIState.value.copy(
+                                message = result.data,
+                                isLoading = false
+                            )
                     }
 
                     Status.ERROR -> {
-                        verifiedUserUIState.value.apply {
-                            this.message = result.data
-                            this.isLoading = false
-                        }
+                        verifiedUserUIState.value = verifiedUserUIState.value.copy(
+                            message = result.message,
+                            isLoading = false
+                        )
                     }
 
                     Status.LOADING -> {
-                        verifiedUserUIState.value.isLoading = true
+                        verifiedUserUIState.value =
+                            verifiedUserUIState.value.copy(isLoading = true)
                     }
                 }
             }

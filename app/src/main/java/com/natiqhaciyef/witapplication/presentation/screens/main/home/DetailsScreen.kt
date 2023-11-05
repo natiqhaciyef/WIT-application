@@ -50,7 +50,6 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 
 @Composable
 fun DetailsScreen(
-    navController: NavController = rememberNavController(),
     postModel: MappedPostModel = DefaultImpl.post,
     postViewModel: PostViewModel = hiltViewModel(),
 ) {

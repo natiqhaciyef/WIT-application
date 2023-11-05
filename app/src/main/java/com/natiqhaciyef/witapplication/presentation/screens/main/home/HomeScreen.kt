@@ -51,10 +51,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
 import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
+import com.natiqhaciyef.witapplication.data.di.module.FirebaseModule
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
@@ -96,7 +98,6 @@ private fun HomeTopView(
     navController: NavController,
     userViewModel: UserViewModel = hiltViewModel(),
 ) {
-    userViewModel.getUserByEmail()
     val users = remember { userViewModel.userUIState }
 
     Column(
@@ -134,8 +135,11 @@ private fun HomeTopView(
                         fontFamily = Lobster.lobster
                     )
                 ) {
-                    if (users.value.selectedElement != null) append(users.value.selectedElement!!.name)
-                    else append(stringResource(id = R.string.guest))
+                    if (users.value.list.any { it.email == FirebaseAuth.getInstance().currentUser?.email.toString() }) {
+                        val user =
+                            users.value.list.filter { it.email == FirebaseAuth.getInstance().currentUser?.email.toString() }[0]
+                        append(user.name)
+                    } else append(stringResource(id = R.string.guest))
                 }
 
             })

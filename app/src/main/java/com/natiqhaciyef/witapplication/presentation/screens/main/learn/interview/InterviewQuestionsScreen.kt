@@ -34,12 +34,13 @@ import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
 @Composable
 fun InterviewQuestions(
-    navController: NavController,
     field: String = "",
     interviewQuestionViewModel: InterviewQuestionViewModel = hiltViewModel(),
 ) {
     val interviewQuestions = remember { interviewQuestionViewModel.interviewQuestionsUIState }
 
+    println(interviewQuestions.value.list)
+    println(interviewQuestions.value.isLoading)
     Column(
         modifier = Modifier
             .fillMaxSize()

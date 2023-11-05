@@ -40,21 +40,23 @@ class ContactViewModel @Inject constructor(
                 when (result.status) {
                     Status.SUCCESS -> {
                         if (result.data != null)
-                            contactUIState.value.apply {
-                                this.list = result.data
-                                this.isLoading = false
-                            }
+                            contactUIState.value =
+                                contactUIState.value.copy(
+                                    list = result.data,
+                                    isLoading = false
+                                )
                     }
 
                     Status.ERROR -> {
-                        contactUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
+                        contactUIState.value =
+                            contactUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.LOADING -> {
-                        contactUIState.value.isLoading = true
+                        contactUIState.value = contactUIState.value.copy(isLoading = true)
                     }
                 }
             }
@@ -67,21 +69,23 @@ class ContactViewModel @Inject constructor(
                 when (result.status) {
                     Status.SUCCESS -> {
                         if (result.data != null)
-                            savedContactUIState.value.apply {
-                                this.list = result.data
-                                this.isLoading = false
-                            }
+                            savedContactUIState.value =
+                                savedContactUIState.value.copy(
+                                    list = result.data,
+                                    isLoading = false
+                                )
                     }
 
                     Status.ERROR -> {
-                        savedContactUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
+                        savedContactUIState.value =
+                            savedContactUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.LOADING -> {
-                        savedContactUIState.value.isLoading = true
+                        savedContactUIState.value = savedContactUIState.value.copy(isLoading = true)
                     }
                 }
             }
@@ -97,23 +101,23 @@ class ContactViewModel @Inject constructor(
             insertContactUseCase.invoke(contactModel).collectLatest { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
-                        contactUIState.value.apply {
-                            this.message = result.data
-                            this.isLoading = false
-                        }
-                        onSuccess()
+                        contactUIState.value =
+                            contactUIState.value.copy(
+                                message = result.data,
+                                isLoading = false
+                            )
                     }
 
                     Status.ERROR -> {
-                        contactUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
-
+                        contactUIState.value =
+                            contactUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.LOADING -> {
-                        contactUIState.value.isLoading = true
+                        contactUIState.value = contactUIState.value.copy(isLoading = true)
                     }
                 }
             }
@@ -129,21 +133,23 @@ class ContactViewModel @Inject constructor(
             saveContactUseCase.invoke(contactModel).collectLatest { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
-                        savedContactUIState.value.apply {
-                            this.message = result.data
-                            this.isLoading = false
-                        }
+                        savedContactUIState.value =
+                            savedContactUIState.value.copy(
+                                message = result.data,
+                                isLoading = false
+                            )
                     }
 
                     Status.ERROR -> {
-                        savedContactUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
+                        savedContactUIState.value =
+                            savedContactUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.LOADING -> {
-                        savedContactUIState.value.isLoading = true
+                        savedContactUIState.value = savedContactUIState.value.copy(isLoading = true)
                     }
                 }
             }
@@ -156,21 +162,23 @@ class ContactViewModel @Inject constructor(
             removeContactUseCase.invoke(id).collectLatest { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
-                        contactUIState.value.apply {
-                            this.message = result.data
-                            this.isLoading = false
-                        }
+                        contactUIState.value =
+                            contactUIState.value.copy(
+                                message = result.data,
+                                isLoading = false
+                            )
                     }
 
                     Status.ERROR -> {
-                        contactUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
+                        contactUIState.value =
+                            contactUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.LOADING -> {
-                        contactUIState.value.isLoading = true
+                        contactUIState.value = contactUIState.value.copy(isLoading = true)
                     }
                 }
             }
@@ -182,21 +190,23 @@ class ContactViewModel @Inject constructor(
             removeSavedContactUseCase.invoke(contactModel).collectLatest { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
-                        savedContactUIState.value.apply {
-                            this.message = result.data
-                            this.isLoading = false
-                        }
+                        savedContactUIState.value =
+                            savedContactUIState.value.copy(
+                                message = result.data,
+                                isLoading = false
+                            )
                     }
 
                     Status.ERROR -> {
-                        savedContactUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
+                        savedContactUIState.value =
+                            savedContactUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.LOADING -> {
-                        savedContactUIState.value.isLoading = true
+                        savedContactUIState.value = savedContactUIState.value.copy(isLoading = true)
                     }
                 }
             }

@@ -2,6 +2,7 @@ package com.natiqhaciyef.witapplication.presentation.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.natiqhaciyef.witapplication.data.models.service.InfoModel
@@ -23,7 +24,7 @@ class FirebaseViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepositoryImpl,
     private val getAllMaterialsNameUseCase: GetAllMaterialsNameUseCase,
     private val getAllFAQUseCase: GetAllFAQUseCase,
-    private val getAllNotificationsUseCase: GetAllNotificationsUseCase
+    private val getAllNotificationsUseCase: GetAllNotificationsUseCase,
 ) : BaseViewModel() {
     val faqState = mutableStateOf(UIState<InfoModel>())
     val filesState = mutableStateOf(UIState<MaterialModel>())
@@ -34,20 +35,17 @@ class FirebaseViewModel @Inject constructor(
         getAllNotification()
     }
 
-    fun getUser() = Firebase.auth
 
     fun signInUser(
         user: UserModel,
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit,
     ) {
-        viewModelScope.launch {
-            firebaseRepository.signInUser(
-                user = user,
-                onSuccess = onSuccess,
-                onFail = onFail
-            )
-        }
+        firebaseRepository.signInUser(
+            user = user,
+            onSuccess = onSuccess,
+            onFail = onFail
+        )
     }
 
     fun createAccount(
@@ -55,13 +53,11 @@ class FirebaseViewModel @Inject constructor(
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit,
     ) {
-        viewModelScope.launch {
-            firebaseRepository.createAccount(
-                user = user,
-                onSuccess = onSuccess,
-                onFail = onFail
-            )
-        }
+        firebaseRepository.createAccount(
+            user = user,
+            onSuccess = onSuccess,
+            onFail = onFail
+        )
     }
 
     fun resetPasswordFromEmail(
@@ -69,13 +65,11 @@ class FirebaseViewModel @Inject constructor(
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit,
     ) {
-        viewModelScope.launch {
-            firebaseRepository.resetPasswordFromEmail(
-                email = email,
-                onSuccess = onSuccess,
-                onFail = onFail
-            )
-        }
+        firebaseRepository.resetPasswordFromEmail(
+            email = email,
+            onSuccess = onSuccess,
+            onFail = onFail
+        )
     }
 
     fun updatePassword(
@@ -120,7 +114,7 @@ class FirebaseViewModel @Inject constructor(
         )
     }
 
-    private fun getAllNotification(){
+    private fun getAllNotification() {
         getAllNotificationsUseCase.invoke(
             onSuccess = { notifications ->
                 notificationState.value.apply {

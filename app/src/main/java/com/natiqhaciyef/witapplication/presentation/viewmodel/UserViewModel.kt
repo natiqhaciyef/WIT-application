@@ -19,8 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val firebaseAuth: FirebaseAuth,
-    private val getUserByEmailUseCase: GetUserByEmailUseCase,
+    private val getAllUserRemoteUseCase: GetAllUserRemoteUseCase,
     private val insertUserRemoteUseCase: InsertUserRemoteUseCase,
     private val removeUserRemoteUseCase: RemoveUserRemoteUseCase,
     private val updateUserRemoteUseCase: UpdateUserRemoteUseCase,
@@ -28,62 +27,34 @@ class UserViewModel @Inject constructor(
     val userUIState = mutableStateOf(UIState<UserModel>())
 
     init {
-        getUserByEmail()
+        getUser()
     }
 
-    fun getUserByEmail(email: String = "") {
+    private fun getUser() {
         viewModelScope.launch {
-            if (FirebaseAuth.getInstance().currentUser != null && email.isEmpty()) {
-                getUserByEmailUseCase.invoke(FirebaseAuth.getInstance().currentUser?.email.toString())
-                    .collectLatest { result ->
-                        when (result.status) {
-                            Status.SUCCESS -> {
-                                if (result.data != null)
-                                    userUIState.value.apply {
-                                        this.list = result.data
-                                        this.isLoading = false
-                                        this.selectedElement = result.data[0]
-                                    }
-                            }
+            getAllUserRemoteUseCase.invoke()
+                .collectLatest { result ->
+                    when (result.status) {
+                        Status.SUCCESS -> {
+                            if (result.data != null)
+                                userUIState.value = userUIState.value.copy(
+                                    list = result.data,
+                                    isLoading = false
+                                )
+                        }
 
-                            Status.ERROR -> {
-                                userUIState.value.apply {
-                                    this.message = result.message
-                                    this.isLoading = false
-                                }
-                            }
+                        Status.ERROR -> {
+                            userUIState.value = userUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
+                        }
 
-                            Status.LOADING -> {
-                                userUIState.value.isLoading = true
-                            }
+                        Status.LOADING -> {
+                            userUIState.value = userUIState.value.copy(isLoading = true)
                         }
                     }
-            } else {
-                getUserByEmailUseCase.invoke(email)
-                    .collectLatest { result ->
-                        when (result.status) {
-                            Status.SUCCESS -> {
-                                if (result.data != null)
-                                    userUIState.value.apply {
-                                        this.list = result.data
-                                        this.isLoading = false
-                                        this.selectedElement = result.data[0]
-                                    }
-                            }
-
-                            Status.ERROR -> {
-                                userUIState.value.apply {
-                                    this.message = result.message
-                                    this.isLoading = false
-                                }
-                            }
-
-                            Status.LOADING -> {
-                                userUIState.value.isLoading = true
-                            }
-                        }
-                    }
-            }
+                }
         }
     }
 
@@ -93,21 +64,21 @@ class UserViewModel @Inject constructor(
                 when (result.status) {
                     Status.SUCCESS -> {
                         if (result.data != null)
-                            userUIState.value.apply {
-                                this.message = result.data
-                                this.isLoading = false
-                            }
+                            userUIState.value = userUIState.value.copy(
+                                message = result.data,
+                                isLoading = false,
+                            )
                     }
 
                     Status.ERROR -> {
-                        userUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
+                        userUIState.value = userUIState.value.copy(
+                            message = result.message,
+                            isLoading = false
+                        )
                     }
 
                     Status.LOADING -> {
-                        userUIState.value.isLoading = true
+                        userUIState.value = userUIState.value.copy(isLoading = true)
                     }
                 }
             }
@@ -121,21 +92,21 @@ class UserViewModel @Inject constructor(
                 when (result.status) {
                     Status.SUCCESS -> {
                         if (result.data != null)
-                            userUIState.value.apply {
-                                this.message = result.data
-                                this.isLoading = false
-                            }
+                            userUIState.value = userUIState.value.copy(
+                                message = result.data,
+                                isLoading = false,
+                            )
                     }
 
                     Status.ERROR -> {
-                        userUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
+                        userUIState.value = userUIState.value.copy(
+                            message = result.message,
+                            isLoading = false
+                        )
                     }
 
                     Status.LOADING -> {
-                        userUIState.value.isLoading = true
+                        userUIState.value = userUIState.value.copy(isLoading = true)
                     }
                 }
             }
@@ -149,21 +120,21 @@ class UserViewModel @Inject constructor(
                 when (result.status) {
                     Status.SUCCESS -> {
                         if (result.data != null)
-                            userUIState.value.apply {
-                                this.message = result.data
-                                this.isLoading = false
-                            }
+                            userUIState.value = userUIState.value.copy(
+                                message = result.data,
+                                isLoading = false,
+                            )
                     }
 
                     Status.ERROR -> {
-                        userUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
+                        userUIState.value = userUIState.value.copy(
+                            message = result.message,
+                            isLoading = false
+                        )
                     }
 
                     Status.LOADING -> {
-                        userUIState.value.isLoading = true
+                        userUIState.value = userUIState.value.copy(isLoading = true)
                     }
                 }
             }
@@ -172,15 +143,15 @@ class UserViewModel @Inject constructor(
 
 
     fun userLoginCheckFromDB(
-        userState: MutableState<UIState<UserModel>>,
+        userState: List<UserModel>,
         email: String,
         password: String,
         onSuccess: () -> Unit = { },
         onFail: () -> Unit = { },
     ) {
-        if (userState.value.list.any { it.email == email && it.password == password }) {
+        if (userState.any { it.email == email && it.password == password }) {
             onSuccess()
-        } else if (userState.value.list.any { it.email == email && it.password != password }) {
+        } else if (userState.any { it.email == email && it.password != password }) {
             // after reset password, updating password
             changePassword(
                 userState = userState,
@@ -207,12 +178,12 @@ class UserViewModel @Inject constructor(
     }
 
     fun changePassword(
-        userState: MutableState<UIState<UserModel>>,
+        userState: List<UserModel>,
         email: String,
         password: String,
         onSuccess: () -> Unit = {},
     ) {
-        val filteredUser = userState.value.list.filter { it.email == email }
+        val filteredUser = userState.filter { it.email == email }
         if (filteredUser.isNotEmpty()) {
             val customUser = filteredUser[0]
             customUser.password = password
@@ -221,10 +192,9 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    fun getUser(users: List<UserModel>) {
+    fun getUser(users: List<UserModel>, email: String) {
         viewModelScope.launch {
-            val auth = firebaseAuth.currentUser
-            val result = users.filter { it.email == auth?.email }
+            val result = users.filter { it.email == email }
             if (result.isNotEmpty())
                 userUIState.value = userUIState.value.copy(selectedElement = result[0])
             else
