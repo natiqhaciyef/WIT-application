@@ -5,13 +5,17 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.natiqhaciyef.witapplication.common.Status
 import com.natiqhaciyef.witapplication.data.models.VerifiedUserModel
+import com.natiqhaciyef.witapplication.domain.usecase.remote.verified_user.GetAllVerifiedUsersUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.verified_user.GetVerifiedUserByEmailUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.remote.verified_user.InsertVerifiedUserUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.remote.verified_user.RemoveVerifiedUserUseCase
+import com.natiqhaciyef.witapplication.domain.usecase.remote.verified_user.UpdateVerifiedUserUseCase
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @HiltViewModel
 class VerifiedUserViewModel @Inject constructor(

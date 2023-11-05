@@ -54,26 +54,22 @@ class InterviewQuestionViewModel @Inject constructor(
             getAllInterviewQuestionsUseCase.invoke().collectLatest { result ->
                 when (result.status) {
                     Status.LOADING -> {
-                        interviewQuestionsUIState.value =
-                            interviewQuestionsUIState.value.copy(isLoading = true)
+                        interviewQuestionsUIState.value.isLoading = true
                     }
 
                     Status.ERROR -> {
-                        interviewQuestionsUIState.value =
-                            interviewQuestionsUIState.value.copy(
-                                message = result.message,
-                                isLoading = false
-                            )
+                        interviewQuestionsUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
                     Status.SUCCESS -> {
-                        if (result.data != null) {
-                            interviewQuestionsUIState.value =
-                                interviewQuestionsUIState.value.copy(
-                                    list = result.data,
-                                    isLoading = false
-                                )
-                        }
+                        if (result.data != null)
+                            interviewQuestionsUIState.value.apply {
+                                this.list = result.data
+                                this.isLoading = false
+                            }
                     }
                 }
             }
@@ -85,26 +81,21 @@ class InterviewQuestionViewModel @Inject constructor(
         viewModelScope.launch {
             insertInterviewQuestionUseCase.invoke(questionModel).collectLatest { result ->
                 when (result.status) {
+                    Status.SUCCESS -> {
+                        interviewQuestionsUIState.value.apply {
+                            this.message = result.data
+                            this.isLoading = false
+                        }
+                    }
+
                     Status.LOADING -> {
-                        interviewQuestionsUIState.value =
-                            interviewQuestionsUIState.value.copy(isLoading = true)
+                        interviewQuestionsUIState.value.isLoading = true
                     }
 
                     Status.ERROR -> {
-                        interviewQuestionsUIState.value =
-                            interviewQuestionsUIState.value.copy(
-                                message = result.message,
-                                isLoading = false
-                            )
-                    }
-
-                    Status.SUCCESS -> {
-                        if (result.data != null) {
-                            interviewQuestionsUIState.value =
-                                interviewQuestionsUIState.value.copy(
-                                    message = result.message,
-                                    isLoading = false
-                                )
+                        interviewQuestionsUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
                         }
                     }
                 }
@@ -118,26 +109,22 @@ class InterviewQuestionViewModel @Inject constructor(
             getAllSavedInterviewQuestionsUseCase.invoke().collectLatest { result ->
                 when (result.status) {
                     Status.LOADING -> {
-                        savedInterviewQuestionsUIState.value =
-                            savedInterviewQuestionsUIState.value.copy(isLoading = true)
+                        savedInterviewQuestionsUIState.value.isLoading = true
                     }
 
                     Status.ERROR -> {
-                        savedInterviewQuestionsUIState.value =
-                            savedInterviewQuestionsUIState.value.copy(
-                                message = result.message,
-                                isLoading = false
-                            )
+                        savedInterviewQuestionsUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
                     Status.SUCCESS -> {
-                        if (result.data != null) {
-                            savedInterviewQuestionsUIState.value =
-                                savedInterviewQuestionsUIState.value.copy(
-                                    list = result.data,
-                                    isLoading = false
-                                )
-                        }
+                        if (result.data != null)
+                            savedInterviewQuestionsUIState.value.apply {
+                                this.list = result.data
+                                this.isLoading = false
+                            }
                     }
                 }
             }
@@ -149,24 +136,21 @@ class InterviewQuestionViewModel @Inject constructor(
             saveInterviewQuestionUseCase.invoke(questionModel).collectLatest { result ->
                 when (result.status) {
                     Status.ERROR -> {
-                        savedInterviewQuestionsUIState.value =
-                            savedInterviewQuestionsUIState.value.copy(
-                                message = result.message,
-                                isLoading = false
-                            )
+                        savedInterviewQuestionsUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
                     Status.SUCCESS -> {
-                        savedInterviewQuestionsUIState.value =
-                            savedInterviewQuestionsUIState.value.copy(
-                                message = result.data,
-                                isLoading = false
-                            )
+                        savedInterviewQuestionsUIState.value.apply {
+                            this.message = result.data
+                            this.isLoading = false
+                        }
                     }
 
                     Status.LOADING -> {
-                        savedInterviewQuestionsUIState.value =
-                            interviewQuestionsUIState.value.copy(isLoading = true)
+                        savedInterviewQuestionsUIState.value.isLoading = true
                     }
                 }
             }
@@ -178,31 +162,24 @@ class InterviewQuestionViewModel @Inject constructor(
             removeSavedInterviewQuestionUseCase.invoke(questionModel).collectLatest { result ->
                 when (result.status) {
                     Status.ERROR -> {
-                        savedInterviewQuestionsUIState.value =
-                            savedInterviewQuestionsUIState.value.copy(
-                                message = result.message,
-                                isLoading = false
-                            )
+                        savedInterviewQuestionsUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
                     Status.SUCCESS -> {
-                        savedInterviewQuestionsUIState.value =
-                            savedInterviewQuestionsUIState.value.copy(
-                                message = result.data,
-                                isLoading = false
-                            )
+                        savedInterviewQuestionsUIState.value.apply {
+                            this.message = result.data
+                            this.isLoading = false
+                        }
                     }
 
                     Status.LOADING -> {
-                        savedInterviewQuestionsUIState.value =
-                            interviewQuestionsUIState.value.copy(isLoading = true)
+                        savedInterviewQuestionsUIState.value.isLoading = true
                     }
                 }
             }
         }
-    }
-
-    fun refresh() {
-
     }
 }

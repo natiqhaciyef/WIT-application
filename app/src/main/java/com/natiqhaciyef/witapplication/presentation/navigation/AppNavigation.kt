@@ -36,6 +36,7 @@ fun AppNavigation() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = ScreenId.SplashScreen.name) {
+
         composable(ScreenId.SplashScreen.name) {
             SplashScreen(navController = navController)
         }
@@ -106,7 +107,7 @@ fun AppNavigation() {
             )
         ) {
             val field = it.arguments?.getString("field") ?: ""
-            InterviewQuestions(field = field)
+            InterviewQuestions(navController, field)
         }
 
         composable(ScreenId.LiveInterviewScreen.name) {
@@ -125,10 +126,7 @@ fun AppNavigation() {
         ) {
             val post = it.arguments?.getParcelable("post") ?: DefaultImpl.post
 
-            DetailsScreen(
-//                navController = navController,
-                postModel = post
-            )
+            DetailsScreen(navController = navController, postModel = post)
         }
 
         composable(ScreenId.NotificationScreen.name) {

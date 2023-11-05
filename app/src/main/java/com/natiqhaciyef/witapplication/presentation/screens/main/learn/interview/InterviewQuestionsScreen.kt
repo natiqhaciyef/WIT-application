@@ -34,20 +34,22 @@ import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
 @Composable
 fun InterviewQuestions(
-    field: String = "",
+    navController: NavController,
+    field: String,
     interviewQuestionViewModel: InterviewQuestionViewModel = hiltViewModel(),
 ) {
     val interviewQuestions = remember { interviewQuestionViewModel.interviewQuestionsUIState }
 
-    println(interviewQuestions.value.list)
-    println(interviewQuestions.value.isLoading)
+    println(interviewQuestions.value.list.filter { it.field.lowercase() == field.lowercase() })
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppExtraLightBrown),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+//        println(interviewQuestions.value.list)
         if (interviewQuestions.value.list.any { it.field.lowercase() == field.lowercase() }) {
+
             Spacer(modifier = Modifier.height(35.dp))
             Text(
                 modifier = Modifier

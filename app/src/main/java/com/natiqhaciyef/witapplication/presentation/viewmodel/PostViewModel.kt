@@ -72,22 +72,22 @@ class PostViewModel @Inject constructor(
             getAllPostRemoteUseCase.invoke().collectLatest { result ->
                 when (result.status) {
                     Status.LOADING -> {
-                        postUIState.value = postUIState.value.copy(isLoading = true)
+                        postUIState.value.isLoading = true
                     }
 
                     Status.ERROR -> {
-                        postUIState.value = postUIState.value.copy(
-                            message = result.message,
+                        postUIState.value.apply {
+                            message = result.message
                             isLoading = false
-                        )
+                        }
                     }
 
                     Status.SUCCESS -> {
                         if (result.data != null)
-                            postUIState.value = postUIState.value.copy(
-                                list = result.data,
-                                isLoading = false
-                            )
+                            postUIState.value.apply {
+                                this.list = result.data
+                                this.isLoading = false
+                            }
                     }
                 }
             }
@@ -99,21 +99,23 @@ class PostViewModel @Inject constructor(
             insertPostRemoteUseCase.invoke(postModel).collectLatest { result ->
                 when (result.status) {
                     Status.LOADING -> {
-                        postUIState.value = postUIState.value.copy(isLoading = true)
+                        postUIState.value.isLoading = true
                     }
 
                     Status.ERROR -> {
-                        postUIState.value = postUIState.value.copy(
-                            message = result.message,
-                            isLoading = false
-                        )
+                        postUIState.value.apply {
+                            this.isLoading = false
+                            this.message = result.message
+
+                        }
                     }
 
                     Status.SUCCESS -> {
-                        postUIState.value = postUIState.value.copy(
-                            message = result.data,
-                            isLoading = false
-                        )
+                        if (result.data != null)
+                            postUIState.value.apply {
+                                this.message = result.data
+                                this.isLoading = false
+                            }
                     }
                 }
             }
@@ -126,21 +128,22 @@ class PostViewModel @Inject constructor(
             removePostRemoteUseCase.invoke(id).collectLatest { result ->
                 when (result.status) {
                     Status.LOADING -> {
-                        postUIState.value = postUIState.value.copy(isLoading = true)
+                        postUIState.value.isLoading = true
                     }
 
                     Status.ERROR -> {
-                        postUIState.value = postUIState.value.copy(
-                            message = result.message,
-                            isLoading = false
-                        )
+                        postUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
                     Status.SUCCESS -> {
-                        postUIState.value = postUIState.value.copy(
-                            message = result.data,
-                            isLoading = false
-                        )
+                        if (result.data != null)
+                            postUIState.value.apply {
+                                message = result.data
+                                isLoading = false
+                            }
                     }
                 }
             }
@@ -185,23 +188,23 @@ class PostViewModel @Inject constructor(
         viewModelScope.launch {
             getAllSavedPostsUseCase.invoke().collectLatest { result ->
                 when (result.status) {
-                    Status.LOADING -> {
-                        savedPostUIState.value = savedPostUIState.value.copy(isLoading = true)
+                    Status.SUCCESS -> {
+                        if (result.data != null)
+                            savedPostUIState.value.apply {
+                                this.isLoading = false
+                                this.list = result.data
+                            }
                     }
 
                     Status.ERROR -> {
-                        savedPostUIState.value = savedPostUIState.value.copy(
-                            message = result.message,
-                            isLoading = false
-                        )
+                        savedPostUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
-                    Status.SUCCESS -> {
-                        if (result.data != null)
-                            savedPostUIState.value = savedPostUIState.value.copy(
-                                list = result.data,
-                                isLoading = false
-                            )
+                    Status.LOADING -> {
+                        savedPostUIState.value.isLoading = true
                     }
                 }
             }
@@ -213,22 +216,22 @@ class PostViewModel @Inject constructor(
         viewModelScope.launch {
             removeSavedPostUseCase.invoke(postModel).collectLatest { result ->
                 when (result.status) {
-                    Status.LOADING -> {
-                        savedPostUIState.value = savedPostUIState.value.copy(isLoading = true)
+                    Status.SUCCESS -> {
+                        savedPostUIState.value.apply {
+                            this.message = result.data
+                            this.isLoading = false
+                        }
                     }
 
                     Status.ERROR -> {
-                        savedPostUIState.value = savedPostUIState.value.copy(
-                            message = result.message,
-                            isLoading = false
-                        )
+                        savedPostUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
-                    Status.SUCCESS -> {
-                        savedPostUIState.value = savedPostUIState.value.copy(
-                            message = result.data,
-                            isLoading = false
-                        )
+                    Status.LOADING -> {
+                        savedPostUIState.value.isLoading = true
                     }
                 }
             }
@@ -239,22 +242,22 @@ class PostViewModel @Inject constructor(
         viewModelScope.launch {
             savePostUseCase.invoke(postModel).collectLatest { result ->
                 when (result.status) {
-                    Status.LOADING -> {
-                        savedPostUIState.value = savedPostUIState.value.copy(isLoading = true)
+                    Status.SUCCESS -> {
+                        savedPostUIState.value.apply {
+                            this.message = result.data
+                            this.isLoading = false
+                        }
                     }
 
                     Status.ERROR -> {
-                        savedPostUIState.value = savedPostUIState.value.copy(
-                            message = result.message,
-                            isLoading = false
-                        )
+                        savedPostUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
-                    Status.SUCCESS -> {
-                        savedPostUIState.value = savedPostUIState.value.copy(
-                            message = result.data,
-                            isLoading = false
-                        )
+                    Status.LOADING -> {
+                        savedPostUIState.value.isLoading = true
                     }
                 }
             }
@@ -265,32 +268,31 @@ class PostViewModel @Inject constructor(
         viewModelScope.launch {
             updateSavedPostUseCase.invoke(postModel).collectLatest { result ->
                 when (result.status) {
-                    Status.LOADING -> {
-                        savedPostUIState.value = savedPostUIState.value.copy(isLoading = true)
+                    Status.SUCCESS -> {
+                        savedPostUIState.value.apply {
+                            this.message = result.data
+                            this.isLoading = false
+                        }
                     }
 
                     Status.ERROR -> {
-                        savedPostUIState.value = savedPostUIState.value.copy(
-                            message = result.message,
-                            isLoading = false
-                        )
+                        savedPostUIState.value.apply {
+                            this.message = result.message
+                            this.isLoading = false
+                        }
                     }
 
-                    Status.SUCCESS -> {
-                        savedPostUIState.value = savedPostUIState.value.copy(
-                            message = result.data,
-                            isLoading = false
-                        )
+                    Status.LOADING -> {
+                        savedPostUIState.value.isLoading = true
                     }
                 }
             }
         }
     }
 
-    fun refresh(count: MutableState<Int>): MutableState<Int> {
+    fun refreshData(count: MutableState<Int>) {
         postUIState.value.isLoading = true
-        count.value += 10
+        count.value += 1
         postUIState.value.isLoading = false
-        return count
     }
 }

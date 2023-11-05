@@ -63,8 +63,9 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 
 @Composable
 fun LoginScreen(
-    navController: NavController,
+    navController: NavController
 ) {
+
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.ellipse_design_5),
@@ -144,14 +145,13 @@ private fun LoginTopView() {
 private fun LoginMainPart(
     navController: NavController,
     firebaseViewModel: FirebaseViewModel = hiltViewModel(),
-    userViewModel: UserViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val userState = remember { userViewModel.userUIState }
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
     val passwordVisible = remember { mutableStateOf(false) }
-    println("delta")
 
     Card(
         modifier = Modifier
@@ -219,15 +219,12 @@ private fun LoginMainPart(
                         },
                         onSuccess = {
                             userViewModel.userLoginCheckFromDB(
-                                userState = userState.value.list,
+                                userState = userState,
                                 email = email,
                                 password = password,
                                 onSuccess = {
-                                    navController.navigate(ScreenId.MainScreenLine.name) {
-                                        navController.popBackStack(
-                                            ScreenId.LoginScreen.name,
-                                            inclusive = true
-                                        )
+                                    navController.navigate(ScreenId.MainScreenLine.name){
+                                        navController.popBackStack(ScreenId.LoginScreen.name, inclusive = true)
                                     }
                                 },
                                 onFail = {

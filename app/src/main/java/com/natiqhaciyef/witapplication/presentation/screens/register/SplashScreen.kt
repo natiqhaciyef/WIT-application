@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -24,6 +25,7 @@ import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.presentation.viewmodel.FirebaseViewModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.UserViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -35,6 +37,7 @@ fun SplashScreen(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val userUIState = remember { userViewModel.userUIState }
+
 
     Box(
         modifier = Modifier
@@ -52,10 +55,9 @@ fun SplashScreen(
         )
 
         coroutineScope.launch(Dispatchers.Main) {
+            delay(1500)
             if (FirebaseAuth.getInstance().currentUser != null) {
-                delay(1500)
-                val list = userUIState.value.list
-                if (list.any { it.email == FirebaseAuth.getInstance().currentUser?.email }) {
+                if (userUIState.value.list.any { it.email == FirebaseAuth.getInstance().currentUser?.email }) {
                     navController.navigate(ScreenId.MainScreenLine.name) {
                         navController.popBackStack(ScreenId.SplashScreen.name, inclusive = true)
                     }
@@ -65,6 +67,7 @@ fun SplashScreen(
                     }
                 }
             } else {
+
                 navController.navigate(ScreenId.LoginScreen.name) {
                     navController.popBackStack(ScreenId.SplashScreen.name, inclusive = true)
                 }

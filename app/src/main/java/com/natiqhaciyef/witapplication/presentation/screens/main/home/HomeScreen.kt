@@ -21,12 +21,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.pullrefresh.pullRefresh
-import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -51,12 +48,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
 import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
-import com.natiqhaciyef.witapplication.data.di.module.FirebaseModule
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
@@ -98,6 +93,7 @@ private fun HomeTopView(
     navController: NavController,
     userViewModel: UserViewModel = hiltViewModel(),
 ) {
+    userViewModel.getUserByEmail()
     val users = remember { userViewModel.userUIState }
 
     Column(
@@ -135,11 +131,8 @@ private fun HomeTopView(
                         fontFamily = Lobster.lobster
                     )
                 ) {
-                    if (users.value.list.any { it.email == FirebaseAuth.getInstance().currentUser?.email.toString() }) {
-                        val user =
-                            users.value.list.filter { it.email == FirebaseAuth.getInstance().currentUser?.email.toString() }[0]
-                        append(user.name)
-                    } else append(stringResource(id = R.string.guest))
+                    if (users.value.selectedElement != null) append(users.value.selectedElement!!.name)
+                    else append(stringResource(id = R.string.guest))
                 }
 
             })
@@ -190,7 +183,8 @@ private fun HomeBodyView(
     val screenHeight = configuration.screenHeightDp.dp
     val postState = remember { postViewModel.postUIState }
 
-    if (postState.value.list.any { postState.value.list.indexOf(it) < count.value }) {
+    if (postState.value.list.filter { postState.value.list.indexOf(it) < count.value }
+            .isNotEmpty()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -217,22 +211,10 @@ private fun HomeBodyView(
                         .fillMaxWidth()
                         .heightIn(min = 300.dp, max = screenHeight + 300.dp)
                 ) {
-                    if (searchQuery.value.isEmpty()) {
-                        items(postState.value.list.filter { postState.value.list.indexOf(it) < count.value }) { post ->
-                            PostComponent(mappedPostModel = post) {
-                                val json = Uri.encode(Gson().toJson(post))
-                                navController.navigate("${ScreenId.DetailsScreen.name}/$json")
-                            }
-                        }
-                    } else {
-                        items(postState.value.list.filter {
-                            it.title.contains(searchQuery.value)
-                                    || it.description.contains(searchQuery.value)
-                        }) { post ->
-                            PostComponent(mappedPostModel = post) {
-                                val json = Uri.encode(Gson().toJson(post))
-                                navController.navigate("${ScreenId.DetailsScreen.name}/$json")
-                            }
+                    items(postState.value.list.filter { postState.value.list.indexOf(it) < count.value }) { post ->
+                        PostComponent(mappedPostModel = post) {
+                            val json = Uri.encode(Gson().toJson(post))
+                            navController.navigate("${ScreenId.DetailsScreen.name}/$json")
                         }
                     }
                 }
@@ -249,7 +231,7 @@ private fun HomeBodyView(
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp)
                         .clickable {
-                            postViewModel.refresh(count)
+                            postViewModel.refreshData(count)
                         },
                     text = stringResource(id = R.string.load_more),
                     fontSize = 16.sp,
