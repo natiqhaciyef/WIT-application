@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
+import com.natiqhaciyef.witapplication.common.util.helpers.majorStringToDateChanger
 import com.natiqhaciyef.witapplication.data.models.InterviewQuestionModel
 import com.natiqhaciyef.witapplication.data.models.top.QuestionAbstraction
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
@@ -125,7 +126,7 @@ fun <T : QuestionAbstraction> QuestionComponent(question: T) {
                             Text(
                                 modifier = Modifier
                                     .padding(bottom = 20.dp, start = 10.dp, end = 10.dp),
-                                text = "Published: ${question.date}",
+                                text = "Published: ${majorStringToDateChanger(question.date)}",
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 color = Color.Black

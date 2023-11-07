@@ -7,6 +7,7 @@ object ErrorMessages {
 
     const val LIVE_INTERVIEW_NOT_ACCESSIBLE_YET = "Live interview not accessible yet"
     const val INTERVIEW_QUESTIONS_NOT_FOUND = "Interview questions not found"
+    const val SAVED_QUESTIONS_NOT_FOUND = "Saved questions not found"
 
     const val NOTIFICATION_NOT_SENT = "Notification not sent"
     const val INTERNET_CONNECTION_FAILED = "Internet connection failed"
