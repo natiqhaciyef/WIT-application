@@ -37,9 +37,8 @@ import androidx.navigation.compose.rememberNavController
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.common.util.objects.SuccessMessages
 import com.natiqhaciyef.witapplication.data.models.ContactModel
-import com.natiqhaciyef.witapplication.data.models.enums.ContactFields
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
-import com.natiqhaciyef.witapplication.presentation.component.SnackbarDemo
+import com.natiqhaciyef.witapplication.presentation.component.CustomSnackbar
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.viewmodel.ContactViewModel
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
@@ -128,7 +127,7 @@ fun CustomPlanScreen(
 
                 contactViewModel.insertContactRemote(contact) {
                     contactViewModel.saveContactLocal(contact) {
-                        SnackbarDemo(returnMessage = SuccessMessages.MESSAGE_SENT_SUCCESSFULLY)
+                        CustomSnackbar(returnMessage = SuccessMessages.MESSAGE_SENT_SUCCESSFULLY)
                     }
                 }
 

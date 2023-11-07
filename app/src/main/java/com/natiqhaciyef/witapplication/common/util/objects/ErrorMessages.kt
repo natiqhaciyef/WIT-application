@@ -9,6 +9,7 @@ object ErrorMessages {
     const val INTERVIEW_QUESTIONS_NOT_FOUND = "Interview questions not found"
 
     const val NOTIFICATION_NOT_SENT = "Notification not sent"
+    const val INTERNET_CONNECTION_FAILED = "Internet connection failed"
 
     const val SIGN_IN_FAILED = "Sign in failed"
     const val SIGN_UP_FAILED = "Sign up failed"

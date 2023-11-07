@@ -158,6 +158,7 @@ class PostViewModel @Inject constructor(
 
     fun updatePostRemote(
         postModel: MappedPostModel,
+        onFail: () -> Unit = {},
         onSuccess: () -> Unit = {},
     ) {
         viewModelScope.launch {
@@ -174,6 +175,7 @@ class PostViewModel @Inject constructor(
                             message = result.message,
                             isLoading = false
                         )
+                        onFail()
                     }
 
                     Status.SUCCESS -> {
