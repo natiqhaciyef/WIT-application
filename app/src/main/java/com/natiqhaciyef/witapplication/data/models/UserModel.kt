@@ -31,7 +31,7 @@ data class UserWithoutPasswordModel(
 @Parcelize
 data class VerifiedUserModel(
     @SerializedName("id")
-    var id: Int,
+    var id: Int = 0,
     @SerializedName("name")
     var name: String,
     @SerializedName("email")

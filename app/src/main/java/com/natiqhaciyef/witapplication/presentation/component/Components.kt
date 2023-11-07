@@ -15,6 +15,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -195,6 +196,7 @@ fun InputBoxTitle(
     prefix: String = "",
     icon: ImageVector? = null,
     isBottomShadowActive: Boolean = true,
+    isEnabled: Boolean = false,
     onClick: (String) -> Unit = { },
 ) {
     val focusManager = LocalFocusManager.current
@@ -233,7 +235,7 @@ fun InputBoxTitle(
                     )
             },
             shape = RoundedCornerShape(8.dp),
-            enabled = true,
+            enabled = isEnabled,
             singleLine = isSingleLine,
             readOnly = false,
             keyboardActions = KeyboardActions(onNext = {
@@ -301,7 +303,7 @@ fun InputBoxTitle(
                     )
             },
             shape = RoundedCornerShape(8.dp),
-            enabled = true,
+            enabled = isEnabled,
             singleLine = isSingleLine,
             readOnly = false,
             keyboardActions = KeyboardActions(onNext = {
@@ -339,6 +341,69 @@ fun InputBoxTitle(
 
 
 @Composable
+fun ImageSelectionTitle(
+    modifier: Modifier = Modifier
+        .padding(horizontal = 20.dp)
+        .fillMaxWidth(),
+    modifierTitle: Modifier = Modifier
+        .padding(horizontal = 20.dp)
+        .fillMaxWidth(),
+    concept: String,
+    image: MutableState<Uri?>,
+    onClick: (String) -> Unit = { },
+) {
+    val context = LocalContext.current
+
+    val isPermissionGranted = remember { mutableStateOf(false) }
+    val permissionGrantBoolean = remember { mutableStateOf(true) }
+    val activityResultLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            val intentFromResult = result.data
+            if (intentFromResult != null) {
+                if (image == null) {
+                    image.value = intentFromResult.data
+                }
+            }
+        }
+    }
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // Permission Accepted: Do something
+
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            activityResultLauncher.launch(intent)
+            permissionGrantBoolean.value = true
+        } else {
+            // Permission Denied: Do something
+            permissionGrantBoolean.value = false
+        }
+    }
+
+    Text(
+        modifier = modifierTitle,
+        text = concept,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Bold,
+        color = Color.Black,
+        textAlign = TextAlign.Start
+    )
+    Spacer(modifier = Modifier.height(10.dp))
+    ImageSelection(
+        image = image,
+        context = context,
+        permissionLauncher = permissionLauncher,
+        activityResultLauncher = activityResultLauncher,
+        isPermissionGranted = isPermissionGranted
+    )
+}
+
+
+@Composable
 fun InputBoxTitlePassword(
     modifier: Modifier = Modifier
         .padding(horizontal = 20.dp)
@@ -350,13 +415,8 @@ fun InputBoxTitlePassword(
     input: MutableState<String>,
     passVisibility: MutableState<Boolean>,
     isSingleLine: Boolean,
-    type: KeyboardType = KeyboardType.Text,
-    prefix: String = "",
-    trailingIcon: ImageVector? = null,
     isBottomShadowActive: Boolean = true,
-    onClick: (String) -> Unit = { },
 ) {
-    val focusManager = LocalFocusManager.current
     Text(
         modifier = modifierTitle,
         text = concept,
@@ -366,150 +426,13 @@ fun InputBoxTitlePassword(
     )
     Spacer(modifier = Modifier.height(10.dp))
 
-    if (prefix.isNotEmpty()) {
-        OutlinedTextField(
-            modifier = modifier,
-            value = input.value,
-            onValueChange = {
-                input.value = it
-            },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Email,
-                    contentDescription = "Email",
-                    tint = AppGray
-                )
-            },
-            shape = RoundedCornerShape(8.dp),
-            enabled = true,
-            singleLine = isSingleLine,
-            readOnly = false,
-            keyboardActions = KeyboardActions(onNext = {
-                focusManager.moveFocus(FocusDirection.Down)
-            }),
-            keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = type,
-                imeAction = ImeAction.Next
-            ),
-            prefix = {
-                if (prefix.isNotEmpty()) {
-                    Text(
-                        text = prefix,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 17.sp
-                    )
-                } else {
-                    Text(
-                        text = "",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 17.sp
-                    )
-                }
-            },
-            visualTransformation = if (passVisibility.value) VisualTransformation.None
-            else PasswordVisualTransformation(),
-            trailingIcon = {
-                if (trailingIcon != null) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(end = 10.dp)
-                            .size(28.dp)
-                            .clickable {
-                                onClick(input.value)
-                            },
-                        imageVector = trailingIcon!!,
-                        contentDescription = "Icon"
-                    )
-                }
-            },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                unfocusedTextColor = Color.Black,
-                focusedTextColor = Color.Black,
-                focusedBorderColor = AppDarkBlue,
-                unfocusedBorderColor = Color.Gray,
-                cursorColor = AppDarkBlue,
-            ),
-            textStyle = TextStyle.Default.copy(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-            ),
-            placeholder = {
-                Text(
-                    text = concept,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
-                )
-            }
-        )
-    } else {
-        OutlinedTextField(
-            modifier = modifier,
-            value = input.value,
-            onValueChange = {
-                input.value = it
-            },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Email,
-                    contentDescription = "Email",
-                    tint = AppGray
-                )
-            },
-            shape = RoundedCornerShape(8.dp),
-            enabled = true,
-            singleLine = isSingleLine,
-            readOnly = false,
-            keyboardActions = KeyboardActions(onNext = {
-                focusManager.moveFocus(FocusDirection.Down)
-            }),
-            keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = type,
-                imeAction = ImeAction.Next
-            ),
-            visualTransformation = if (passVisibility.value) VisualTransformation.None
-            else PasswordVisualTransformation(),
-            trailingIcon = {
-                if (trailingIcon != null) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(end = 10.dp)
-                            .size(28.dp)
-                            .clickable {
-                                onClick(input.value)
-                            },
-                        imageVector = trailingIcon!!,
-                        contentDescription = "Icon"
-                    )
-                }
-            },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                unfocusedTextColor = Color.Black,
-                focusedTextColor = Color.Black,
-                focusedBorderColor = AppDarkBlue,
-                unfocusedBorderColor = Color.Gray,
-                cursorColor = AppDarkBlue,
-            ),
-            textStyle = TextStyle.Default.copy(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-            ),
-            placeholder = {
-                Text(
-                    text = concept,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
-                )
-            }
-        )
-    }
-
-    if (isBottomShadowActive)
-        BottomShadow(padding = 23.dp)
-
+    InputBoxPassword(
+        concept = concept,
+        input = input,
+        passVisibility = passVisibility,
+        isSingleLine = isSingleLine,
+        isBottomShadowActive = isBottomShadowActive
+    )
 }
 
 
@@ -801,6 +724,7 @@ fun InputBoxPassword(
     isSingleLine: Boolean,
     type: KeyboardType = KeyboardType.Text,
     prefix: String = "",
+    isBottomShadowActive: Boolean = true,
     trailingIcon: MutableState<ImageVector?> = mutableStateOf(null),
     leadingIcon: MutableState<ImageVector?> = mutableStateOf(null),
 ) {
@@ -881,7 +805,9 @@ fun InputBoxPassword(
             )
         }
     )
-    BottomShadow(padding = 23.dp)
+
+    if (isBottomShadowActive)
+        BottomShadow(padding = 23.dp)
 
 }
 
@@ -1238,6 +1164,7 @@ fun RatingBar(
 
 @Composable
 fun ImageSelection(
+    size: Dp = 200.dp,
     image: MutableState<Uri?>,
     context: Context,
     permissionLauncher: ActivityResultLauncher<String>,
@@ -1249,7 +1176,7 @@ fun ImageSelection(
         else painterResource(id = R.drawable.non),
         contentDescription = "Image",
         modifier = Modifier
-            .size(200.dp)
+            .size(size)
             .clickable {
                 imageSelector(
                     context = context,
@@ -1432,7 +1359,8 @@ fun imageSelector(
 
 fun isInternetAvailable(context: Context): Boolean {
     var result = false
-    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         val networkCapabilities = connectivityManager.activeNetwork ?: return false
         val actNw = connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false

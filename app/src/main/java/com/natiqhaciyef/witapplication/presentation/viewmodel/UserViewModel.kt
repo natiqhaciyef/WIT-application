@@ -239,11 +239,4 @@ class UserViewModel @Inject constructor(
                 userUIState.value = userUIState.value.copy(selectedElement = null)
         }
     }
-
-    fun splashModification(isActive: MutableState<Boolean>) {
-        viewModelScope.launch {
-            delay(1500)
-            isActive.value = true
-        }
-    }
 }
