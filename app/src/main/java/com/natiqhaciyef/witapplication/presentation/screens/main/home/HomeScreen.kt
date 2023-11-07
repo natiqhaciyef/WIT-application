@@ -179,6 +179,7 @@ private fun HomeBodyView(
     count: MutableState<Int>,
     postViewModel: PostViewModel = hiltViewModel(),
 ) {
+    postViewModel.getAllSavedPosts()
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
     val postState = remember { postViewModel.postUIState }
@@ -241,6 +242,18 @@ private fun HomeBodyView(
                 )
             }
             Spacer(modifier = Modifier.height(80.dp))
+        }
+    } else if (postState.value.isLoading) {
+        Box(
+            modifier = Modifier
+                .height(screenHeight / 7 * 4)
+                .background(AppExtraLightBrown)
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(bottom = 40.dp)
+            )
         }
     } else {
         Box(

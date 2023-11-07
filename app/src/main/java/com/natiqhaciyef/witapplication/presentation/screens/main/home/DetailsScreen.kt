@@ -1,5 +1,6 @@
 package com.natiqhaciyef.witapplication.presentation.screens.main.home
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -45,6 +46,7 @@ import com.natiqhaciyef.witapplication.common.util.helpers.majorStringToDateChan
 import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
 import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
+import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.presentation.viewmodel.PostViewModel
 import com.natiqhaciyef.witapplication.ui.theme.*
 
@@ -54,7 +56,17 @@ fun DetailsScreen(
     postModel: MappedPostModel = DefaultImpl.post,
     postViewModel: PostViewModel = hiltViewModel(),
 ) {
+    val savedPosts = remember { postViewModel.savedPostUIState }
     var isLiked by remember { mutableStateOf(false) }
+    var isContains by remember { mutableStateOf(false) }
+    if (savedPosts.value.list.contains(postModel))
+        isContains = true
+
+    BackHandler {
+        navController.navigate(route = ScreenId.MainScreenLine.name){
+            navController.popBackStack(ScreenId.DetailsScreen.name, inclusive = true)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -99,24 +111,36 @@ fun DetailsScreen(
                 IconButton(
                     modifier = Modifier.size(30.dp),
                     onClick = {
+                        isContains = !isContains
                         isLiked = !isLiked
 
-                        if (isLiked) {
+                        if (isContains) {
                             postModel.likeCount += 1
+                            postViewModel.savePost(postModel)
+                            postViewModel.updatePostRemote(postModel) {
+                                postViewModel.updateSavedPost(postModel)
+                            }
                         } else {
                             postModel.likeCount -= 1
+                            postViewModel.updatePostRemote(postModel) {
+                                postViewModel.updateSavedPost(postModel) {
+                                    println(postModel.likeCount)
+                                    postViewModel.removeSavedPost(postModel)
+                                }
+                            }
                         }
 
-                        postViewModel.updatePostRemote(postModel) {
-                            postViewModel.updateSavedPost(postModel)
-                        }
+                        postViewModel.getAllPosts()
+                        postViewModel.getAllSavedPosts()
+
+
                     }
                 ) {
                     Icon(
                         modifier = Modifier.size(30.dp),
-                        imageVector = if (isLiked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                        imageVector = if (isContains) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = "Like",
-                        tint = if (isLiked) Red else Color.Black
+                        tint = if (isContains) Red else Color.Black
                     )
                 }
 
@@ -157,6 +181,5 @@ fun DetailsScreen(
             color = Color.Black
         )
         Spacer(modifier = Modifier.height(20.dp))
-
     }
 }

@@ -15,11 +15,9 @@ class GetAllPostRemoteUseCase @Inject constructor(
     suspend operator fun invoke() = flow {
         emit(Resource.loading(null))
 
-        val result = repository.getAllPosts().postResult
-
-        if (result != null) {
+        if (repository.getAllPosts().postResult != null) {
             val mappedPosts = mutableListOf<MappedPostModel>()
-            for (post in result) {
+            for (post in repository.getAllPosts().postResult!!) {
                 mappedPosts.add(post.toMappedPost())
             }
             emit(Resource.success(mappedPosts))

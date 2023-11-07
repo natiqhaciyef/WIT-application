@@ -32,8 +32,10 @@ import com.natiqhaciyef.witapplication.presentation.screens.register.SplashScree
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
-fun AppNavigation() {
+fun AppNavigation(onStop: Boolean) {
     val navController = rememberNavController()
+    if (onStop)
+        navController.clearBackStack(ScreenId.MainScreenLine.name)
 
     NavHost(navController = navController, startDestination = ScreenId.SplashScreen.name) {
 
