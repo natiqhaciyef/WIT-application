@@ -57,7 +57,6 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 @Composable
 fun UserProfileScreen(
     navController: NavController,
-    viewModel: UserViewModel = hiltViewModel(),
     firebaseViewModel: FirebaseViewModel = hiltViewModel(),
 ) {
     val openDialog = remember { mutableStateOf(false) }

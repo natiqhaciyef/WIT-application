@@ -6,7 +6,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import com.natiqhaciyef.witapplication.presentation.component.isInternetAvailable
 import com.natiqhaciyef.witapplication.presentation.navigation.AppNavigation
+import com.natiqhaciyef.witapplication.presentation.navigation.NetworkLessNavigation
 import com.natiqhaciyef.witapplication.ui.theme.WITApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +22,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                AppNavigation(false)
+                val context = LocalContext.current
+                val isNetworkAvailable = remember { mutableStateOf(isInternetAvailable(context)) }
+                if (isNetworkAvailable.value)
+                    AppNavigation(false)
+                else
+                    NetworkLessNavigation()
             }
         }
     }
@@ -35,7 +45,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun AppTheme(
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     WITApplicationTheme {
         // A surface container using the 'background' color from the theme
