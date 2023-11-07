@@ -10,6 +10,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.DismissDirection
+import androidx.compose.material.DismissValue
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.SwipeToDismiss
+import androidx.compose.material.rememberDismissState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -29,6 +34,7 @@ import com.natiqhaciyef.witapplication.presentation.component.PostComponent
 import com.natiqhaciyef.witapplication.presentation.viewmodel.PostViewModel
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun LikedPostScreen(
     navController: NavController,
@@ -56,7 +62,23 @@ fun LikedPostScreen(
             Spacer(modifier = Modifier.height(20.dp))
             LazyColumn {
                 items(savedPostsState.value.list) { post ->
-                    PostComponent(mappedPostModel = post)
+                    val dismissState = rememberDismissState(
+                        confirmStateChange = {
+                            if (it == DismissValue.DismissedToStart) {
+                                postViewModel.updatePostRemote(post.copy(likeCount = post.likeCount - 1))
+                                postViewModel.removeSavedPost(post)
+                            }
+                            true
+                        }
+                    )
+
+                    SwipeToDismiss(
+                        state = dismissState,
+                        background = {},
+                        directions = setOf(DismissDirection.EndToStart)
+                    ) {
+                        PostComponent(mappedPostModel = post)
+                    }
                 }
             }
         } else {
