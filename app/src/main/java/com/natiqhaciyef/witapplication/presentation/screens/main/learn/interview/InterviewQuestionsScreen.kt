@@ -111,7 +111,10 @@ fun InterviewQuestions(
             ) {
                 items(EnumList.questionCategoriesLevels) { level ->
                     LevelComponent(level = level) {
-                        selectedLevel.value = level
+                        if (level == "All")
+                            selectedLevel.value = ""
+                        else
+                            selectedLevel.value = level
                     }
                 }
             }
@@ -119,7 +122,11 @@ fun InterviewQuestions(
             Spacer(modifier = Modifier.height(20.dp))
             LazyColumn {
                 items(
-                    interviewQuestions.value.list.filter { it.field.lowercase() == field.lowercase() }
+                    interviewQuestions.value.list.filter {
+                        it.field.lowercase() == field.lowercase()
+                                && it.title.lowercase().contains(searchQuery.value.lowercase())
+                                && it.level.contains(selectedLevel.value)
+                    }
                 ) { question ->
                     QuestionComponent(question = question)
                 }
