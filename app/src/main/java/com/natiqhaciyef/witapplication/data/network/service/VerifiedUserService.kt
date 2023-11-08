@@ -5,6 +5,7 @@ import com.natiqhaciyef.witapplication.data.network.VerifiedUserEndpoint
 import com.natiqhaciyef.witapplication.data.network.result.CRUDResponse
 import com.natiqhaciyef.witapplication.data.network.result.VerifiedUserResult
 import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -17,12 +18,14 @@ interface VerifiedUserService {
     ): VerifiedUserResult
 
     @POST(VerifiedUserEndpoint.GET_BY_EMAIL)
+    @FormUrlEncoded
     suspend fun getVerifiedUserByEmail(
         @Query("apiKey") key: String = BuildConfig.API_KEY,
         @Field("email") email: String,
     ): VerifiedUserResult
 
     @POST(VerifiedUserEndpoint.INSERT)
+    @FormUrlEncoded
     suspend fun insertVerifiedUser(
         @Query("apiKey") key: String = BuildConfig.API_KEY,
         @Field("name") name: String,
@@ -35,6 +38,7 @@ interface VerifiedUserService {
     ): CRUDResponse
 
     @POST(VerifiedUserEndpoint.UPDATE)
+    @FormUrlEncoded
     suspend fun updateVerifiedUser(
         @Query("apiKey") key: String = BuildConfig.API_KEY,
         @Field("id") id: Int,
@@ -48,6 +52,7 @@ interface VerifiedUserService {
     ): CRUDResponse
 
     @POST(VerifiedUserEndpoint.DELETE)
+    @FormUrlEncoded
     suspend fun removeVerifiedUser(
         @Query("apiKey") key: String = BuildConfig.API_KEY,
         @Field("id") id: Int,

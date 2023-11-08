@@ -21,6 +21,7 @@ import javax.inject.Inject
 class VerifiedUserViewModel @Inject constructor(
     private val getVerifiedUserByEmailUseCase: GetVerifiedUserByEmailUseCase,
     private val removeVerifiedUserUseCase: RemoveVerifiedUserUseCase,
+    private val insertVerifiedUserUseCase: InsertVerifiedUserUseCase,
 ) : BaseViewModel() {
     val verifiedUserUIState = mutableStateOf(UIState<VerifiedUserModel>())
 
@@ -113,6 +114,40 @@ class VerifiedUserViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    fun insertVerifiedUser(
+        verifiedUserModel: VerifiedUserModel,
+        onSuccess: () -> Unit = {},
+    ) {
+        viewModelScope.launch {
+            insertVerifiedUserUseCase.invoke(verifiedUserModel)
+                .collectLatest { result ->
+                    when (result.status) {
+                        Status.SUCCESS -> {
+                            verifiedUserUIState.value =
+                                verifiedUserUIState.value.copy(
+                                    message = result.message,
+                                    isLoading = false
+                                )
+                            onSuccess()
+                        }
+
+                        Status.ERROR -> {
+                            verifiedUserUIState.value =
+                                verifiedUserUIState.value.copy(
+                                    message = result.message,
+                                    isLoading = false
+                                )
+                        }
+
+                        Status.LOADING -> {
+                            verifiedUserUIState.value =
+                                verifiedUserUIState.value.copy(isLoading = true)
+                        }
+                    }
+                }
         }
     }
 }

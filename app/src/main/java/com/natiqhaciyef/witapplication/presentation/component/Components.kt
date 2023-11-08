@@ -362,9 +362,7 @@ fun ImageSelectionTitle(
         if (result.resultCode == AppCompatActivity.RESULT_OK) {
             val intentFromResult = result.data
             if (intentFromResult != null) {
-                if (image == null) {
-                    image.value = intentFromResult.data
-                }
+                image.value = intentFromResult.data
             }
         }
     }

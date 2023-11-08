@@ -1,12 +1,6 @@
 package com.natiqhaciyef.witapplication.presentation.screens.main.user
 
-import android.content.Intent
 import android.net.Uri
-import android.provider.MediaStore
-import android.widget.Toast
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -27,27 +20,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.gson.annotations.SerializedName
-import com.natiqhaciyef.costage.data.models.enums.UserTypes
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
-import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.data.models.VerifiedUserModel
-import com.natiqhaciyef.witapplication.presentation.component.ImageSelection
 import com.natiqhaciyef.witapplication.presentation.component.ImageSelectionTitle
 import com.natiqhaciyef.witapplication.presentation.component.InputBoxTitle
 import com.natiqhaciyef.witapplication.presentation.component.InputBoxTitlePassword
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
-import com.natiqhaciyef.witapplication.presentation.viewmodel.FirebaseViewModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.UserViewModel
-import com.natiqhaciyef.witapplication.ui.theme.AppBrown
+import com.natiqhaciyef.witapplication.presentation.viewmodel.VerifiedUserViewModel
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
@@ -55,6 +41,7 @@ import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 fun VerifyAccountScreen(
     navController: NavController,
     userViewModel: UserViewModel = hiltViewModel(),
+    verifiedUserViewModel: VerifiedUserViewModel = hiltViewModel(),
 ) {
     val userState = remember { userViewModel.userUIState }
     userViewModel.getUser(userState.value.list)
@@ -116,6 +103,7 @@ fun VerifyAccountScreen(
         InputBoxTitle(
             concept = "Phone",
             input = phone,
+            prefix = "+994 ",
             isEnabled = true,
             isSingleLine = true,
             isBottomShadowActive = false
@@ -134,7 +122,7 @@ fun VerifyAccountScreen(
         ImageSelectionTitle(image = image, concept = "Personal image")
 
         Spacer(modifier = Modifier.height(10.dp))
-        ImageSelectionTitle(image = image, concept = "ID image")
+        ImageSelectionTitle(image = idImage, concept = "ID image")
 
         Spacer(modifier = Modifier.height(55.dp))
         Button(
@@ -148,13 +136,15 @@ fun VerifyAccountScreen(
                         id = 0,
                         name = userState.value.selectedElement?.name ?: "",
                         email = userState.value.selectedElement?.email ?: "",
-                        password = userState.value.selectedElement?.password ?: "",
+                        password = password.value,
                         phone = phone.value,
                         image = image.value.toString(),
                         idImage = idImage.value.toString(),
                     )
 
-                    println(verifiedUserModel)
+                    verifiedUserViewModel.insertVerifiedUser(verifiedUserModel) {
+                        navController.popBackStack()
+                    }
                 }
             },
             shape = RoundedCornerShape(10.dp),
@@ -171,6 +161,5 @@ fun VerifyAccountScreen(
         }
 
         Spacer(modifier = Modifier.height(60.dp))
-
     }
 }

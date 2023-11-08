@@ -2,7 +2,7 @@ package com.natiqhaciyef.witapplication.data.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import com.natiqhaciyef.costage.data.models.enums.UserTypes
+import com.natiqhaciyef.witapplication.data.models.enums.UserTypes
 import com.natiqhaciyef.witapplication.data.models.top.UserAbstraction
 import kotlinx.parcelize.Parcelize
 
@@ -45,5 +45,5 @@ data class VerifiedUserModel(
     @SerializedName("password")
     var password: String,
     @SerializedName("type")
-    var type: String = UserTypes.VerifiedUser.name,
+    var type: String = UserTypes.PreVerifiedUser.name,
 ) : UserAbstraction(), Parcelable
