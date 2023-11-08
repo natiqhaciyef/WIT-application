@@ -16,6 +16,7 @@
 
 
     <string name="reset_password">Reset password</string>
+    <string name="update_password">Update password</string>
     <string name="verify_account">Verify account</string>
     <string name="forgot_password">Forgot password ?</string>
     <string name="email">Email</string>

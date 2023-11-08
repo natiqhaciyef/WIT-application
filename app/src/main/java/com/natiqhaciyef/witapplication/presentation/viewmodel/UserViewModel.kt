@@ -13,7 +13,6 @@ import com.natiqhaciyef.witapplication.domain.usecase.remote.user.RemoveUserRemo
 import com.natiqhaciyef.witapplication.domain.usecase.remote.user.UpdateUserRemoteUseCase
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -189,7 +188,7 @@ class UserViewModel @Inject constructor(
             } else if (userState.value.list.any { it.email == email && it.password != password }) {
                 // after reset password, updating password
                 changePassword(
-                    userState = userState,
+                    userList = userState.value.list,
                     email = email,
                     password = password,
                 ) {
@@ -215,12 +214,12 @@ class UserViewModel @Inject constructor(
     }
 
     fun changePassword(
-        userState: MutableState<UIState<UserModel>>,
+        userList: List<UserModel>,
         email: String,
         password: String,
         onSuccess: () -> Unit = {},
     ) {
-        val filteredUser = userState.value.list.filter { it.email == email }
+        val filteredUser = userList.filter { it.email == email }
         if (filteredUser.isNotEmpty()) {
             val customUser = filteredUser[0]
             customUser.password = password
