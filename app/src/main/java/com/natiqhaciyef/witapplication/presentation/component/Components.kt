@@ -1102,13 +1102,17 @@ fun CustomDropDownTitleSelectionBox(
     title: String,
     nonSelectedOption: String = "Options",
     list: List<String>,
+    modifier: Modifier = Modifier
+        .padding(start = 20.dp)
+        .fillMaxWidth(),
+    modifierTitle: Modifier = Modifier
+        .padding(start = 20.dp)
+        .fillMaxWidth(),
     isEnabled: Boolean = true,
     fontSize: Int = 20,
 ) {
     Text(
-        modifier = Modifier
-            .padding(start = 20.dp)
-            .fillMaxWidth(),
+        modifier = modifierTitle,
         text = title,
         fontSize = fontSize.sp,
         fontWeight = FontWeight.Bold,
@@ -1117,9 +1121,7 @@ fun CustomDropDownTitleSelectionBox(
     Spacer(modifier = Modifier.height(10.dp))
     CustomDropDownMenu(
         title = nonSelectedOption,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+        modifier = modifier,
         list = list,
         selectedOption = selectedOption,
         isEnabled = true
@@ -1135,6 +1137,8 @@ fun CustomDropDownMenu(
     list: List<String>,
     selectedOption: MutableState<String>,
     isEnabled: Boolean = true,
+    cornerRadius: Dp = 10.dp,
+    borderSize: Dp = 1.dp,
     extraAction: () -> Unit = { },
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -1142,9 +1146,9 @@ fun CustomDropDownMenu(
     ExposedDropdownMenuBox(
         modifier = modifier
             .border(
-                1.dp,
-                AppExtraDarkBrown,
-                shape = RoundedCornerShape(10.dp)
+                width = borderSize,
+                color = AppExtraDarkBrown,
+                shape = RoundedCornerShape(cornerRadius)
             ),
         expanded = expanded,
         onExpandedChange = {
@@ -1154,7 +1158,7 @@ fun CustomDropDownMenu(
         androidx.compose.material.TextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp)),
+                .clip(RoundedCornerShape(cornerRadius)),
             value = selectedOption.value,
             onValueChange = { },
             textStyle = TextStyle.Default.copy(

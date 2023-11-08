@@ -5,6 +5,8 @@ import com.natiqhaciyef.voyagersaz.data.model.enums.Season
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.data.models.service.LanguageModel
 import com.natiqhaciyef.witapplication.data.models.LearnSectionModel
+import com.natiqhaciyef.witapplication.data.models.enums.QuestionCategories
+import com.natiqhaciyef.witapplication.data.models.enums.QuestionLevels
 import com.natiqhaciyef.witapplication.data.models.service.InfoModel
 
 
@@ -78,4 +80,36 @@ object EnumList {
         )
     )
 
-}
+
+    val questionCategoriesProgrammingLanguages = listOf(
+        QuestionCategories.JAVA.title,
+        QuestionCategories.JAVASCRIPT.title,
+        QuestionCategories.CPP.title,
+        QuestionCategories.PYTHON.title,
+        QuestionCategories.KOTLIN.title,
+        QuestionCategories.CSHARP.title,
+        QuestionCategories.DART.title,
+        QuestionCategories.GOLANG.title,
+        QuestionCategories.REACTJS.title,
+        QuestionCategories.NODEJS.title,
+    )
+
+    val questionCategoriesFields = listOf(
+        QuestionCategories.ANDROID.title,
+        QuestionCategories.IOS.title,
+        QuestionCategories.CROSS_PLATFORM_MOBILE.title,
+        QuestionCategories.BACKEND.title,
+        QuestionCategories.FRONTEND.title,
+        QuestionCategories.AI.title,
+        QuestionCategories.ML.title,
+        QuestionCategories.DB.title,
+        QuestionCategories.CYBERSECURITY.title,
+    )
+
+    val questionCategoriesLevels = listOf(
+        QuestionLevels.ALL.title,
+        QuestionLevels.EASY.title,
+        QuestionLevels.MEDIUM.title,
+        QuestionLevels.HARD.title,
+        QuestionLevels.EXPERT.title,
+    )}
