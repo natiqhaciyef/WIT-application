@@ -623,88 +623,169 @@ fun InputBox(
     concept: String,
     input: MutableState<String>,
     isSingleLine: Boolean,
-    type: KeyboardType = KeyboardType.Text,
     prefix: String = "",
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(
-        keyboardType = type,
+        keyboardType = KeyboardType.Text,
         imeAction = ImeAction.Next
     ),
     leadingIcon: ImageVector? = null,
+    trailingIcon: ImageVector? = null,
     tag: String? = null,
     isBottomShadowActive: Boolean = true,
-    onClick: (String) -> Unit = { },
+    onClick: () -> Unit = { },
 ) {
     val focusManager = LocalFocusManager.current
 
-    OutlinedTextField(
-        modifier = modifier,
-        value = input.value,
-        onValueChange = {
-            input.value = it
-        },
-        leadingIcon = {
-            if (leadingIcon != null) {
+    if (trailingIcon == null) {
+        OutlinedTextField(
+            modifier = modifier,
+            value = input.value,
+            onValueChange = {
+                input.value = it
+            },
+            leadingIcon = {
+                if (leadingIcon != null) {
+                    Icon(
+                        imageVector = leadingIcon,
+                        contentDescription = "Email",
+                        tint = AppDarkBlue
+                    )
+                }
+            },
+            shape = RoundedCornerShape(8.dp),
+            enabled = true,
+            singleLine = isSingleLine,
+            readOnly = false,
+            keyboardActions = KeyboardActions(onNext = {
+                focusManager.moveFocus(FocusDirection.Down)
+            }),
+            keyboardOptions = keyboardOptions,
+            prefix = {
+                if (prefix.isNotEmpty()) {
+                    Text(
+                        text = prefix,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 17.sp
+                    )
+                } else {
+                    Text(
+                        text = "",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 17.sp
+                    )
+                }
+            },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                unfocusedTextColor = Color.Black,
+                focusedTextColor = Color.Black,
+                focusedBorderColor = AppDarkBlue,
+                unfocusedBorderColor = Color.Gray,
+                cursorColor = AppDarkBlue,
+                focusedTrailingIconColor = AppDarkBlue,
+                unfocusedTrailingIconColor = AppDarkBlue,
+            ),
+            textStyle = TextStyle.Default.copy(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+            ),
+            placeholder = {
+                if (tag == null) {
+                    Text(
+                        text = concept,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                    )
+                } else {
+                    Text(
+                        text = tag,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                    )
+                }
+            }
+        )
+    } else {
+        OutlinedTextField(
+            modifier = modifier,
+            value = input.value,
+            onValueChange = {
+                input.value = it
+            },
+            leadingIcon = {
+                if (leadingIcon != null) {
+                    Icon(
+                        imageVector = leadingIcon,
+                        contentDescription = "Email",
+                        tint = AppDarkBlue
+                    )
+                }
+            },
+            trailingIcon = {
                 Icon(
-                    imageVector = leadingIcon,
+                    modifier = Modifier
+                        .clickable { onClick() },
+                    imageVector = trailingIcon,
                     contentDescription = "Email",
                     tint = AppDarkBlue
                 )
+            },
+            shape = RoundedCornerShape(8.dp),
+            enabled = true,
+            singleLine = isSingleLine,
+            readOnly = false,
+            keyboardActions = KeyboardActions(onNext = {
+                focusManager.moveFocus(FocusDirection.Down)
+            }),
+            keyboardOptions = keyboardOptions,
+            prefix = {
+                if (prefix.isNotEmpty()) {
+                    Text(
+                        text = prefix,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 17.sp
+                    )
+                } else {
+                    Text(
+                        text = "",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 17.sp
+                    )
+                }
+            },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                unfocusedTextColor = Color.Black,
+                focusedTextColor = Color.Black,
+                focusedBorderColor = AppDarkBlue,
+                unfocusedBorderColor = Color.Gray,
+                cursorColor = AppDarkBlue,
+                focusedTrailingIconColor = AppDarkBlue,
+                unfocusedTrailingIconColor = AppDarkBlue,
+            ),
+            textStyle = TextStyle.Default.copy(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+            ),
+            placeholder = {
+                if (tag == null) {
+                    Text(
+                        text = concept,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                    )
+                } else {
+                    Text(
+                        text = tag,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                    )
+                }
             }
-        },
-        shape = RoundedCornerShape(8.dp),
-        enabled = true,
-        singleLine = isSingleLine,
-        readOnly = false,
-        keyboardActions = KeyboardActions(onNext = {
-            focusManager.moveFocus(FocusDirection.Down)
-        }),
-        keyboardOptions = keyboardOptions,
-        prefix = {
-            if (prefix.isNotEmpty()) {
-                Text(
-                    text = prefix,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
-                )
-            } else {
-                Text(
-                    text = "",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
-                )
-            }
-        },
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = Color.White,
-            unfocusedContainerColor = Color.White,
-            unfocusedTextColor = Color.Black,
-            focusedTextColor = Color.Black,
-            focusedBorderColor = AppDarkBlue,
-            unfocusedBorderColor = Color.Gray,
-            cursorColor = AppDarkBlue,
-            focusedTrailingIconColor = AppDarkBlue,
-            unfocusedTrailingIconColor = AppDarkBlue,
-        ),
-        textStyle = TextStyle.Default.copy(
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-        ),
-        placeholder = {
-            if (tag == null) {
-                Text(
-                    text = concept,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
-                )
-            } else {
-                Text(
-                    text = tag,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
-                )
-            }
-        }
-    )
+        )
+    }
     if (isBottomShadowActive)
         BottomShadow(padding = 23.dp)
 
