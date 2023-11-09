@@ -20,6 +20,7 @@ import androidx.compose.material.DismissValue
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.rememberDismissState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -54,78 +55,83 @@ fun LikedPostScreen(
     navController: NavController,
     postViewModel: PostViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
     val savedPostsState = remember { postViewModel.savedPostUIState }
-    val isNetworkConnected = remember { mutableStateOf(isInternetAvailable(context)) }
     val isTapped = remember { mutableStateOf(false) }
 
-    if (isNetworkConnected.value || isTapped.value) {
-        CustomSnackbar(returnMessage = ErrorMessages.INTERNET_CONNECTION_FAILED)
-    } else {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(AppExtraLightBrown),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            if (savedPostsState.value.list.isNotEmpty()) {
-                Spacer(modifier = Modifier.height(35.dp))
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(AppExtraLightBrown),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        if (savedPostsState.value.list.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(35.dp))
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                text = stringResource(id = R.string.liked_posts),
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            LazyColumn {
+                items(savedPostsState.value.list) { post ->
+                    val dismissState = rememberDismissState(
+                        confirmStateChange = {
+                            if (it == DismissValue.DismissedToStart) {
+                                postViewModel.updatePostRemote(
+                                    post.copy(likeCount = post.likeCount - 1),
+                                    onFail = {
+                                        isTapped.value = !isTapped.value
+                                    }
+                                ) {
+                                    postViewModel.removeSavedPost(post)
+                                }
+                            }
+                            true
+                        }
+                    )
+
+                    SwipeToDismiss(
+                        state = dismissState,
+                        background = {},
+                        directions = setOf(DismissDirection.EndToStart)
+                    ) {
+                        PostComponent(mappedPostModel = post)
+                    }
+                }
+            }
+        } else if (savedPostsState.value.isLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(AppExtraLightBrown)
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        } else {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(AppExtraLightBrown)
+            ) {
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 20.dp),
-                    text = stringResource(id = R.string.liked_posts),
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                        .padding(horizontal = 20.dp)
+                        .padding(bottom = 30.dp)
+                        .align(Alignment.Center),
+                    text = ErrorMessages.POSTS_NOT_FOUND,
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Center
                 )
-                Spacer(modifier = Modifier.height(20.dp))
-                LazyColumn {
-                    items(savedPostsState.value.list) { post ->
-                        val dismissState = rememberDismissState(
-                            confirmStateChange = {
-                                if (it == DismissValue.DismissedToStart) {
-                                    postViewModel.updatePostRemote(
-                                        post.copy(likeCount = post.likeCount - 1),
-                                        onFail = {
-                                            isTapped.value = !isTapped.value
-                                        }
-                                    ) {
-                                        postViewModel.removeSavedPost(post)
-                                    }
-                                }
-                                true
-                            }
-                        )
-
-                        SwipeToDismiss(
-                            state = dismissState,
-                            background = {},
-                            directions = setOf(DismissDirection.EndToStart)
-                        ) {
-                            PostComponent(mappedPostModel = post)
-                        }
-                    }
-                }
-            } else {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(AppExtraLightBrown)
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp)
-                            .padding(bottom = 30.dp)
-                            .align(Alignment.Center),
-                        text = ErrorMessages.POSTS_NOT_FOUND,
-                        fontSize = 16.sp,
-                        color = Color.Black,
-                        fontWeight = FontWeight.SemiBold,
-                        textAlign = TextAlign.Center
-                    )
-                }
             }
         }
     }

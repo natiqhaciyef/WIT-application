@@ -60,7 +60,6 @@ import com.natiqhaciyef.witapplication.presentation.viewmodel.InterviewQuestionV
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 import okhttp3.internal.immutableListOf
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun InterviewQuestions(
     navController: NavController,
