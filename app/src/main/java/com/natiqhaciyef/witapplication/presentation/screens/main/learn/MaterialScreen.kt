@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -38,7 +39,7 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 fun MaterialScreen(
     navController: NavController,
     field: String,
-    firebaseViewModel: FirebaseViewModel = hiltViewModel()
+    firebaseViewModel: FirebaseViewModel = hiltViewModel(),
 ) {
     firebaseViewModel.getAllMaterials(field)
     val materials = remember { firebaseViewModel.filesState }
@@ -52,25 +53,33 @@ fun MaterialScreen(
             .background(AppExtraLightBrown),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(40.dp))
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
-            text = stringResource(id = R.string.materials),
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            fontFamily = Opensans.opensans
-        )
+        if (materials.value.list.any { it.field.lowercase() == field.lowercase() }) {
+            Spacer(modifier = Modifier.height(40.dp))
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                text = stringResource(id = R.string.materials),
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                fontFamily = Opensans.opensans
+            )
 
-        Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-        if (materials.value.list.isNotEmpty()) {
             LazyColumn {
                 items(stateList) { material ->
                     ItemFileBox(material = material)
                 }
+            }
+        } else if (materials.value.isLoading && materials.value.message == null) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(AppExtraLightBrown)
+            ) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         } else {
             Box(

@@ -12,7 +12,9 @@ class GetAllNotificationsUseCase @Inject constructor(
     operator fun invoke(
         onSuccess: (List<NotificationModel>) -> Unit = {},
         onFail: (Exception?) -> Unit = {},
+        onLoading: () -> Unit = { },
     ) {
+        onLoading()
         val list = mutableListOf<NotificationModel>()
         firebaseRepositoryImpl.ds.firestore.collection("Notifications")
             .addSnapshotListener { value, error ->

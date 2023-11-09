@@ -18,10 +18,17 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -53,6 +60,7 @@ import com.natiqhaciyef.witapplication.presentation.viewmodel.InterviewQuestionV
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 import okhttp3.internal.immutableListOf
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun InterviewQuestions(
     navController: NavController,
@@ -132,6 +140,14 @@ fun InterviewQuestions(
                 }
             }
             Spacer(modifier = Modifier.height(50.dp))
+        } else if (interviewQuestions.value.isLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(AppExtraLightBrown)
+            ) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            }
         } else {
             Box(
                 modifier = Modifier

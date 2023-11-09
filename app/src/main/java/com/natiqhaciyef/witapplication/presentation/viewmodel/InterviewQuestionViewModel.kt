@@ -15,6 +15,7 @@ import com.natiqhaciyef.witapplication.domain.usecase.remote.interview_question.
 import com.natiqhaciyef.witapplication.domain.usecase.remote.interview_question.InsertInterviewQuestionUseCase
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -49,6 +50,7 @@ class InterviewQuestionViewModel @Inject constructor(
 //        )
     }
 
+    // api request state holding
     private fun getAllInterviewQuestions() {
         viewModelScope.launch {
             getAllInterviewQuestionsUseCase.invoke().collectLatest { result ->

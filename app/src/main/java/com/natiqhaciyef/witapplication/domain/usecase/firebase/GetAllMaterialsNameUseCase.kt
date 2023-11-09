@@ -1,8 +1,10 @@
 package com.natiqhaciyef.witapplication.domain.usecase.firebase
 
+import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.data.models.MaterialModel
 import com.natiqhaciyef.witapplication.data.models.enums.FileTypes
 import com.natiqhaciyef.witapplication.domain.repository.impl.FirebaseRepositoryImpl
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class GetAllMaterialsNameUseCase @Inject constructor(
@@ -11,12 +13,14 @@ class GetAllMaterialsNameUseCase @Inject constructor(
 
     operator fun invoke(
         concept: String,
-        onSuccess: (List<MaterialModel>) -> Unit,
-        onFail: (Exception?) -> Unit,
+        onSuccess: (List<MaterialModel>) -> Unit = {},
+        onFail: (Exception?) -> Unit = {},
+        onLoading: () -> Unit = {},
     ) {
         val list = mutableListOf<MaterialModel>()
         firebaseRepositoryImpl.ds.firestore.collection("Materials")
             .addSnapshotListener { value, error ->
+                onLoading()
                 if (value != null && !value.isEmpty) {
                     val docs = value.documents
                     for (doc in docs) {
@@ -39,7 +43,10 @@ class GetAllMaterialsNameUseCase @Inject constructor(
                         }
                     }
 
-                    onSuccess(list)
+                    if (list.isNotEmpty())
+                        onSuccess(list)
+                    else
+                        onFail(Exception(ErrorMessages.DOCUMENT_NOT_FOUND))
                 } else {
                     onFail(error)
                 }

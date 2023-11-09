@@ -2,6 +2,7 @@ package com.natiqhaciyef.witapplication.presentation.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.natiqhaciyef.witapplication.data.models.service.InfoModel
@@ -15,6 +16,7 @@ import com.natiqhaciyef.witapplication.domain.usecase.firebase.GetAllNotificatio
 import com.natiqhaciyef.witapplication.domain.usecase.firebase.GetMaterialUseCase
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,7 +25,7 @@ class FirebaseViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepositoryImpl,
     private val getAllMaterialsNameUseCase: GetAllMaterialsNameUseCase,
     private val getAllFAQUseCase: GetAllFAQUseCase,
-    private val getAllNotificationsUseCase: GetAllNotificationsUseCase
+    private val getAllNotificationsUseCase: GetAllNotificationsUseCase,
 ) : BaseViewModel() {
     val faqState = mutableStateOf(UIState<InfoModel>())
     val filesState = mutableStateOf(UIState<MaterialModel>())
@@ -96,47 +98,59 @@ class FirebaseViewModel @Inject constructor(
         getAllFAQUseCase.invoke(
             onSuccess = { result ->
                 if (result.isNotEmpty())
-                    faqState.value.apply {
-                        this.list = result
-                    }
+                    faqState.value = faqState.value.copy(
+                        list = result
+                    )
             },
             onFail = { error ->
-                if (error != null)
-                    faqState.value.apply {
-                        this.message = error.localizedMessage
-                    }
+                faqState.value = faqState.value.copy(
+                    message = error?.localizedMessage
+                )
             }
         )
     }
 
+    // firebase state holding
     fun getAllMaterials(
         field: String,
     ) {
-        getAllMaterialsNameUseCase.invoke(
-            concept = field,
-            onSuccess = { files ->
-                filesState.value.apply {
-                    this.list = files
-                }
-            },
-            onFail = { }
-        )
+        viewModelScope.launch {
+            filesState.value.isLoading = true
+            delay(500)
+            getAllMaterialsNameUseCase.invoke(
+                concept = field,
+                onSuccess = { files ->
+                    filesState.value = filesState.value.copy(
+                        list = files,
+                        isLoading = false
+                    )
+                },
+                onFail = { message ->
+                    filesState.value = filesState.value.copy(
+                        message = message?.localizedMessage,
+                        isLoading = false
+                    )
+                },
+            )
+        }
     }
 
-    private fun getAllNotification(){
-        getAllNotificationsUseCase.invoke(
-            onSuccess = { notifications ->
-                notificationState.value.apply {
-                    list = notifications
-                    isLoading = false
+    private fun getAllNotification() {
+        viewModelScope.launch {
+            getAllNotificationsUseCase.invoke(
+                onSuccess = { notifications ->
+                    notificationState.value = notificationState.value.copy(
+                        list = notifications,
+                        isLoading = false
+                    )
+                },
+                onFail = { exception ->
+                    notificationState.value = notificationState.value.copy(
+                        message = exception?.localizedMessage,
+                        isLoading = false
+                    )
                 }
-            },
-            onFail = { exception ->
-                notificationState.value.apply {
-                    message = exception?.message
-                    isLoading = false
-                }
-            }
-        )
+            )
+        }
     }
 }
