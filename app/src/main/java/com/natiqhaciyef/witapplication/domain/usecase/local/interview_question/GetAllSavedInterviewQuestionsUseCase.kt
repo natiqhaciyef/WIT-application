@@ -13,9 +13,8 @@ class GetAllSavedInterviewQuestionsUseCase @Inject constructor(
     suspend operator fun invoke() = flow {
         emit(Resource.loading(null))
 
-        val result = interviewQuestionRepository.getAllSavedInterviewQuestions()
-        if (result != null) {
-            emit(Resource.success(result))
+        if (interviewQuestionRepository.getAllSavedInterviewQuestions() != null) {
+            emit(Resource.success(interviewQuestionRepository.getAllSavedInterviewQuestions()))
         } else {
             emit(Resource.error(BaseUseCase.LOADING_FAIL, null))
         }

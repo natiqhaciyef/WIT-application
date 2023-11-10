@@ -3,11 +3,7 @@ package com.natiqhaciyef.witapplication.presentation.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.natiqhaciyef.witapplication.common.Status
-import com.natiqhaciyef.witapplication.common.util.helpers.getNow
-import com.natiqhaciyef.witapplication.common.util.helpers.toSQLiteList
-import com.natiqhaciyef.witapplication.common.util.helpers.toSQLiteString
 import com.natiqhaciyef.witapplication.data.models.InterviewQuestionModel
-import com.natiqhaciyef.witapplication.data.models.enums.QuestionLevels
 import com.natiqhaciyef.witapplication.domain.usecase.local.interview_question.GetAllSavedInterviewQuestionsUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.local.interview_question.RemoveSavedInterviewQuestionUseCase
 import com.natiqhaciyef.witapplication.domain.usecase.local.interview_question.SaveInterviewQuestionUseCase
@@ -15,7 +11,6 @@ import com.natiqhaciyef.witapplication.domain.usecase.remote.interview_question.
 import com.natiqhaciyef.witapplication.domain.usecase.remote.interview_question.InsertInterviewQuestionUseCase
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,6 +28,7 @@ class InterviewQuestionViewModel @Inject constructor(
 
     init {
         getAllInterviewQuestions()
+        getAllSavedQuestions()
 //        insertInterviewQuestion(
 //            questionModel = InterviewQuestionModel(
 //                id = 0,
@@ -106,27 +102,31 @@ class InterviewQuestionViewModel @Inject constructor(
     }
 
 
-    fun getAllSavedQuestions() {
+    private fun getAllSavedQuestions() {
         viewModelScope.launch {
             getAllSavedInterviewQuestionsUseCase.invoke().collectLatest { result ->
                 when (result.status) {
                     Status.LOADING -> {
-                        savedInterviewQuestionsUIState.value.isLoading = true
+                        savedInterviewQuestionsUIState.value =
+                            savedInterviewQuestionsUIState.value.copy(isLoading = true)
                     }
 
                     Status.ERROR -> {
-                        savedInterviewQuestionsUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
+                        savedInterviewQuestionsUIState.value =
+                            savedInterviewQuestionsUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.SUCCESS -> {
-                        if (result.data != null)
-                            savedInterviewQuestionsUIState.value.apply {
-                                this.list = result.data
-                                this.isLoading = false
-                            }
+                        if (result.data != null) {
+                            savedInterviewQuestionsUIState.value =
+                                savedInterviewQuestionsUIState.value.copy(
+                                    list = result.data,
+                                    isLoading = false
+                                )
+                        }
                     }
                 }
             }
@@ -138,28 +138,31 @@ class InterviewQuestionViewModel @Inject constructor(
             saveInterviewQuestionUseCase.invoke(questionModel).collectLatest { result ->
                 when (result.status) {
                     Status.ERROR -> {
-                        savedInterviewQuestionsUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
+                        savedInterviewQuestionsUIState.value =
+                            savedInterviewQuestionsUIState.value.copy(
+                                message = result.message,
+                                isLoading = false
+                            )
                     }
 
                     Status.SUCCESS -> {
-                        savedInterviewQuestionsUIState.value.apply {
-                            this.message = result.data
-                            this.isLoading = false
-                        }
+                        savedInterviewQuestionsUIState.value =
+                            savedInterviewQuestionsUIState.value.copy(
+                                isLoading = false,
+                                message = result.data
+                            )
                     }
 
                     Status.LOADING -> {
-                        savedInterviewQuestionsUIState.value.isLoading = true
+                        savedInterviewQuestionsUIState.value =
+                            savedInterviewQuestionsUIState.value.copy(isLoading = true)
                     }
                 }
             }
         }
     }
 
-    fun removeInterviewQuestion(questionModel: InterviewQuestionModel) {
+    fun removeSavedInterviewQuestion(questionModel: InterviewQuestionModel) {
         viewModelScope.launch {
             removeSavedInterviewQuestionUseCase.invoke(questionModel).collectLatest { result ->
                 when (result.status) {

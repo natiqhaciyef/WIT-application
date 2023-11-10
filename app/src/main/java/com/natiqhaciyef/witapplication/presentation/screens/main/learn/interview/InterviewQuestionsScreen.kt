@@ -1,9 +1,7 @@
 package com.natiqhaciyef.witapplication.presentation.screens.main.learn.interview
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,28 +11,30 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.DismissDirection
+import androidx.compose.material.DismissValue
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Tune
-import androidx.compose.material.pullrefresh.PullRefreshIndicator
-import androidx.compose.material.pullrefresh.pullRefresh
-import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.rememberDismissState
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -48,18 +48,16 @@ import androidx.navigation.NavController
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.common.util.objects.EnumList
 import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
-import com.natiqhaciyef.witapplication.data.models.InterviewQuestionModel
-import com.natiqhaciyef.witapplication.data.models.top.QuestionAbstraction
-import com.natiqhaciyef.witapplication.presentation.component.CustomDropDownMenu
-import com.natiqhaciyef.witapplication.presentation.component.CustomDropDownTitleSelectionBox
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.LevelComponent
 import com.natiqhaciyef.witapplication.presentation.component.QuestionComponent
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.viewmodel.InterviewQuestionViewModel
+import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
-import okhttp3.internal.immutableListOf
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun InterviewQuestions(
     navController: NavController,
@@ -67,8 +65,11 @@ fun InterviewQuestions(
     interviewQuestionViewModel: InterviewQuestionViewModel = hiltViewModel(),
 ) {
     val interviewQuestions = remember { interviewQuestionViewModel.interviewQuestionsUIState }
+    val saved = remember { interviewQuestionViewModel.savedInterviewQuestionsUIState }
     val searchQuery = remember { mutableStateOf("") }
     val selectedLevel = remember { mutableStateOf("") }
+
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -135,7 +136,63 @@ fun InterviewQuestions(
                                 && it.level.contains(selectedLevel.value)
                     }
                 ) { question ->
-                    QuestionComponent(question = question)
+
+                    val dismissState = rememberDismissState(
+                        confirmStateChange = {
+                            if (it == DismissValue.DismissedToStart) {
+                                if (question.image == null)
+                                    question.image = "Empty image"
+                                interviewQuestionViewModel.saveInterviewQuestion(question)
+                            }
+
+                            true
+                        }
+                    )
+
+                    SwipeToDismiss(
+                        state = dismissState,
+                        background = {
+                            val backgroundColor by animateColorAsState(
+                                when (dismissState.targetValue) {
+                                    DismissValue.DismissedToStart -> AppDarkBlue.copy(alpha = 0.8f)
+                                    DismissValue.DismissedToEnd -> Color.Transparent.copy(alpha = 0.8f)
+                                    else -> Color.Transparent
+                                },
+                                label = ""
+                            )
+
+                            // icon size
+                            val iconScale by animateFloatAsState(
+                                targetValue = if (dismissState.targetValue == DismissValue.DismissedToStart) 1.3f else 0.5f,
+                                label = ""
+                            )
+
+                            Box(
+                                Modifier
+                                    .fillMaxSize()
+                                    .background(color = backgroundColor)
+                                    .padding(end = 16.dp)
+                                    .clickable {
+                                        coroutineScope.launch {
+                                            interviewQuestionViewModel.removeSavedInterviewQuestion(question)
+                                            dismissState.reset()
+                                        }
+                                    }, // inner padding
+                                contentAlignment = Alignment.CenterEnd // place the icon at the end (left)
+                            ) {
+                                Icon(
+                                    modifier = Modifier.scale(iconScale),
+                                    imageVector = Icons.Outlined.BookmarkBorder,
+                                    contentDescription = "Save",
+                                    tint = Color.White
+                                )
+                            }
+                        },
+                        directions = setOf(DismissDirection.EndToStart)
+                    ) {
+
+                        QuestionComponent(question = question)
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(50.dp))

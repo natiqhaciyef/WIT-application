@@ -20,7 +20,7 @@ data class InterviewQuestionModel(
     @SerializedName("solution")
     var solution: String,
     @SerializedName("image")
-    var image: String?,
+    var image: String? = "",
     @SerializedName("level")
     var level: String,
     @SerializedName("origin")
