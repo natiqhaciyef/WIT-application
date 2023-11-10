@@ -102,7 +102,7 @@ class InterviewQuestionViewModel @Inject constructor(
     }
 
 
-    private fun getAllSavedQuestions() {
+    fun getAllSavedQuestions() {
         viewModelScope.launch {
             getAllSavedInterviewQuestionsUseCase.invoke().collectLatest { result ->
                 when (result.status) {

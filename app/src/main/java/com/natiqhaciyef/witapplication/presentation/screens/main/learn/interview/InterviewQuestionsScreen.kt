@@ -65,7 +65,7 @@ fun InterviewQuestions(
     interviewQuestionViewModel: InterviewQuestionViewModel = hiltViewModel(),
 ) {
     val interviewQuestions = remember { interviewQuestionViewModel.interviewQuestionsUIState }
-    val saved = remember { interviewQuestionViewModel.savedInterviewQuestionsUIState }
+    val savedQuestions = remember { interviewQuestionViewModel.savedInterviewQuestionsUIState }
     val searchQuery = remember { mutableStateOf("") }
     val selectedLevel = remember { mutableStateOf("") }
 
@@ -142,8 +142,16 @@ fun InterviewQuestions(
                             if (it == DismissValue.DismissedToStart) {
                                 if (question.image == null)
                                     question.image = "Empty image"
-                                interviewQuestionViewModel.saveInterviewQuestion(question)
+
+                                if (!savedQuestions.value.list
+                                        .map { Pair(it.title, it.solution) }
+                                        .contains(Pair(question.title, question.solution))
+                                )
+                                    interviewQuestionViewModel.saveInterviewQuestion(question)
                             }
+
+                            interviewQuestionViewModel.getAllSavedQuestions()
+
 
                             true
                         }
@@ -174,7 +182,10 @@ fun InterviewQuestions(
                                     .padding(end = 16.dp)
                                     .clickable {
                                         coroutineScope.launch {
-                                            interviewQuestionViewModel.removeSavedInterviewQuestion(question)
+                                            interviewQuestionViewModel.removeSavedInterviewQuestion(
+                                                question
+                                            )
+
                                             dismissState.reset()
                                         }
                                     }, // inner padding

@@ -120,7 +120,7 @@ fun <T : QuestionAbstraction> QuestionComponent(question: T) {
                                         .padding(horizontal = 10.dp, vertical = 10.dp)
                                 )
 
-                            if (question.image != null) {
+                            if (!question.image.isNullOrEmpty()) {
                                 Image(
                                     modifier = Modifier
                                         .padding(horizontal = 10.dp)
@@ -135,17 +135,13 @@ fun <T : QuestionAbstraction> QuestionComponent(question: T) {
                             Text(
                                 text = buildAnnotatedString {
                                     withStyle(
-                                        SpanStyle(
-                                            color = Color.Black
-                                        )
+                                        SpanStyle(color = Color.Black)
                                     ) {
                                         append("Solution: ")
                                     }
 
                                     withStyle(
-                                        SpanStyle(
-                                            color = AppDarkGray
-                                        )
+                                        SpanStyle(color = AppDarkGray)
                                     ) {
                                         append(question.solution)
                                     }
