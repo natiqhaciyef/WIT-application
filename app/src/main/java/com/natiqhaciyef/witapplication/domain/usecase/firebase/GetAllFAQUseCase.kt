@@ -19,7 +19,7 @@ class GetAllFAQUseCase @Inject constructor(
             .addSnapshotListener { value, error ->
                 if (value != null && !value.isEmpty) {
                     val docs = value.documents
-                    for (doc in docs) {
+                    for (doc in docs.reversed()) {
                         val title = doc["title"].toString()
                         val description = doc["description"].toString()
 

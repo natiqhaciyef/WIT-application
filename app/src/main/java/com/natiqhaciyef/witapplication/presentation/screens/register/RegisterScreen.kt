@@ -51,6 +51,7 @@ import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.presentation.component.BottomShadow
+import com.natiqhaciyef.witapplication.presentation.component.CustomSnackbar
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.InputBoxPassword
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
@@ -61,7 +62,7 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 
 @Composable
 fun RegisterScreen(
-    navController: NavController
+    navController: NavController,
 ) {
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -141,9 +142,10 @@ private fun RegisterTopView() {
 private fun RegisterMainPart(
     navController: NavController,
     userViewModel: UserViewModel = hiltViewModel(),
-    firebaseViewModel: FirebaseViewModel = hiltViewModel()
+    firebaseViewModel: FirebaseViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
+    val errorAvailable = remember { mutableStateOf("") }
     val fullNameState = remember { mutableStateOf("") }
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
@@ -200,14 +202,10 @@ private fun RegisterMainPart(
                     firebaseViewModel.createAccount(
                         user,
                         onFail = {
-                            Toast.makeText(
-                                context,
-                                ErrorMessages.SOMETHING_WENT_WRONG,
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            errorAvailable.value = ErrorMessages.SOMETHING_WENT_WRONG
                         },
                         onSuccess = {
+                            errorAvailable.value = "nj"
                             userViewModel.insertUser(userModel = user) {
                                 navController.navigate(ScreenId.LoginScreen.name)
                             }
@@ -267,6 +265,13 @@ private fun RegisterMainPart(
                     fontWeight = FontWeight.SemiBold,
                 )
             }
+
+            if (errorAvailable.value.isNotEmpty())
+                CustomSnackbar(
+                    returnMessage = ErrorMessages.SOMETHING_WENT_WRONG,
+                    backgroundColor = AppExtraLightBrown,
+                    textColor = AppDarkBlue
+                )
         }
     }
 }

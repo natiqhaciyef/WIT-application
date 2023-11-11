@@ -1275,60 +1275,100 @@ fun ImageSelection(
 
 
 @Composable
-fun CustomSnackbar(returnMessage: String) {
+fun CustomSnackbar(
+    returnMessage: String,
+    backgroundColor: Color = AppDarkBlue,
+    textColor: Color = Color.White,
+    action: (() -> Unit)? = null,
+) {
     val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarHost(
         hostState = snackbarHostState,
         snackbar = {
-            Snackbar(
-                modifier = Modifier
-                    .padding(horizontal = 20.dp)
-                    .fillMaxWidth()
-                    .height(60.dp),
-                action = {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(end = 10.dp),
-                        text = "Okay",
-                        fontSize = 17.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = LightYellow,
-                        textAlign = TextAlign.End
-                    )
-                },
-                backgroundColor = AppDarkBlue,
-                shape = RoundedCornerShape(8.dp),
-            ) {
-                Box(
+            if (action != null)
+                Snackbar(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .padding(horizontal = 20.dp)
+                        .fillMaxWidth()
+                        .height(60.dp),
+                    action = {
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(end = 10.dp),
+                            text = "Okay",
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = LightYellow,
+                            textAlign = TextAlign.End
+                        )
+                    },
+                    backgroundColor = backgroundColor,
+                    shape = RoundedCornerShape(8.dp),
                 ) {
-                    Text(
+                    Box(
                         modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(horizontal = 10.dp)
-                            .fillMaxWidth(),
-                        text = returnMessage,
-                        fontSize = 17.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White,
-                        textAlign = TextAlign.Start
-                    )
+                            .fillMaxSize()
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(horizontal = 10.dp)
+                                .fillMaxWidth(),
+                            text = returnMessage,
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = textColor,
+                            textAlign = TextAlign.Start
+                        )
+                    }
                 }
-            }
+            else
+                Snackbar(
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                        .fillMaxWidth()
+                        .height(60.dp),
+                    backgroundColor = backgroundColor,
+                    shape = RoundedCornerShape(8.dp),
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(horizontal = 10.dp)
+                                .fillMaxWidth(),
+                            text = returnMessage,
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = textColor,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
         }
     )
 
+    if (action != null)
     // Show the Snackbar
-    LaunchedEffect(key1 = Unit) {
-        snackbarHostState.showSnackbar(
-            message = returnMessage,
-            actionLabel = "Okay",
-            duration = SnackbarDuration.Short
-        )
-    }
+        LaunchedEffect(key1 = Unit) {
+            snackbarHostState.showSnackbar(
+                message = returnMessage,
+                actionLabel = "Okay",
+                duration = SnackbarDuration.Long
+            )
+        }
+    else
+        LaunchedEffect(key1 = Unit) {
+            snackbarHostState.showSnackbar(
+                message = returnMessage,
+                duration = SnackbarDuration.Long
+            )
+        }
 }
 
 

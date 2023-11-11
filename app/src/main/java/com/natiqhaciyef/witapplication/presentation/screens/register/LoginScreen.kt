@@ -52,6 +52,7 @@ import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.presentation.component.BottomShadow
+import com.natiqhaciyef.witapplication.presentation.component.CustomSnackbar
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.InputBoxPassword
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
@@ -63,7 +64,7 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 
 @Composable
 fun LoginScreen(
-    navController: NavController
+    navController: NavController,
 ) {
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -145,9 +146,10 @@ private fun LoginTopView() {
 private fun LoginMainPart(
     navController: NavController,
     firebaseViewModel: FirebaseViewModel = hiltViewModel(),
-    userViewModel: UserViewModel = hiltViewModel()
+    userViewModel: UserViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
+    val errorAvailable = remember { mutableStateOf("") }
     val userState = remember { userViewModel.userUIState }
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
@@ -210,24 +212,26 @@ private fun LoginMainPart(
                     val user = UserModel(name = " ", email = email, password = password)
                     firebaseViewModel.signInUser(user,
                         onFail = {
-                            Toast.makeText(
-                                context,
-                                ErrorMessages.SOMETHING_WENT_WRONG,
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            errorAvailable.value = ErrorMessages.SOMETHING_WENT_WRONG
                         },
                         onSuccess = {
+                            println("A")
                             userViewModel.userLoginCheckFromDB(
                                 userState = userState,
                                 email = email,
                                 password = password,
                                 onSuccess = {
-                                    navController.navigate(ScreenId.MainScreenLine.name){
-                                        navController.popBackStack(ScreenId.LoginScreen.name, inclusive = true)
+                                    println("B")
+                                    errorAvailable.value = ""
+                                    navController.navigate(ScreenId.MainScreenLine.name) {
+                                        navController.popBackStack(
+                                            ScreenId.LoginScreen.name,
+                                            inclusive = true
+                                        )
                                     }
                                 },
                                 onFail = {
+                                    println("C")
                                     Toast.makeText(
                                         context,
                                         ErrorMessages.SIGN_IN_FAILED,
@@ -292,6 +296,14 @@ private fun LoginMainPart(
                     fontWeight = FontWeight.SemiBold,
                 )
             }
+
+            if (errorAvailable.value.isNotEmpty())
+                CustomSnackbar(
+                    returnMessage = ErrorMessages.SOMETHING_WENT_WRONG,
+                    backgroundColor = AppExtraLightBrown,
+                    textColor = AppDarkBlue
+                )
+
         }
     }
 }

@@ -46,6 +46,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.presentation.component.BottomShadow
+import com.natiqhaciyef.witapplication.presentation.component.CustomSnackbar
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
@@ -55,7 +56,7 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 
 @Composable
 fun ForgotPasswordScreen(
-    navController: NavController
+    navController: NavController,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -113,9 +114,9 @@ private fun ForgotPasswordTopView() {
 private fun ForgotPasswordMainPart(
     navController: NavController,
     firebaseViewModel: FirebaseViewModel = hiltViewModel(),
-    userViewModel: UserViewModel = hiltViewModel()
+    userViewModel: UserViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
+    val errorAvailable = remember { mutableStateOf("") }
     val userState = remember { userViewModel.userUIState }
     val email = remember { mutableStateOf("") }
 
@@ -177,14 +178,10 @@ private fun ForgotPasswordMainPart(
                                 userState = userState,
                                 email = email
                             )
+                            errorAvailable.value = ""
                             navController.navigate(ScreenId.LoginScreen.name)
                         }, onFail = {
-                            Toast.makeText(
-                                context,
-                                ErrorMessages.SOMETHING_WENT_WRONG,
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            errorAvailable.value = ErrorMessages.SOMETHING_WENT_WRONG
                         })
                 },
                 shape = RoundedCornerShape(10.dp),
@@ -216,6 +213,13 @@ private fun ForgotPasswordMainPart(
             )
 
             Spacer(modifier = Modifier.height(10.dp))
+            if (errorAvailable.value.isNotEmpty()) {
+                CustomSnackbar(
+                    returnMessage = errorAvailable.value,
+                    backgroundColor = AppExtraLightBrown,
+                    textColor = AppDarkBlue
+                )
+            }
         }
     }
 }
