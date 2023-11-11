@@ -19,7 +19,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
@@ -55,6 +57,7 @@ import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.data.models.service.InfoModel
 import com.natiqhaciyef.witapplication.data.models.LearnSectionModel
 import com.natiqhaciyef.witapplication.data.models.enums.ContactFields
+import com.natiqhaciyef.witapplication.presentation.component.FAQInfoBox
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.NavStandards
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
@@ -67,14 +70,16 @@ import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 @Composable
 fun LearnScreen(
     navController: NavController = rememberNavController(),
-    firebaseViewModel: FirebaseViewModel = hiltViewModel()
+    firebaseViewModel: FirebaseViewModel = hiltViewModel(),
 ) {
     val faqState = remember { firebaseViewModel.faqState }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppExtraLightBrown),
+            .background(AppExtraLightBrown)
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = 65.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(35.dp))
@@ -140,10 +145,9 @@ fun LearnScreen(
         )
         Spacer(modifier = Modifier.height(20.dp))
         if (faqState.value.list.isNotEmpty()) {
-            LazyColumn {
-                items(faqState.value.list) { faqModel ->
-                    FAQInfoBox(infoModel = faqModel)
-                }
+            for (faqModel in faqState.value.list) {
+                FAQInfoBox(infoModel = faqModel)
+                Spacer(modifier = Modifier.height(10.dp))
             }
         } else {
             Box(
@@ -165,8 +169,6 @@ fun LearnScreen(
                 )
             }
         }
-
-        Spacer(modifier = Modifier.height(80.dp))
     }
 }
 
@@ -216,65 +218,4 @@ private fun LearnSection(
             )
         }
     }
-}
-
-@Composable
-fun FAQInfoBox(infoModel: InfoModel) {
-    var isClicked by remember { mutableStateOf(false) }
-
-    Card(
-        modifier = Modifier
-            .animateContentSize(animationSpec = tween(600, 100))
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(horizontal = 20.dp)
-            .clickable {
-                isClicked = !isClicked
-            }
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Spacer(modifier = Modifier.height(15.dp))
-            Box(modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    modifier = Modifier
-                        .align(Alignment.TopStart)
-                        .fillMaxWidth(0.8f)
-                        .padding(horizontal = 20.dp),
-                    text = infoModel.title,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
-                )
-
-                Icon(
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
-                        .padding(end = 20.dp)
-                        .size(30.dp),
-                    imageVector = if (isClicked) Icons.Default.ArrowDropDown else Icons.Default.ArrowDropUp,
-                    contentDescription = "Arrow",
-                    tint = Color.Black
-                )
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            AnimatedVisibility(visible = isClicked) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 15.dp)
-                        .padding(horizontal = 20.dp),
-                    text = infoModel.description,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = AppDarkGray
-                )
-            }
-        }
-    }
-
 }
