@@ -4,13 +4,13 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.natiqhaciyef.witapplication.common.Status
-import com.natiqhaciyef.witapplication.data.models.UserModel
-import com.natiqhaciyef.witapplication.domain.usecase.remote.user.GetAllUserRemoteUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.user.GetUserByEmailUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.user.InsertUserRemoteUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.user.RemoveUserRemoteUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.user.UpdateUserRemoteUseCase
+import com.natiqhaciyef.data.common.Status
+import com.natiqhaciyef.domain.domain.usecase.remote.user.GetAllUserRemoteUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.user.GetUserByEmailUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.user.InsertUserRemoteUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.user.RemoveUserRemoteUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.user.UpdateUserRemoteUseCase
+import com.natiqhaciyef.util.models.UserModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -40,7 +40,7 @@ class UserViewModel @Inject constructor(
                         Status.SUCCESS -> {
                             if (result.data != null)
                                 userUIState.value.apply {
-                                    this.list = result.data
+                                    this.list = result.data!!
                                     this.isLoading = false
                                 }
                         }
@@ -69,9 +69,9 @@ class UserViewModel @Inject constructor(
                             Status.SUCCESS -> {
                                 if (result.data != null)
                                     userUIState.value.apply {
-                                        this.list = result.data
+                                        this.list = result.data!!
                                         this.isLoading = false
-                                        this.selectedElement = result.data[0]
+                                        this.selectedElement = result.data!![0]
                                     }
                             }
 

@@ -41,8 +41,8 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.getSystemService
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.natiqhaciyef.data.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.presentation.component.PostComponent
 import com.natiqhaciyef.witapplication.presentation.component.CustomSnackbar
 import com.natiqhaciyef.witapplication.presentation.component.isInternetAvailable

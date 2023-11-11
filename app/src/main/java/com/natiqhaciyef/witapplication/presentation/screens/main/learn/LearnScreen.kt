@@ -51,12 +51,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.natiqhaciyef.data.common.util.objects.ErrorMessages
+import com.natiqhaciyef.util.common.util.objects.DefaultImpl
+import com.natiqhaciyef.util.models.LearnSectionModel
+import com.natiqhaciyef.util.models.enums.ContactFields
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
-import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
-import com.natiqhaciyef.witapplication.data.models.service.InfoModel
-import com.natiqhaciyef.witapplication.data.models.LearnSectionModel
-import com.natiqhaciyef.witapplication.data.models.enums.ContactFields
 import com.natiqhaciyef.witapplication.presentation.component.FAQInfoBox
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.NavStandards

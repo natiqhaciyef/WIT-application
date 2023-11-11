@@ -43,10 +43,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.natiqhaciyef.util.common.util.objects.EnumList
+import com.natiqhaciyef.util.models.enums.ContactFields
+import com.natiqhaciyef.util.models.service.InfoModel
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.common.util.objects.EnumList
-import com.natiqhaciyef.witapplication.data.models.enums.ContactFields
-import com.natiqhaciyef.witapplication.data.models.service.InfoModel
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.presentation.viewmodel.FirebaseViewModel

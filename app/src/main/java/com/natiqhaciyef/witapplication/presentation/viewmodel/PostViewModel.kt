@@ -3,19 +3,16 @@ package com.natiqhaciyef.witapplication.presentation.viewmodel
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.natiqhaciyef.witapplication.common.Status
-import com.natiqhaciyef.witapplication.common.util.helpers.getNow
-import com.natiqhaciyef.witapplication.data.models.UserModel
-import com.natiqhaciyef.witapplication.data.models.UserWithoutPasswordModel
-import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
-import com.natiqhaciyef.witapplication.domain.usecase.local.post.GetAllSavedPostsUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.local.post.RemoveSavedPostUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.local.post.SavePostUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.local.post.UpdateSavedPostUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.post.GetAllPostRemoteUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.post.InsertPostRemoteUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.post.RemovePostRemoteUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.post.UpdatePostRemoteUseCase
+import com.natiqhaciyef.data.common.Status
+import com.natiqhaciyef.domain.domain.usecase.local.post.GetAllSavedPostsUseCase
+import com.natiqhaciyef.domain.domain.usecase.local.post.RemoveSavedPostUseCase
+import com.natiqhaciyef.domain.domain.usecase.local.post.SavePostUseCase
+import com.natiqhaciyef.domain.domain.usecase.local.post.UpdateSavedPostUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.post.GetAllPostRemoteUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.post.InsertPostRemoteUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.post.RemovePostRemoteUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.post.UpdatePostRemoteUseCase
+import com.natiqhaciyef.util.models.mapped.MappedPostModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -87,7 +84,7 @@ class PostViewModel @Inject constructor(
                     Status.SUCCESS -> {
                         if (result.data != null)
                             postUIState.value = postUIState.value.copy(
-                                list = result.data,
+                                list = result.data!!,
                                 isLoading = false
                             )
                     }
@@ -200,7 +197,7 @@ class PostViewModel @Inject constructor(
                         if (result.data != null)
                             savedPostUIState.value.apply {
                                 this.isLoading = false
-                                this.list = result.data
+                                this.list = result.data!!
                             }
                     }
 

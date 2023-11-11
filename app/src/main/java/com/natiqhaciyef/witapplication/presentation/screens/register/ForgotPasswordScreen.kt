@@ -43,7 +43,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
+import com.natiqhaciyef.data.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.presentation.component.BottomShadow
 import com.natiqhaciyef.witapplication.presentation.component.CustomSnackbar

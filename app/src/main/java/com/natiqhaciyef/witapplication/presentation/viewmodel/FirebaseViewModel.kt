@@ -2,18 +2,14 @@ package com.natiqhaciyef.witapplication.presentation.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.natiqhaciyef.witapplication.data.models.service.InfoModel
-import com.natiqhaciyef.witapplication.data.models.MaterialModel
-import com.natiqhaciyef.witapplication.data.models.UserModel
-import com.natiqhaciyef.witapplication.data.models.service.NotificationModel
-import com.natiqhaciyef.witapplication.domain.repository.impl.FirebaseRepositoryImpl
-import com.natiqhaciyef.witapplication.domain.usecase.firebase.GetAllFAQUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.firebase.GetAllMaterialsNameUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.firebase.GetAllNotificationsUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.firebase.GetMaterialUseCase
+import com.natiqhaciyef.data.models.MaterialModel
+import com.natiqhaciyef.domain.domain.repository.impl.FirebaseRepositoryImpl
+import com.natiqhaciyef.domain.domain.usecase.firebase.GetAllFAQUseCase
+import com.natiqhaciyef.domain.domain.usecase.firebase.GetAllMaterialsNameUseCase
+import com.natiqhaciyef.domain.domain.usecase.firebase.GetAllNotificationsUseCase
+import com.natiqhaciyef.util.models.UserModel
+import com.natiqhaciyef.util.models.service.InfoModel
+import com.natiqhaciyef.util.models.service.NotificationModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay

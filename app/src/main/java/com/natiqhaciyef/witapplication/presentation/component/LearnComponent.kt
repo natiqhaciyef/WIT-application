@@ -31,7 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.natiqhaciyef.witapplication.data.models.service.InfoModel
+import com.natiqhaciyef.util.models.service.InfoModel
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkGray
 
 

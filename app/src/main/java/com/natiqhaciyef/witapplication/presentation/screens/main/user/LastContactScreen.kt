@@ -26,9 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import com.natiqhaciyef.util.models.ContactModel
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.data.models.ContactModel
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.viewmodel.ContactViewModel
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown

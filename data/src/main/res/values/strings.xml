@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">WIT application</string>
+
+    <string name="check_message">Please check your email, we will send the reset password link. If it is not show, check spam messages box</string>
+    <string name="send">Send</string>
+    <string name="save_it">Save it</string>
+    <string name="continue_">Continue</string>
+    <string name="apply">Apply</string>
+    <string name="reset">Reset</string>
+    <string name="submit">Submit</string>
+    <string name="create">Create</string>
+    <string name="create_new_account">Create new account ?</string>
+    <string name="do_you_have_an_account">Do you have an account ?</string>
+    <string name="sign_up">&#160;Sign up</string>
+    <string name="sign_in">&#160;Sign in</string>
+
+
+    <string name="reset_password">Reset password</string>
+    <string name="update_password">Update password</string>
+    <string name="verify_account">Verify account</string>
+    <string name="forgot_password">Forgot password ?</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone</string>
+    <string name="description">Description</string>
+    <string name="full_name">Full name</string>
+
+    <string name="login_n_share">Login &amp; share &#160;</string>
+    <string name="posts">posts</string>
+    <string name="register">Register &#160;</string>
+    <string name="n_join_us">&amp; join us</string>
+
+    <string name="welcome">Welcome, &#160;</string>
+    <string name="guest">Guest</string>
+    <string name="search">Search</string>
+    <string name="recent_updates">Recent updates</string>
+    <string name="load_more">Load more</string>
+
+    <string name="learn_from">Learn from: </string>
+    <string name="last_contact_requests">Last contact requests</string>
+    <string name="faq">FAQ</string>
+
+    <string name="fields">Fields</string>
+    <string name="fields_info">Choose one field and our team will support you to learn fundamentals, understand concept, and become international developer. Furthermore, you can switch pathway or field, even you are able to get custom plan from us. Best luck to you</string>
+    <string name="contact_with_us">Contact with us</string>
+    <string name="materials">Materials</string>
+
+    <string name="interview_questions">Interview questions</string>
+
+    <string name="contents">Contents</string>
+    <string name="liked_posts">Liked posts</string>
+    <string name="saved_questions">Saved questions</string>
+    <string name="last_applications">Last applications</string>
+    <string name="settings">Settings</string>
+    <string name="languages">Languages</string>
+    <string name="help">Help</string>
+    <string name="log_out">Log out</string>
+
+    <string name="alert">Alert</string>
+    <string name="alert_dialog_title">Do you want to leave ?</string>
+    <string name="alert_dialog_negative_button">No</string>
+    <string name="alert_dialog_positive_button">Yes</string>
+
+    <string name="change_language">Change language</string>
+    <string name="general_questions">General questions</string>
+
+    <string name="notifications">Notifications</string>
+
+
+    <string name="how_to_verify">How to verify account?</string>
+    <string name="how_to_verify_description">Now, it is not available to verify account, but after new releases you can be able to modify account verification type.</string>
+    <string name="how_to_become_partner">How to become partner?</string>
+    <string name="how_to_become_partner_description">If you want become a partner you have to fill this form and after 7 &#45; 10 days respond will send. Please, be careful while filling.</string>
+    <string name="how_to_learn_from_mentor">How to apply course or mentor for specific field?</string>
+    <string name="how_to_learn_from_mentor_description">You can go to learn screen and select Custom Plan. Write message to us and we will inform you after 5 &#45; 10 days</string>
+    <string name="how_to_configure_custom_events">How to configure custom events?</string>
+    <string name="how_to_configure_custom_events_description">After becoming partner you will accessible to create events and live meetings for everyone or your own students with ticket.</string>
+    <string name="how_to_ticket_system_works_for_events">How ticket system works for events?</string>
+    <string name="how_to_ticket_system_works_for_events_description">After you buy ticket, it will save to tickets panel (in user profile screen). While you clicking ticket, it will generate QR code. With QR code you are be able to check it from event security check or online QR searching. You don’t need physically version of ticket while buying over app.</string>
+    <string name="other">Other</string>
+    <string name="how_help">How we can help ?</string>
+
+
+</resources>

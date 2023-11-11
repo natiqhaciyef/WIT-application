@@ -47,9 +47,9 @@ import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
+import com.natiqhaciyef.data.common.util.objects.ErrorMessages
+import com.natiqhaciyef.util.models.UserModel
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.data.models.UserModel
 import com.natiqhaciyef.witapplication.presentation.component.BottomShadow
 import com.natiqhaciyef.witapplication.presentation.component.CustomSnackbar
 import com.natiqhaciyef.witapplication.presentation.component.InputBox

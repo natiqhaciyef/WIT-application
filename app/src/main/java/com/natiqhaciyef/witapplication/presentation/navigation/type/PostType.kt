@@ -1,10 +1,9 @@
 package com.natiqhaciyef.witapplication.presentation.navigation.type
 
-import android.net.Uri
 import android.os.Bundle
 import androidx.navigation.NavType
 import com.google.gson.Gson
-import com.natiqhaciyef.witapplication.domain.models.MappedPostModel
+import com.natiqhaciyef.util.models.mapped.MappedPostModel
 
 class PostType(override val isNullableAllowed: Boolean) :
     NavType<MappedPostModel>(isNullableAllowed = isNullableAllowed) {

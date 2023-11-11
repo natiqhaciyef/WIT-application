@@ -95,15 +95,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
 import com.airbnb.lottie.utils.MiscUtils.*
+import com.natiqhaciyef.data.models.MaterialModel
+import com.natiqhaciyef.util.common.worker.startDownloadingFile
+import com.natiqhaciyef.util.common.util.helpers.cardTypeToImageFinder
+import com.natiqhaciyef.util.common.util.helpers.formatExpirationDate
+import com.natiqhaciyef.util.common.util.helpers.formatOtherCardNumbers
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.common.util.classes.NavItemModel
-import com.natiqhaciyef.witapplication.common.util.helpers.cardTypeToImageFinder
-import com.natiqhaciyef.witapplication.common.util.helpers.formatExpirationDate
-import com.natiqhaciyef.witapplication.common.util.helpers.formatOtherCardNumbers
-import com.natiqhaciyef.witapplication.data.models.MaterialModel
-import com.natiqhaciyef.witapplication.data.worker.util.startDownloadingFile
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.ui.theme.*
+import com.natiqhaciyef.witapplication.util.classes.NavItemModel
 import kotlin.math.ceil
 import kotlin.math.floor
 

@@ -30,7 +30,6 @@ android {
         properties.load(project.rootProject.file("local.properties").inputStream())
 
         buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")}\"")
-
     }
 
     buildTypes {
@@ -65,6 +64,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":util"))
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")

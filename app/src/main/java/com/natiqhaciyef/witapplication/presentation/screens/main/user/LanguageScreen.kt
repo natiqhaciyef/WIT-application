@@ -28,9 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.natiqhaciyef.util.common.util.objects.EnumList
+import com.natiqhaciyef.util.models.service.LanguageModel
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.common.util.objects.EnumList
-import com.natiqhaciyef.witapplication.data.models.service.LanguageModel
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.ui.theme.*
 import java.util.Locale

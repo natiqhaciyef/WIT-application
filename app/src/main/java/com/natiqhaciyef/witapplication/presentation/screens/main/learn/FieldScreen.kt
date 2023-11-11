@@ -31,10 +31,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.natiqhaciyef.util.common.util.objects.DefaultImpl
+import com.natiqhaciyef.util.common.util.objects.EnumList
+import com.natiqhaciyef.util.models.LearnSectionModel
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
-import com.natiqhaciyef.witapplication.common.util.objects.EnumList
-import com.natiqhaciyef.witapplication.data.models.LearnSectionModel
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.NavStandards
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId

@@ -3,14 +3,14 @@ package com.natiqhaciyef.witapplication.presentation.viewmodel
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.natiqhaciyef.witapplication.common.Status
-import com.natiqhaciyef.witapplication.data.models.ContactModel
-import com.natiqhaciyef.witapplication.domain.usecase.local.contact.GetAllSavedContactsUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.local.contact.RemoveSavedContactUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.local.contact.SaveContactUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.contact.GetAllContactUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.contact.InsertContactUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.contact.RemoveContactUseCase
+import com.natiqhaciyef.data.common.Status
+import com.natiqhaciyef.domain.domain.usecase.local.contact.GetAllSavedContactsUseCase
+import com.natiqhaciyef.domain.domain.usecase.local.contact.RemoveSavedContactUseCase
+import com.natiqhaciyef.domain.domain.usecase.local.contact.SaveContactUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.contact.GetAllContactUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.contact.InsertContactUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.contact.RemoveContactUseCase
+import com.natiqhaciyef.util.models.ContactModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -41,7 +41,7 @@ class ContactViewModel @Inject constructor(
                     Status.SUCCESS -> {
                         if (result.data != null)
                             contactUIState.value.apply {
-                                this.list = result.data
+                                this.list = result.data!!
                                 this.isLoading = false
                             }
                     }
@@ -68,7 +68,7 @@ class ContactViewModel @Inject constructor(
                     Status.SUCCESS -> {
                         if (result.data != null)
                             savedContactUIState.value.apply {
-                                this.list = result.data
+                                this.list = result.data!!
                                 this.isLoading = false
                             }
                     }

@@ -31,9 +31,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.natiqhaciyef.data.common.util.objects.ErrorMessages
+import com.natiqhaciyef.util.models.service.NotificationModel
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.common.util.objects.ErrorMessages
-import com.natiqhaciyef.witapplication.data.models.service.NotificationModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.FirebaseViewModel
 import com.natiqhaciyef.witapplication.ui.theme.*
 

@@ -3,13 +3,11 @@ package com.natiqhaciyef.witapplication.presentation.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.natiqhaciyef.witapplication.common.Status
-import com.natiqhaciyef.witapplication.data.models.VerifiedUserModel
-import com.natiqhaciyef.witapplication.domain.usecase.remote.verified_user.GetAllVerifiedUsersUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.verified_user.GetVerifiedUserByEmailUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.verified_user.InsertVerifiedUserUseCase
+import com.natiqhaciyef.data.common.Status
+import com.natiqhaciyef.domain.domain.usecase.remote.verified_user.GetVerifiedUserByEmailUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.verified_user.InsertVerifiedUserUseCase
+import com.natiqhaciyef.util.models.VerifiedUserModel
 import com.natiqhaciyef.witapplication.domain.usecase.remote.verified_user.RemoveVerifiedUserUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.verified_user.UpdateVerifiedUserUseCase
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -38,9 +36,9 @@ class VerifiedUserViewModel @Inject constructor(
                             Status.SUCCESS -> {
                                 if (result.data != null)
                                     verifiedUserUIState.value = verifiedUserUIState.value.copy(
-                                        list = result.data,
+                                        list = result.data!!,
                                         isLoading = false,
-                                        selectedElement = result.data[0],
+                                        selectedElement = result.data!![0],
 
                                         )
                             }
@@ -65,9 +63,9 @@ class VerifiedUserViewModel @Inject constructor(
                             Status.SUCCESS -> {
                                 if (result.data != null)
                                     verifiedUserUIState.value = verifiedUserUIState.value.copy(
-                                        list = result.data,
+                                        list = result.data!!,
                                         isLoading = false,
-                                        selectedElement = result.data[0],
+                                        selectedElement = result.data!![0],
 
                                         )
                             }

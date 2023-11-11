@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.natiqhaciyef.util.models.VerifiedUserModel
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.data.models.VerifiedUserModel
 import com.natiqhaciyef.witapplication.presentation.component.ImageSelectionTitle
 import com.natiqhaciyef.witapplication.presentation.component.InputBoxTitle
 import com.natiqhaciyef.witapplication.presentation.component.InputBoxTitlePassword

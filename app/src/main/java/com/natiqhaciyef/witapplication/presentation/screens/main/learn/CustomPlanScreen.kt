@@ -34,9 +34,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.natiqhaciyef.data.common.util.objects.SuccessMessages
+import com.natiqhaciyef.util.models.ContactModel
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.common.util.objects.SuccessMessages
-import com.natiqhaciyef.witapplication.data.models.ContactModel
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.CustomSnackbar
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans

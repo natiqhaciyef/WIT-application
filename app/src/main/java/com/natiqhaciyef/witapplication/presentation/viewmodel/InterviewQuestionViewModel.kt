@@ -2,13 +2,13 @@ package com.natiqhaciyef.witapplication.presentation.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.natiqhaciyef.witapplication.common.Status
-import com.natiqhaciyef.witapplication.data.models.InterviewQuestionModel
-import com.natiqhaciyef.witapplication.domain.usecase.local.interview_question.GetAllSavedInterviewQuestionsUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.local.interview_question.RemoveSavedInterviewQuestionUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.local.interview_question.SaveInterviewQuestionUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.interview_question.GetAllInterviewQuestionsUseCase
-import com.natiqhaciyef.witapplication.domain.usecase.remote.interview_question.InsertInterviewQuestionUseCase
+import com.natiqhaciyef.data.common.Status
+import com.natiqhaciyef.domain.domain.usecase.local.interview_question.GetAllSavedInterviewQuestionsUseCase
+import com.natiqhaciyef.domain.domain.usecase.local.interview_question.RemoveSavedInterviewQuestionUseCase
+import com.natiqhaciyef.domain.domain.usecase.local.interview_question.SaveInterviewQuestionUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.interview_question.GetAllInterviewQuestionsUseCase
+import com.natiqhaciyef.domain.domain.usecase.remote.interview_question.InsertInterviewQuestionUseCase
+import com.natiqhaciyef.util.models.InterviewQuestionModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -65,7 +65,7 @@ class InterviewQuestionViewModel @Inject constructor(
                     Status.SUCCESS -> {
                         if (result.data != null)
                             interviewQuestionsUIState.value.apply {
-                                this.list = result.data
+                                this.list = result.data!!
                                 this.isLoading = false
                             }
                     }
@@ -123,7 +123,7 @@ class InterviewQuestionViewModel @Inject constructor(
                         if (result.data != null) {
                             savedInterviewQuestionsUIState.value =
                                 savedInterviewQuestionsUIState.value.copy(
-                                    list = result.data,
+                                    list = result.data!!,
                                     isLoading = false
                                 )
                         }

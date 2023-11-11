@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.natiqhaciyef.witapplication.common.util.objects.DefaultImpl
+import com.natiqhaciyef.util.common.util.objects.DefaultImpl
 import com.natiqhaciyef.witapplication.presentation.navigation.type.PostType
 import com.natiqhaciyef.witapplication.presentation.screens.main.MainScreenLine
 import com.natiqhaciyef.witapplication.presentation.screens.main.home.DetailsScreen

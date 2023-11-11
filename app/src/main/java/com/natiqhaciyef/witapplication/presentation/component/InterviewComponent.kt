@@ -39,11 +39,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import com.natiqhaciyef.witapplication.common.util.helpers.majorStringToDateChanger
-import com.natiqhaciyef.witapplication.data.models.InterviewQuestionModel
-import com.natiqhaciyef.witapplication.data.models.enums.QuestionCategories
-import com.natiqhaciyef.witapplication.data.models.enums.QuestionLevels
-import com.natiqhaciyef.witapplication.data.models.top.QuestionAbstraction
+import com.natiqhaciyef.util.common.util.helpers.majorStringToDateChanger
+import com.natiqhaciyef.util.models.InterviewQuestionModel
+import com.natiqhaciyef.util.models.top.QuestionAbstraction
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkGray
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
