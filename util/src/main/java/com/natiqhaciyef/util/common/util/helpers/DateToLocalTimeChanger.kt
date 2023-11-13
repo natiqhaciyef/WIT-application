@@ -90,6 +90,17 @@ fun fromDoubleToTime(d: Double = 7.5): String {
     return "$hours hours\n$minutes minutes"
 }
 
+fun examTimer(time: Int): String {
+    return if (time % 60 < 10 && time / 60 < 10)
+        "0${time / 60} : 0${time % 60}"
+    else if (time % 60 < 10 && time / 60 > 10)
+        "${time / 60} : 0${time % 60}"
+    else if (time % 60 > 10 && time / 60 < 10)
+        "0${time / 60} : ${time % 60}"
+    else
+        "${time / 60} : ${time % 60}"
+}
+
 
 fun majorStringToDateChanger(s: String = "01.12.2001 15:59"): String {
     val subDay = s.substring(0..1)

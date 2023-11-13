@@ -1,6 +1,5 @@
 package com.natiqhaciyef.witapplication.presentation.screens.register
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -30,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,7 +41,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.natiqhaciyef.data.common.util.objects.ErrorMessages
+import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.presentation.component.BottomShadow
 import com.natiqhaciyef.witapplication.presentation.component.CustomSnackbar

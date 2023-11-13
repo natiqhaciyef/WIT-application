@@ -1,4 +1,4 @@
-package com.natiqhaciyef.data.common.util.objects
+package com.natiqhaciyef.util.common.util.objects
 
 object ErrorMessages {
 
@@ -11,6 +11,8 @@ object ErrorMessages {
 
     const val NOTIFICATION_NOT_SENT = "Notification not sent"
     const val INTERNET_CONNECTION_FAILED = "Internet connection failed"
+
+    const val EXAMS_NOT_FOUND = "Exams not found"
 
     const val SIGN_IN_FAILED = "Sign in failed"
     const val SIGN_UP_FAILED = "Sign up failed"

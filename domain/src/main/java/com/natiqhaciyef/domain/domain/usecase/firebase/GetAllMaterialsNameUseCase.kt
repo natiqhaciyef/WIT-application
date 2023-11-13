@@ -1,6 +1,6 @@
 package com.natiqhaciyef.domain.domain.usecase.firebase
 
-import com.natiqhaciyef.data.common.util.objects.ErrorMessages
+import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.data.models.MaterialModel
 import com.natiqhaciyef.data.models.enums.FileTypes
 import com.natiqhaciyef.domain.domain.repository.impl.FirebaseRepositoryImpl

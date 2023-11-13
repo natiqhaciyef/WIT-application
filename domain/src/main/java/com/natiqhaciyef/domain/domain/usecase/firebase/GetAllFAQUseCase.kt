@@ -1,6 +1,6 @@
 package com.natiqhaciyef.domain.domain.usecase.firebase
 
-import com.natiqhaciyef.data.common.util.objects.ErrorMessages
+import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.domain.domain.repository.impl.FirebaseRepositoryImpl
 import com.natiqhaciyef.util.models.service.InfoModel
 import javax.inject.Inject

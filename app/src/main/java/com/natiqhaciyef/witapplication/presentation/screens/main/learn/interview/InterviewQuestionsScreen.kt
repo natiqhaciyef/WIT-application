@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.natiqhaciyef.data.common.util.objects.ErrorMessages
+import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.common.util.objects.EnumList
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.presentation.component.InputBox

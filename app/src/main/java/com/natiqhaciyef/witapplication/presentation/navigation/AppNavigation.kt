@@ -16,6 +16,9 @@ import com.natiqhaciyef.witapplication.presentation.screens.main.home.Notificati
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.CustomPlanScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.FieldScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.MaterialScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.learn.exam.ExamResultScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.learn.exam.ExamScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.learn.exam.StartExamScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.interview.InterviewQuestions
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.interview.LiveInterviewScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.user.HelpScreen
@@ -57,6 +60,31 @@ fun AppNavigation(onStop: Boolean) {
 
         composable(ScreenId.MainScreenLine.name) {
             MainScreenLine(navController = navController)
+        }
+
+
+        composable(ScreenId.ExamScreen.name) {
+            ExamScreen(navController = navController)
+        }
+
+        composable(
+            route = "${ScreenId.StartExamScreen.name}/{field}",
+            arguments = listOf(
+                navArgument("field") { type = NavType.StringType }
+            )
+        ) {
+            val field = it.arguments?.getString("field") ?: ""
+            StartExamScreen(navController = navController, field = field)
+        }
+
+        composable(
+            route = "${ScreenId.ExamResultScreen.name}/{result}",
+            arguments = listOf(
+                navArgument("result") { type = NavType.FloatType }
+            )
+        ) {
+            val result = it.arguments?.getFloat("result") ?: 0f
+            ExamResultScreen(navController = navController, result = result)
         }
 
 

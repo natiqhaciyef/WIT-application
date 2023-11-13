@@ -1,6 +1,6 @@
 package com.natiqhaciyef.domain.domain.usecase.remote.contact
 
-import com.natiqhaciyef.data.common.Resource
+import com.natiqhaciyef.util.common.Resource
 import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
 import com.natiqhaciyef.domain.domain.repository.ContactRepository
 import kotlinx.coroutines.flow.flow

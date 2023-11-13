@@ -1,6 +1,6 @@
 package com.natiqhaciyef.domain.domain.usecase.remote.interview_question
 
-import com.natiqhaciyef.data.common.Resource
+import com.natiqhaciyef.util.common.Resource
 import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
 import com.natiqhaciyef.domain.domain.repository.InterviewQuestionRepository
 import kotlinx.coroutines.flow.flow

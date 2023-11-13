@@ -1,6 +1,6 @@
 package com.natiqhaciyef.domain.domain.usecase.local.post
 
-import com.natiqhaciyef.data.common.Resource
+import com.natiqhaciyef.util.common.Resource
 import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
 import com.natiqhaciyef.util.models.mapped.MappedPostModel
 import com.natiqhaciyef.domain.domain.repository.PostRepository

@@ -5,21 +5,25 @@ import com.natiqhaciyef.data.local.dao.InterviewQuestionDao
 import com.natiqhaciyef.data.local.dao.PostDao
 import com.natiqhaciyef.data.network.NetworkConfig
 import com.natiqhaciyef.data.network.service.ContactService
+import com.natiqhaciyef.data.network.service.ExamService
 import com.natiqhaciyef.data.network.service.InterviewQuestionService
 import com.natiqhaciyef.data.network.service.PostService
 import com.natiqhaciyef.data.network.service.UserService
 import com.natiqhaciyef.data.network.service.VerifiedUserService
 import com.natiqhaciyef.data.source.ContactDataSource
+import com.natiqhaciyef.data.source.ExamDataSource
 import com.natiqhaciyef.data.source.InterviewQuestionDataSource
 import com.natiqhaciyef.data.source.PostDataSource
 import com.natiqhaciyef.data.source.UserDataSource
 import com.natiqhaciyef.data.source.VerifiedUserDataSource
 import com.natiqhaciyef.domain.domain.repository.ContactRepository
+import com.natiqhaciyef.domain.domain.repository.ExamRepository
 import com.natiqhaciyef.domain.domain.repository.InterviewQuestionRepository
 import com.natiqhaciyef.domain.domain.repository.PostRepository
 import com.natiqhaciyef.domain.domain.repository.UserRepository
 import com.natiqhaciyef.domain.domain.repository.VerifiedUserRepository
 import com.natiqhaciyef.domain.domain.repository.impl.ContactRepositoryImpl
+import com.natiqhaciyef.domain.domain.repository.impl.ExamRepositoryImpl
 import com.natiqhaciyef.domain.domain.repository.impl.InterviewQuestionRepositoryImpl
 import com.natiqhaciyef.domain.domain.repository.impl.PostRepositoryImpl
 import com.natiqhaciyef.domain.domain.repository.impl.UserRepositoryImpl
@@ -69,6 +73,11 @@ object RemoteModule {
     fun provideInterviewQuestionService(network: Retrofit): InterviewQuestionService =
         network.create(InterviewQuestionService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideExamService(network: Retrofit): ExamService =
+        network.create(ExamService::class.java)
+
 
     // provide data sources
     @Provides
@@ -96,6 +105,10 @@ object RemoteModule {
         dao: InterviewQuestionDao,
     ) = InterviewQuestionDataSource(service, dao)
 
+    @Provides
+    @Singleton
+    fun provideExamDataSource(service: ExamService) = ExamDataSource(service)
+
 
     // provide data sources
     @Provides
@@ -120,4 +133,9 @@ object RemoteModule {
     @Singleton
     fun provideInterviewQuestionRepository(ds: InterviewQuestionDataSource) =
         InterviewQuestionRepositoryImpl(ds) as InterviewQuestionRepository
+
+    @Provides
+    @Singleton
+    fun provideExamRepository(ds: ExamDataSource) =
+        ExamRepositoryImpl(ds) as ExamRepository
 }

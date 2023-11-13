@@ -1,4 +1,6 @@
-package com.natiqhaciyef.data.common
+package com.natiqhaciyef.util.common
+
+import com.natiqhaciyef.data.common.Status
 
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {

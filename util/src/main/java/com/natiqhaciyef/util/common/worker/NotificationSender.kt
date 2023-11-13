@@ -11,7 +11,7 @@ import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.natiqhaciyef.data.common.Resource
+import com.natiqhaciyef.util.common.Resource
 import com.natiqhaciyef.util.R
 
 object NotificationSender {
