@@ -20,6 +20,6 @@ data class ExamModel(
     var level: String,
     @SerializedName("limit_point")
     var limitPoint: Double,
-    @SerializedName("is_passed")
-    var isPassed: Boolean = false
+    @SerializedName("is_active")
+    var isActive: String
 ): Parcelable

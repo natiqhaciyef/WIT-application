@@ -3,9 +3,12 @@ package com.natiqhaciyef.util.common.util.objects
 import android.content.Context
 import com.natiqhaciyef.util.R
 import com.natiqhaciyef.util.models.LearnSectionModel
+import com.natiqhaciyef.util.models.QuestionModel
+import com.natiqhaciyef.util.models.enums.ExamLevels
 import com.natiqhaciyef.util.models.enums.Season
 import com.natiqhaciyef.util.models.enums.QuestionCategories
 import com.natiqhaciyef.util.models.enums.QuestionLevels
+import com.natiqhaciyef.util.models.mapped.MappedExamModel
 import com.natiqhaciyef.util.models.service.InfoModel
 import com.natiqhaciyef.util.models.service.LanguageModel
 
@@ -111,4 +114,96 @@ object EnumList {
         QuestionLevels.MEDIUM.title,
         QuestionLevels.HARD.title,
         QuestionLevels.EXPERT.title,
-    )}
+    )
+
+    val examModel = MappedExamModel(
+            id = 0,
+            title = "Android Development - 1",
+            field = "${QuestionCategories.ANDROID.title} ${QuestionCategories.KOTLIN.title}",
+            image = "https://firebasestorage.googleapis.com/v0/b/wit-app-6c770.appspot.com/o/Fields%2Fandroid.png?alt=media&token=988fb099-d2fa-43c8-8db3-c11620f1b61c",
+            questions = listOf(
+                QuestionModel(
+                    title = "Which is correct constant value declaration in Kotlin ?",
+                    variants = listOf(
+                        "const f = 13",
+                        "const val n = 11",
+                        "var a = 10",
+                        "val x = 12"
+                    ),
+                    correctVariant = "const val n = 11",
+                    topic = QuestionCategories.KOTLIN.title,
+                    point = 10.0
+                ),
+                QuestionModel(
+                    title = "Which is not the layer of Android OS ?",
+                    variants = listOf("Libraries", "Kernel", "Applications", "OnCreate"),
+                    correctVariant = "OnCreate",
+                    topic = QuestionCategories.ANDROID.title,
+                    point = 15.0
+                ),
+                QuestionModel(
+                    title = "What is coroutine in Kotlin ?",
+                    variants = listOf(
+                        "Coroutines allow the only synchronous execution of a block of code to be suspended and then resumed later, so that other work can be done in the meantime.",
+                        "Coroutines allow the asynchronous execution of a block of code to be suspended and then resumed later, so that other work can be done in the meantime.",
+                        "Coroutines is a part of hardware which allows to execute code lines. It support to generate execution after compile",
+                        "Coroutines is a part of software which allows to generate compiled codes. It support to compile all software background codes."
+                    ),
+                    correctVariant = "Coroutines allow the asynchronous execution of a block of code to be suspended and then resumed later, so that other work can be done in the meantime.",
+                    topic = QuestionCategories.KOTLIN.title,
+                    point = 15.0
+                ),
+                QuestionModel(
+                    title = "What is enum class in kotlin ?",
+                    variants = listOf(
+                        "It saves all variables in local storage",
+                        "It uses only single instance of this class.",
+                        "It holds constant, same type and categorized data which usually used for id",
+                        "It requires primary constructor with minimum 1 parameter in it"
+                    ),
+                    correctVariant = "It holds constant, same type and categorized data which usually used for id",
+                    topic = QuestionCategories.KOTLIN.title,
+                    point = 15.0
+                ),
+                QuestionModel(
+                    title = "Which is commonly using for create Android UI ?",
+                    variants = listOf(
+                        "Navigation",
+                        "Fragment",
+                        "Context",
+                        "LinearLayout"
+                    ),
+                    correctVariant = "Fragment",
+                    topic = QuestionCategories.ANDROID.title,
+                    point = 15.0
+                ),
+                QuestionModel(
+                    title = "Which is correct lifecycle of Activity ?",
+                    variants = listOf(
+                        "onPrint",
+                        "onView",
+                        "onStart",
+                        "onViewCreated"
+                    ),
+                    correctVariant = "onStart",
+                    topic = QuestionCategories.ANDROID.title,
+                    point = 15.0
+                ),
+                QuestionModel(
+                    title = "Which is not the type of Coroutine Context (Dispatcher) ?",
+                    variants = listOf(
+                        "IO",
+                        "Major",
+                        "Main",
+                        "Default"
+                    ),
+                    correctVariant = "Major",
+                    topic = QuestionCategories.KOTLIN.title,
+                    point = 15.0
+                ),
+            ),
+            limitPoint = 70.0,
+            level = ExamLevels.BEGINNER.title,
+            isActive = true
+        )
+}

@@ -50,7 +50,6 @@ import androidx.navigation.NavController
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.presentation.viewmodel.FirebaseViewModel
-import com.natiqhaciyef.witapplication.presentation.viewmodel.UserViewModel
 import com.natiqhaciyef.witapplication.ui.theme.*
 
 
@@ -81,9 +80,9 @@ fun UserProfileScreen(
                 .background(Color.White)
         )
         if (openDialog.value)
-            AlertDialogSample(openDialog = openDialog){
+            CustomAlertDialogSample(openDialog = openDialog) {
                 firebaseViewModel.signOut()
-                navController.navigate(ScreenId.LoginScreen.name){
+                navController.navigate(ScreenId.LoginScreen.name) {
                     navController.popBackStack(ScreenId.MainScreenLine.name, inclusive = true)
                 }
             }
@@ -318,9 +317,11 @@ private fun SubComponent(
 
 
 @Composable
-fun AlertDialogSample(
+fun CustomAlertDialogSample(
     openDialog: MutableState<Boolean>,
-    onClick: () -> Unit = { }
+    message: String = "",
+    messageId: Int = 0,
+    onClick: () -> Unit = { },
 ) {
     Column {
         if (openDialog.value) {
@@ -339,14 +340,35 @@ fun AlertDialogSample(
                     )
                 },
                 text = {
-                    Text(
-                        text = stringResource(id = R.string.alert_dialog_title),
-                        fontSize = 18.sp,
-                        color = AppDarkBlue,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier,
-                        textAlign = TextAlign.Center
-                    )
+                    if (message.isNotEmpty()) {
+                        Text(
+                            text = message,
+                            fontSize = 18.sp,
+                            color = AppDarkBlue,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier,
+                            textAlign = TextAlign.Center
+                        )
+                    } else if (messageId != 0) {
+                        Text(
+                            text = stringResource(id = messageId),
+                            fontSize = 18.sp,
+                            color = AppDarkBlue,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier,
+                            textAlign = TextAlign.Center
+                        )
+                    }else{
+                        Text(
+                            text = stringResource(id = R.string.alert_dialog_title),
+                            fontSize = 18.sp,
+                            color = AppDarkBlue,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+
                 },
                 confirmButton = {
                     Button(
@@ -410,7 +432,9 @@ fun AlertDialogSample(
                             )
                         }
                     }
-                }
+                },
+                shape = RoundedCornerShape(15.dp),
+                containerColor = AppExtraLightBrown
             )
         }
     }

@@ -1,7 +1,6 @@
 package com.natiqhaciyef.util.models.mapped
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
 import com.natiqhaciyef.util.models.QuestionModel
 import kotlinx.parcelize.Parcelize
 
@@ -14,5 +13,5 @@ data class MappedExamModel(
     var questions: List<QuestionModel>,
     var level: String,
     var limitPoint: Double,
-    var isPassed: Boolean = false
+    var isActive: Boolean = false
 ): Parcelable

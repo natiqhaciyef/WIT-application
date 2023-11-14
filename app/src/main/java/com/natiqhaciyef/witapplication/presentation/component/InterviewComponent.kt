@@ -10,9 +10,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -61,7 +59,7 @@ import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 @Composable
 fun <T : QuestionAbstraction> QuestionComponent(
     question: T,
-    onSelectedOptionClick: (String) -> Unit = {}
+    onSelectedOptionClick: (String) -> Unit = {},
 ) {
     var isVisible by remember { mutableStateOf(false) }
 
@@ -201,13 +199,16 @@ fun <T : QuestionAbstraction> QuestionComponent(
                     .fillMaxWidth()
                     .animateContentSize(animationSpec = tween(700, easing = LinearOutSlowInEasing))
                     .padding(horizontal = 20.dp)
-                    .clickable {
-                        isVisible = !isVisible
-                    },
+                    .padding(bottom = 10.dp),
                 shape = RoundedCornerShape(12.dp),
                 backgroundColor = Color.White
             ) {
-                Column(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        isVisible = !isVisible
+                    }
+                ) {
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         modifier = Modifier
@@ -237,14 +238,13 @@ fun <T : QuestionAbstraction> QuestionComponent(
                                     variant = variant,
                                     selectedOption = selectedOption
                                 )
-                                println(selectedOption.value)
                                 Spacer(modifier = Modifier.height(10.dp))
                             }
                             Spacer(modifier = Modifier.height(15.dp))
                             Button(
                                 modifier = Modifier
                                     .width(200.dp)
-                                    .height(55.dp),
+                                    .height(50.dp),
                                 onClick = {
                                     onSelectedOptionClick(selectedOption.value)
                                 },
@@ -288,17 +288,17 @@ fun VariantView(
             onClick = {
                 selectedOption.value = variant
             })
-        Spacer(modifier = Modifier.width(25.dp))
+        Spacer(modifier = Modifier.width(15.dp))
         androidx.compose.material.Text(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(end = 25.dp),
             text = variant,
             fontSize = 19.sp,
             fontWeight = FontWeight.Bold,
             color = Color.DarkGray,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.width(15.dp))
     }
 
 }

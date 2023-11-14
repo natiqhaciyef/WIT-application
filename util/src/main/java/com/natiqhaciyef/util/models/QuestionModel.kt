@@ -7,8 +7,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class QuestionModel(
-    @SerializedName("id")
-    var id: Int,
     @SerializedName("title")
     var title: String,
     @SerializedName("variants")

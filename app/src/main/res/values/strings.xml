@@ -7,6 +7,7 @@
     <string name="continue_">Continue</string>
     <string name="apply">Apply</string>
     <string name="reset">Reset</string>
+    <string name="finish">Finish</string>
     <string name="submit">Submit</string>
     <string name="create">Create</string>
     <string name="create_new_account">Create new account ?</string>
@@ -67,7 +68,6 @@
 
     <string name="notifications">Notifications</string>
 
-
     <string name="how_to_verify">How to verify account?</string>
     <string name="how_to_verify_description">Now, it is not available to verify account, but after new releases you can be able to modify account verification type.</string>
     <string name="how_to_become_partner">How to become partner?</string>
@@ -82,4 +82,5 @@
     <string name="how_help">How we can help ?</string>
 
 
+    <string name="exam_alert">You will have only 1 chance to apply. Do you want to start ?</string>
 </resources>

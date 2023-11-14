@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -29,6 +28,7 @@ import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.presentation.component.ExamComponent
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
+import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.presentation.viewmodel.ExamViewModel
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
@@ -37,7 +37,7 @@ fun ExamScreen(
     navController: NavController,
     examViewModel: ExamViewModel = hiltViewModel(),
 ) {
-    val examState = remember { examViewModel.examState }
+    val examState = remember { examViewModel.examUIState }
 
     if (examState.value.list.isNotEmpty()) {
         Column(
@@ -64,7 +64,10 @@ fun ExamScreen(
             // add question lazy column
             LazyColumn {
                 items(examState.value.list) { exam ->
-                    ExamComponent(exam = exam)
+                    ExamComponent(exam = exam) {
+                        navController.navigate("${ScreenId.StartExamScreen.name}/${exam.field}")
+                    }
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
             }
         }

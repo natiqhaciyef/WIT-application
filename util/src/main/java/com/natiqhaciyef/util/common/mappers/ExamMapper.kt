@@ -2,7 +2,6 @@ package com.natiqhaciyef.util.common.mappers
 
 import com.google.gson.Gson
 import com.natiqhaciyef.data.common.util.helpers.toSQLiteList
-import com.natiqhaciyef.data.common.util.helpers.toSQLiteMutableListOfDouble
 import com.natiqhaciyef.data.common.util.helpers.toSQLiteString
 import com.natiqhaciyef.util.models.ExamModel
 import com.natiqhaciyef.util.models.QuestionModel
@@ -24,13 +23,13 @@ fun ExamModel.toMappedExam(): MappedExamModel {
         level = this.level,
         image = this.image,
         limitPoint = this.limitPoint,
-        isPassed = this.isPassed
+        isActive = this.isActive.toBoolean()
     )
 }
 
-fun MappedExamModel.toExam(): ExamModel{
+fun MappedExamModel.toExam(): ExamModel {
     val strs = mutableListOf<String>()
-    for (str in this.questions){
+    for (str in this.questions) {
         strs.add(Gson().toJson(str))
     }
 
@@ -43,6 +42,6 @@ fun MappedExamModel.toExam(): ExamModel{
         level = this.level,
         image = this.image,
         limitPoint = this.limitPoint,
-        isPassed = this.isPassed
+        isActive = this.isActive.toString()
     )
 }

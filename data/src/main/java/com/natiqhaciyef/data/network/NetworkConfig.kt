@@ -45,4 +45,5 @@ internal object InterviewQuestionEndpoint{
 
 internal object ExamEndpoint{
     const val GET = "exams/get_exams.php"
+    const val INSERT = "exams/insert_exam.php"
 }

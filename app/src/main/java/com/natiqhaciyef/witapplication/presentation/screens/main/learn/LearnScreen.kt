@@ -17,6 +17,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBalance
 import androidx.compose.material.icons.filled.Article
 import androidx.compose.material.icons.filled.ContactSupport
 import androidx.compose.material.icons.filled.HourglassEmpty
@@ -93,9 +94,9 @@ fun LearnScreen(
 
             Spacer(modifier = Modifier.width(15.dp))
             LearnSection(
-                lsm = LearnSectionModel(title = "Live interview", icon = Icons.Default.LiveTv)
+                lsm = LearnSectionModel(title = "Practice exam", icon = Icons.Default.AccountBalance)
             ) {
-                navController.navigate(ScreenId.LiveInterviewScreen.name)
+                navController.navigate(ScreenId.ExamScreen.name)
             }
             Spacer(modifier = Modifier.width(20.dp))
         }
