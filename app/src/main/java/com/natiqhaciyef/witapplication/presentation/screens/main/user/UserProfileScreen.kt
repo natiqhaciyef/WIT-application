@@ -19,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.Assignment
 import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.ContactSupport
 import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Lock
@@ -161,6 +162,15 @@ private fun UserProfileMainView(
             icon = Icons.Outlined.Lock,
             iconSize = 27.dp,
             textId = R.string.reset_password
+        )
+        Spacer(modifier = Modifier.height(5.dp))
+        SubComponent(
+            navigationId = {
+                navController.navigate(ScreenId.ContactWithUsScreen.name)
+            },
+            icon = Icons.Outlined.ContactSupport,
+            iconSize = 27.dp,
+            textId = R.string.contact_with_us
         )
         Spacer(modifier = Modifier.height(5.dp))
         SubComponent(

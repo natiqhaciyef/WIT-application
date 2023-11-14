@@ -182,5 +182,9 @@ fun AppNavigation(onStop: Boolean) {
             ResetPasswordScreen(navController = navController)
         }
 
+        composable(ScreenId.ContactWithUsScreen.name) {
+            CustomPlanScreen(navController = navController)
+        }
+
     }
 }

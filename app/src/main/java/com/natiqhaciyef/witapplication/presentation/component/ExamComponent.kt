@@ -23,6 +23,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,7 +46,10 @@ import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkGray
 
 @Composable
-fun ExamComponent(exam: MappedExamModel, onClick: () -> Unit = {}) {
+fun ExamComponent(
+    exam: MappedExamModel,
+    onClick: @Composable (MutableState<Boolean>) -> Unit = {},
+) {
     var isVisible by remember { mutableStateOf(false) }
     val isApplied = remember { mutableStateOf(false) }
 
@@ -54,10 +58,7 @@ fun ExamComponent(exam: MappedExamModel, onClick: () -> Unit = {}) {
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(horizontal = 20.dp)
-            .animateContentSize(tween(600, 100))
-            .clickable {
-                isVisible = !isVisible
-            },
+            .animateContentSize(tween(600, 100)),
         shape = RoundedCornerShape(topStart = 20.dp, bottomEnd = 20.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
@@ -67,6 +68,9 @@ fun ExamComponent(exam: MappedExamModel, onClick: () -> Unit = {}) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 5.dp)
+                .clickable {
+                    isVisible = !isVisible
+                }
         ) {
             Spacer(modifier = Modifier.height(15.dp))
 
@@ -206,12 +210,7 @@ fun ExamComponent(exam: MappedExamModel, onClick: () -> Unit = {}) {
                     }
 
                     if (isApplied.value)
-                        CustomAlertDialogSample(
-                            openDialog = isApplied,
-                            messageId = R.string.exam_alert
-                        ) {
-                            onClick()
-                        }
+                        onClick(isApplied)
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.natiqhaciyef.domain.domain.di.module
 
 import com.natiqhaciyef.data.local.dao.ContactDao
+import com.natiqhaciyef.data.local.dao.ExamDao
 import com.natiqhaciyef.data.local.dao.InterviewQuestionDao
 import com.natiqhaciyef.data.local.dao.PostDao
 import com.natiqhaciyef.data.network.NetworkConfig
@@ -107,7 +108,7 @@ object RemoteModule {
 
     @Provides
     @Singleton
-    fun provideExamDataSource(service: ExamService) = ExamDataSource(service)
+    fun provideExamDataSource(service: ExamService, dao: ExamDao) = ExamDataSource(service, dao)
 
 
     // provide data sources

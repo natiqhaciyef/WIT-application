@@ -83,5 +83,6 @@
 
 
     <string name="exam_alert">You will have only 1 chance to apply. Do you want to start ?</string>
+    <string name="exam_taken_alert">You have already been registered exam. Contact with us for taking exam second time.</string>
     <string name="exam_result">Exam result</string>
 </resources>

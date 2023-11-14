@@ -33,4 +33,8 @@ object LocalModule {
     @Singleton
     fun provideInterviewQuestionDao(db: AppDatabase) = db.getInterviewQuestionDao()
 
+    @Provides
+    @Singleton
+    fun provideExamDao(db: AppDatabase) = db.getExamDao()
+
 }

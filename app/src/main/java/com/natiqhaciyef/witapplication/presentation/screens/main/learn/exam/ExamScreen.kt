@@ -8,11 +8,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +35,9 @@ import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.presentation.component.ExamComponent
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
+import com.natiqhaciyef.witapplication.presentation.screens.main.user.CustomAlertDialogSample
 import com.natiqhaciyef.witapplication.presentation.viewmodel.ExamViewModel
+import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
 @Composable
@@ -64,8 +72,18 @@ fun ExamScreen(
             // add question lazy column
             LazyColumn {
                 items(examState.value.list) { exam ->
-                    ExamComponent(exam = exam) {
-                        navController.navigate("${ScreenId.StartExamScreen.name}/${exam.field}")
+                    ExamComponent(exam = exam) { isApplied ->
+                        if (!examViewModel.participatedExamUIState.value.list.contains(exam)) {
+                            examViewModel.participateExam(exam)
+                            CustomAlertDialogSample(
+                                openDialog = isApplied,
+                                messageId = R.string.exam_alert
+                            ) {
+                                navController.navigate("${ScreenId.StartExamScreen.name}/${exam.field}")
+                            }
+                        } else {
+                            CustomExamAlertDialog(isApplied = isApplied)
+                        }
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                 }
@@ -99,4 +117,71 @@ fun ExamScreen(
             )
         }
     }
+}
+
+@Composable
+fun CustomExamAlertDialog(isApplied: MutableState<Boolean>) {
+    Column {
+        if (isApplied.value) {
+            AlertDialog(
+                onDismissRequest = {
+                    isApplied.value = false
+                },
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.alert),
+                        fontSize = 18.sp,
+                        color = AppDarkBlue,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier,
+                        textAlign = TextAlign.Center
+                    )
+                },
+                text = {
+                    Text(
+                        text = stringResource(id = R.string.exam_taken_alert),
+                        fontSize = 18.sp,
+                        color = AppDarkBlue,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier,
+                        textAlign = TextAlign.Center
+                    )
+                },
+                confirmButton = {},
+                dismissButton = {
+                    Button(
+                        modifier = Modifier
+                            .width(120.dp)
+                            .height(55.dp),
+                        onClick = {
+                            isApplied.value = false
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = AppDarkBlue
+                        ),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color.Transparent)
+                        ) {
+                            Text(
+                                modifier = Modifier
+                                    .align(Alignment.Center),
+                                text = stringResource(id = R.string.alert_dialog_positive_button),
+                                fontSize = 16.sp,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+                },
+                shape = RoundedCornerShape(15.dp),
+                containerColor = AppExtraLightBrown
+            )
+        }
+    }
+
 }

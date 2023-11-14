@@ -1,11 +1,14 @@
 package com.natiqhaciyef.util.models
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-
+@Entity("exam_table")
 @Parcelize
 data class ExamModel(
+    @PrimaryKey(autoGenerate = false)
     @SerializedName("id")
     var id: Int,
     @SerializedName("title")
