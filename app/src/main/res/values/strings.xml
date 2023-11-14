@@ -83,4 +83,5 @@
 
 
     <string name="exam_alert">You will have only 1 chance to apply. Do you want to start ?</string>
+    <string name="exam_result">Exam result</string>
 </resources>

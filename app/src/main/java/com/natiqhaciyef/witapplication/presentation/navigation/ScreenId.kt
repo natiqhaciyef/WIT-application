@@ -20,7 +20,6 @@ enum class ScreenId {
     DetailsScreen,
     NotificationScreen,
 
-    ExamResultScreen,
     ExamScreen,
     StartExamScreen,
 
