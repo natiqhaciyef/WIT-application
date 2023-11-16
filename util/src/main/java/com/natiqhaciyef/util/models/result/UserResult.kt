@@ -1,9 +1,9 @@
-package com.natiqhaciyef.data.network.result
+package com.natiqhaciyef.util.models.result
 
 import com.google.gson.annotations.SerializedName
 import com.natiqhaciyef.util.models.UserModel
 
 data class UserResult(
     @SerializedName("user_table")
-    val userResult: List<UserModel>?
+    var userResult: List<UserModel>?
 )

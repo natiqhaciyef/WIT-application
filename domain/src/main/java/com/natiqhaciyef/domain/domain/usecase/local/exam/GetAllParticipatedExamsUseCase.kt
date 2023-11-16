@@ -19,7 +19,7 @@ class GetAllParticipatedExamsUseCase @Inject constructor(
         if (result != null) {
             val mapped = mutableListOf<MappedExamModel>()
             for (exam in result){
-                mapped.add(exam.toMappedExam())
+                exam.toMappedExam()?.let { mapped.add(it) }
             }
             emit(Resource.success(mapped))
         } else {

@@ -2,8 +2,8 @@ package com.natiqhaciyef.data.network.service
 
 import com.natiqhaciyef.data.BuildConfig
 import com.natiqhaciyef.data.network.InterviewQuestionEndpoint
-import com.natiqhaciyef.data.network.result.CRUDResponse
-import com.natiqhaciyef.data.network.result.InterviewQuestionResult
+import com.natiqhaciyef.util.models.result.CRUDResponse
+import com.natiqhaciyef.util.models.result.InterviewQuestionResult
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET

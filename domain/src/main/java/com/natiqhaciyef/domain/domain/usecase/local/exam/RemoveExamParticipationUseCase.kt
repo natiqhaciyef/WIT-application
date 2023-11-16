@@ -15,7 +15,7 @@ class RemoveExamParticipationUseCase @Inject constructor(
     suspend operator fun invoke(mappedExamModel: MappedExamModel) = flow{
         emit(Resource.loading(null))
         val examModel = mappedExamModel.toExam()
-        repository.removeParticipation(examModel)
+        examModel?.let { repository.removeParticipation(it) }
         emit(Resource.success(BaseUseCase.INSERT_SUCCESS))
     }
 }

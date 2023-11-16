@@ -19,7 +19,7 @@ class GetAllSavedPostsUseCase @Inject constructor(
         if (result != null) {
             val mappedList = mutableListOf<MappedPostModel>()
             for (post in result) {
-                mappedList.add(post.toMappedPost())
+                post.toMappedPost()?.let { mappedList.add(it) }
             }
 
             emit(Resource.success(mappedList))

@@ -1,4 +1,4 @@
-package com.natiqhaciyef.data.common.util.helpers
+package com.natiqhaciyef.util.common.util.helpers
 
 
 fun main() {

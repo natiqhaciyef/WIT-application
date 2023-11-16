@@ -1,10 +1,9 @@
 package com.natiqhaciyef.data.network.service
 
-import com.google.gson.annotations.SerializedName
 import com.natiqhaciyef.data.BuildConfig
 import com.natiqhaciyef.data.network.ExamEndpoint
-import com.natiqhaciyef.data.network.result.CRUDResponse
-import com.natiqhaciyef.data.network.result.ExamResult
+import com.natiqhaciyef.util.models.result.CRUDResponse
+import com.natiqhaciyef.util.models.result.ExamResult
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET

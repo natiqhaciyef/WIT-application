@@ -1,9 +1,9 @@
-package com.natiqhaciyef.data.network.result
+package com.natiqhaciyef.util.models.result
 
 import com.google.gson.annotations.SerializedName
 import com.natiqhaciyef.util.models.PostModel
 
 data class PostResult(
     @SerializedName("post_table")
-    val postResult: List<PostModel>?
+    var postResult: List<PostModel>?
 )

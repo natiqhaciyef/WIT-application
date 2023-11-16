@@ -1,8 +1,8 @@
 package com.natiqhaciyef.domain.domain.repository
 
 import com.natiqhaciyef.util.models.ContactModel
-import com.natiqhaciyef.data.network.result.CRUDResponse
-import com.natiqhaciyef.data.network.result.ContactResult
+import com.natiqhaciyef.util.models.result.CRUDResponse
+import com.natiqhaciyef.util.models.result.ContactResult
 
 interface ContactRepository {
 

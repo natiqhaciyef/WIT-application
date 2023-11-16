@@ -1,9 +1,9 @@
-package com.natiqhaciyef.data.network.result
+package com.natiqhaciyef.util.models.result
 
 import com.google.gson.annotations.SerializedName
 import com.natiqhaciyef.util.models.ContactModel
 
 data class ContactResult(
     @SerializedName("contact_table")
-    val contactResult: List<ContactModel>?
+    var contactResult: List<ContactModel>?
 )

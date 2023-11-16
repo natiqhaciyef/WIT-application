@@ -1,4 +1,4 @@
-package com.natiqhaciyef.domain.common.util.classes
+package com.natiqhaciyef.witapplication.util.classes
 
 enum class PaymentTypes(var mainName: String) {
     VISA("Visa"),

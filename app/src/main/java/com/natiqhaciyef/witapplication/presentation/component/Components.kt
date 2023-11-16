@@ -81,11 +81,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -98,6 +100,8 @@ import com.airbnb.lottie.utils.MiscUtils.*
 import com.natiqhaciyef.data.models.MaterialModel
 import com.natiqhaciyef.util.common.worker.startDownloadingFile
 import com.natiqhaciyef.util.common.util.helpers.cardTypeToImageFinder
+import com.natiqhaciyef.util.common.util.helpers.creditCardOffsetTranslatorCardNumber
+import com.natiqhaciyef.util.common.util.helpers.creditCardOffsetTranslatorExpirationDate
 import com.natiqhaciyef.util.common.util.helpers.formatExpirationDate
 import com.natiqhaciyef.util.common.util.helpers.formatOtherCardNumbers
 import com.natiqhaciyef.witapplication.R
@@ -496,7 +500,10 @@ fun InputBoxTitleForCardNumber(
             )
         },
         visualTransformation = { number ->
-            formatOtherCardNumbers(input.value)
+            if (input.value.all { it.isDigit() })
+                formatOtherCardNumbers(input.value)!!
+            else
+                TransformedText(text = AnnotatedString(""), creditCardOffsetTranslatorCardNumber)
         }
     )
 }
@@ -560,7 +567,10 @@ fun InputBoxForCardDateAndCVV(
                 )
             },
             visualTransformation = { number ->
-                formatExpirationDate(expireDate.value)
+                if (expireDate.value.all { it.isDigit() })
+                    formatExpirationDate(expireDate.value)!!
+                else
+                    TransformedText(text = AnnotatedString("0101"), creditCardOffsetTranslatorExpirationDate)
             },
         )
 

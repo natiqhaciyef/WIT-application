@@ -16,8 +16,8 @@ class InsertPostRemoteUseCase @Inject constructor(
         emit(Resource.loading(null))
 
         val unMappedPost = postModel.toPost()
-        val result = repository.insertPost(postModel = unMappedPost)
-        if (result.success > 0) {
+        val result = unMappedPost?.let { repository.insertPost(postModel = it) }
+        if (result != null && result.success > 0) {
             emit(Resource.success(result.message))
         } else {
             emit(Resource.error(BaseUseCase.INSERT_FAIL, null))

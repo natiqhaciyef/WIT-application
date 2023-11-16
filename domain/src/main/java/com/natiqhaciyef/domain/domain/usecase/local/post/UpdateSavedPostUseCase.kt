@@ -16,7 +16,7 @@ class UpdateSavedPostUseCase @Inject constructor(
         emit(Resource.loading(null))
         val post = postModel.toPost()
 
-        postRepository.updateSavedPost(post)
+        post?.let { postRepository.updateSavedPost(it) }
         emit(Resource.success(BaseUseCase.UPDATE_SUCCESS))
     }
 }

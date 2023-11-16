@@ -16,7 +16,7 @@ class ParticipateExamUseCase @Inject constructor(
     suspend operator fun invoke(mappedExamModel: MappedExamModel) = flow{
         emit(Resource.loading(null))
         val examModel = mappedExamModel.toExam()
-        repository.participateExam(examModel)
+        examModel?.let { repository.participateExam(it) }
         emit(Resource.success(BaseUseCase.INSERT_SUCCESS))
     }
 }

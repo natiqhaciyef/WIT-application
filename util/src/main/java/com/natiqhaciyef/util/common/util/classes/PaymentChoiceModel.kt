@@ -1,4 +1,6 @@
-package com.natiqhaciyef.domain.common.util.classes
+package com.natiqhaciyef.util.common.util.classes
+
+import com.natiqhaciyef.domain.common.util.classes.PaymentTypes
 
 data class PaymentChoiceModel(
     var type: PaymentTypes,

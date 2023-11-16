@@ -1,8 +1,8 @@
 package com.natiqhaciyef.domain.domain.repository
 
 import com.natiqhaciyef.util.models.InterviewQuestionModel
-import com.natiqhaciyef.data.network.result.CRUDResponse
-import com.natiqhaciyef.data.network.result.InterviewQuestionResult
+import com.natiqhaciyef.util.models.result.CRUDResponse
+import com.natiqhaciyef.util.models.result.InterviewQuestionResult
 
 interface InterviewQuestionRepository {
 

@@ -16,6 +16,6 @@ data class ContactModel(
     val phone: String,
     val description: String,
     val field: String,
-    val date: String = getNow(),
+    val date: String = getNow()!!,
     val isChecked: Boolean = false
 ): Parcelable

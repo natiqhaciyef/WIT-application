@@ -17,10 +17,10 @@ class InsertExamUseCase @Inject constructor(
         emit(Resource.loading(null))
 
         val examModel = mappedExamModel.toExam()
-        val result = repository.insertExam(examModel)
+        val result = examModel?.let { repository.insertExam(it) }
 
-        println(result.message)
-        if (result.success > 0) {
+        println(result?.message)
+        if (result != null && result.success > 0) {
             emit(Resource.success(result.message))
         } else {
             emit(Resource.error(BaseUseCase.INSERT_FAIL, null))

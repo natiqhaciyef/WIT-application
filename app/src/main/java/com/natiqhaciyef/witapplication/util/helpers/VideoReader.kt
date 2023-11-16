@@ -1,4 +1,4 @@
-package com.natiqhaciyef.data.common.util.helpers
+package com.natiqhaciyef.witapplication.util.helpers
 
 import android.app.Application
 import android.net.Uri

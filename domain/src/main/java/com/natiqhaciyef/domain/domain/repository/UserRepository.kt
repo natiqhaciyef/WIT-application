@@ -1,7 +1,7 @@
 package com.natiqhaciyef.domain.domain.repository
 
-import com.natiqhaciyef.data.network.result.CRUDResponse
-import com.natiqhaciyef.data.network.result.UserResult
+import com.natiqhaciyef.util.models.result.CRUDResponse
+import com.natiqhaciyef.util.models.result.UserResult
 import com.natiqhaciyef.util.models.UserModel
 
 interface UserRepository {

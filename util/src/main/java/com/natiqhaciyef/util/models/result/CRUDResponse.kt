@@ -1,4 +1,4 @@
-package com.natiqhaciyef.data.network.result
+package com.natiqhaciyef.util.models.result
 
 import com.google.gson.annotations.Expose
 

@@ -1,9 +1,9 @@
-package com.natiqhaciyef.data.network.result
+package com.natiqhaciyef.util.models.result
 
 import com.google.gson.annotations.SerializedName
 import com.natiqhaciyef.util.models.VerifiedUserModel
 
 data class VerifiedUserResult(
     @SerializedName("verified_user_table")
-    val verifiedUserResult: List<VerifiedUserModel>?,
+    var verifiedUserResult: List<VerifiedUserModel>?,
 )

@@ -180,7 +180,7 @@ fun <T : QuestionAbstraction> QuestionComponent(
                             Text(
                                 modifier = Modifier
                                     .padding(bottom = 20.dp, start = 10.dp, end = 10.dp),
-                                text = "Published: ${majorStringToDateChanger(question.date)}",
+                                text = "Published: ${if (majorStringToDateChanger(question.date) != null) majorStringToDateChanger(question.date) else "not selected"}",
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 color = Color.Black

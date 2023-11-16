@@ -2,8 +2,8 @@ package com.natiqhaciyef.data.network.service
 
 import com.natiqhaciyef.data.BuildConfig
 import com.natiqhaciyef.data.network.VerifiedUserEndpoint
-import com.natiqhaciyef.data.network.result.CRUDResponse
-import com.natiqhaciyef.data.network.result.VerifiedUserResult
+import com.natiqhaciyef.util.models.result.CRUDResponse
+import com.natiqhaciyef.util.models.result.VerifiedUserResult
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET

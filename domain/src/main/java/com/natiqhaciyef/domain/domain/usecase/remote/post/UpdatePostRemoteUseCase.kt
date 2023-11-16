@@ -16,8 +16,8 @@ class UpdatePostRemoteUseCase @Inject constructor(
         emit(Resource.loading(null))
 
         val unMappedPost = postModel.toPost()
-        val result = repository.updatePost(postModel = unMappedPost)
-        if (result.success > 0){
+        val result = unMappedPost?.let { repository.updatePost(postModel = it) }
+        if (result != null && result.success > 0){
             emit(Resource.success(result.message))
         }else{
             emit(Resource.error(BaseUseCase.UPDATE_FAIL, null))

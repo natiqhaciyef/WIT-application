@@ -143,7 +143,7 @@ fun AppNavigation(onStop: Boolean) {
                 }
             )
         ) {
-            val post = it.arguments?.getParcelable("post") ?: DefaultImpl.post
+            val post = it.arguments?.getParcelable("post") ?: DefaultImpl.mappedPost
 
             DetailsScreen(navController = navController, postModel = post)
         }

@@ -18,7 +18,7 @@ class GetAllExamsUseCase @Inject constructor(
         if (repository.getAllExams().examResult != null) {
             val questions = mutableListOf<MappedExamModel>()
             for (que in repository.getAllExams().examResult!!){
-                questions.add(que.toMappedExam())
+                que.toMappedExam()?.let { questions.add(it) }
             }
 
             emit(Resource.success(questions))

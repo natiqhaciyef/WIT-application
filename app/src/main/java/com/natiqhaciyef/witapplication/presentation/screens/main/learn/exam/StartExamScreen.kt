@@ -87,7 +87,7 @@ fun StartExamScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp),
-                text = examTimer(time.value),
+                text = if (time.value > 0) examTimer(time.value)!! else "No time limit",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,

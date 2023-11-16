@@ -47,7 +47,7 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 @Composable
 fun DetailsScreen(
     navController: NavController = rememberNavController(),
-    postModel: MappedPostModel = DefaultImpl.post,
+    postModel: MappedPostModel = DefaultImpl.mappedPost,
     postViewModel: PostViewModel = hiltViewModel(),
 ) {
     val savedPosts = remember { postViewModel.savedPostUIState }
@@ -168,7 +168,7 @@ fun DetailsScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
-            text = "Published: ${majorStringToDateChanger(postModel.publishDate)}",
+            text = "Published: ${if (majorStringToDateChanger(postModel.publishDate) != null) majorStringToDateChanger(postModel.publishDate) else "not-selected"}",
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 1.sp,

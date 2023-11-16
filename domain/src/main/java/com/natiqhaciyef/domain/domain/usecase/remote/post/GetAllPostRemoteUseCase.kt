@@ -18,7 +18,7 @@ class GetAllPostRemoteUseCase @Inject constructor(
         if (repository.getAllPosts().postResult != null) {
             val mappedPosts = mutableListOf<MappedPostModel>()
             for (post in repository.getAllPosts().postResult!!) {
-                mappedPosts.add(post.toMappedPost())
+                post.toMappedPost()?.let { mappedPosts.add(it) }
             }
             emit(Resource.success(mappedPosts))
         } else {

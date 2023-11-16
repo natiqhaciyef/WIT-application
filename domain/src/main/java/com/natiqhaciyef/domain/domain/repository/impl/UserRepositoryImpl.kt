@@ -1,8 +1,8 @@
 package com.natiqhaciyef.domain.domain.repository.impl
 
 import com.natiqhaciyef.util.models.UserModel
-import com.natiqhaciyef.data.network.result.CRUDResponse
-import com.natiqhaciyef.data.network.result.UserResult
+import com.natiqhaciyef.util.models.result.CRUDResponse
+import com.natiqhaciyef.util.models.result.UserResult
 import com.natiqhaciyef.data.source.UserDataSource
 import com.natiqhaciyef.domain.domain.repository.UserRepository
 
