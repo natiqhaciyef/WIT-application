@@ -4,11 +4,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MenuBook
 import com.natiqhaciyef.util.common.util.helpers.getNow
 import com.natiqhaciyef.util.models.ContactModel
+import com.natiqhaciyef.util.models.InterviewQuestionModel
 import com.natiqhaciyef.util.models.LearnSectionModel
 import com.natiqhaciyef.util.models.QuestionModel
+import com.natiqhaciyef.util.models.UserModel
 import com.natiqhaciyef.util.models.UserWithoutPasswordModel
+import com.natiqhaciyef.util.models.VerifiedUserModel
 import com.natiqhaciyef.util.models.enums.ExamLevels
 import com.natiqhaciyef.util.models.enums.QuestionCategories
+import com.natiqhaciyef.util.models.enums.UserTypes
 import com.natiqhaciyef.util.models.mapped.MappedExamModel
 import com.natiqhaciyef.util.models.mapped.MappedPostModel
 
@@ -19,6 +23,13 @@ object DefaultImpl {
         title = "Interview practice",
         icon = Icons.Default.MenuBook,
         image = "https://scontent.fgyd21-1.fna.fbcdn.net/v/t39.30808-6/375754160_701337858701666_6160760067267384420_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=5f2048&_nc_ohc=YP669cQYXnoAX-5Ii5u&_nc_ht=scontent.fgyd21-1.fna&oh=00_AfDhldc_R0C4kHfQENVrzVJWopjCcl0GuFDV8z2SYov4Yw&oe=653BF48B"
+    )
+
+    val user = UserModel(
+        id = 0,
+        name = "Nathan",
+        email = "nathan@gmail.com",
+        password = "Nathan123"
     )
 
     val mappedPost = MappedPostModel(
@@ -127,7 +138,7 @@ object DefaultImpl {
         isActive = true
     )
 
-    val questionModel = QuestionModel("Question 1", listOf("A","B","C","D"),"A", "Letter",3.0)
+    val questionModel = QuestionModel("Question 1", listOf("A", "B", "C", "D"), "A", "Letter", 3.0)
 
     val contactModel = ContactModel(
         id = 0,
@@ -136,5 +147,29 @@ object DefaultImpl {
         phone = "+944 00330033",
         description = "nothing descripted",
         field = "nothing",
+    )
+
+    val interviewQuestionModel = InterviewQuestionModel(
+        id = 0,
+        title = "title 1",
+        description = "description 1",
+        solution = "solution 1",
+        image = "image not found",
+        level = "level 1",
+        origin = "origin not found",
+        field = "field 1",
+        subfield = "sub-field 1",
+        date = "date 1"
+    )
+
+    val verifiedUserModel = VerifiedUserModel(
+        id = 0,
+        name = "Nathan",
+        email = "nathan123@gmail.com",
+        phone = "+994 99 555 5665",
+        image = "empty image",
+        idImage = "empty id image",
+        password = "Nathan123",
+        type = UserTypes.PreVerifiedUser.name
     )
 }

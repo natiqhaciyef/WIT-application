@@ -5,18 +5,28 @@ import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
 import com.natiqhaciyef.util.models.mapped.MappedPostModel
 import com.natiqhaciyef.domain.domain.repository.PostRepository
 import com.natiqhaciyef.util.common.mappers.toPost
+import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class UpdateSavedPostUseCase @Inject constructor(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
 ) {
 
     suspend operator fun invoke(postModel: MappedPostModel) = flow {
         emit(Resource.loading(null))
-        val post = postModel.toPost()
+        if (
+            postModel.title.isNotEmpty() &&
+            postModel.publishDate.isNotEmpty() &&
+            postModel.user.email.isNotEmpty() &&
+            postModel.user.name.isNotEmpty()
+        ) {
+            val post = postModel.toPost()
 
-        post?.let { postRepository.updateSavedPost(it) }
-        emit(Resource.success(BaseUseCase.UPDATE_SUCCESS))
+            post?.let { postRepository.updateSavedPost(it) }
+            emit(Resource.success(BaseUseCase.UPDATE_SUCCESS))
+        } else {
+            emit(Resource.error(ErrorMessages.EMPTY_FIELD, null))
+        }
     }
 }

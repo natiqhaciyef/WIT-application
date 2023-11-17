@@ -4,25 +4,28 @@ import com.natiqhaciyef.domain.domain.repository.ExamRepository
 import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
 import com.natiqhaciyef.util.common.mappers.toExam
 import com.natiqhaciyef.util.common.util.objects.DefaultImpl
+import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.ExamModel
 import com.natiqhaciyef.util.models.result.CRUDResponse
 import com.natiqhaciyef.util.models.result.ExamResult
 
-class FakeExamRepository : ExamRepository{
+class FakeExamRepository(private val list: MutableList<ExamModel>) : ExamRepository{
 
-    private val remoteExamResult: ExamResult = ExamResult(listOf(DefaultImpl.mappedExamModel.toExam()!!))
-    private val localExamList = mutableListOf<ExamModel>()
+    private val remoteExamResult: ExamResult = ExamResult(list)
+    private val localExamList = list
 
     override suspend fun getAllExams(): ExamResult {
         return remoteExamResult
     }
 
     override suspend fun insertExam(examModel: ExamModel): CRUDResponse {
+        if (remoteExamResult.examResult == null)
+            return CRUDResponse(success = 0, message = ErrorMessages.NULL_PROPERTY)
+
         val list = remoteExamResult.examResult?.toMutableList()
-        val count = list?.size ?: 0
         list?.add(examModel)
         remoteExamResult.examResult = list
-        return if (remoteExamResult.examResult != null && count < remoteExamResult.examResult!!.size)
+        return if (remoteExamResult.examResult!!.contains(examModel))
             CRUDResponse(success = 1, message = BaseUseCase.INSERT_SUCCESS)
         else
             CRUDResponse(success = 0, message = BaseUseCase.INSERT_FAIL)

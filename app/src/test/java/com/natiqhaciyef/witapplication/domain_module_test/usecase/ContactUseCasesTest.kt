@@ -1,4 +1,4 @@
-package com.natiqhaciyef.witapplication.domain_module_test.usecase.test
+package com.natiqhaciyef.witapplication.domain_module_test.usecase
 
 import com.google.common.truth.Truth.assertThat
 import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
