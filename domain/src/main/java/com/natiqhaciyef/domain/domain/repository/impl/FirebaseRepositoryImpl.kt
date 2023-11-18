@@ -1,13 +1,22 @@
 package com.natiqhaciyef.domain.domain.repository.impl
 
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.natiqhaciyef.util.models.UserModel
 import com.natiqhaciyef.data.source.FirebaseDataSource
+import com.natiqhaciyef.domain.domain.repository.FirebaseRepository
 
 class FirebaseRepositoryImpl(
     val ds: FirebaseDataSource
-) {
+) : FirebaseRepository{
+    override fun auth(): FirebaseAuth = ds.auth
 
-    fun signInUser(
+    override fun storage(): FirebaseStorage = ds.storage
+
+    override fun firestore(): FirebaseFirestore = ds.firestore
+
+    override fun signInUser(
         user: UserModel,
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit
@@ -17,7 +26,7 @@ class FirebaseRepositoryImpl(
             .addOnFailureListener(onFail)
     }
 
-    fun createAccount(
+    override fun createAccount(
         user: UserModel,
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit
@@ -27,7 +36,7 @@ class FirebaseRepositoryImpl(
             .addOnFailureListener(onFail)
     }
 
-    fun resetPasswordFromEmail(
+    override fun resetPasswordFromEmail(
         email: String,
         onSuccess: () -> Unit,
         onFail: (Exception) -> Unit
@@ -37,14 +46,14 @@ class FirebaseRepositoryImpl(
             .addOnFailureListener(onFail)
     }
 
-    fun updatePassword(
+    override fun updatePassword(
         user: UserModel,
     ) {
         ds.auth.currentUser?.updatePassword(user.password)
     }
 
 
-    fun signOut() {
+    override fun signOut() {
         ds.auth.signOut()
     }
 

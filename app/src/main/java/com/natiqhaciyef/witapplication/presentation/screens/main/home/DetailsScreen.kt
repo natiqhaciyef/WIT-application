@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -57,7 +58,7 @@ fun DetailsScreen(
         isContains = true
 
     BackHandler {
-        navController.navigate(route = ScreenId.MainScreenLine.name){
+        navController.navigate(route = ScreenId.MainScreenLine.name) {
             navController.popBackStack(ScreenId.DetailsScreen.name, inclusive = true)
         }
     }
@@ -103,7 +104,9 @@ fun DetailsScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 IconButton(
-                    modifier = Modifier.size(30.dp),
+                    modifier = Modifier
+                        .size(30.dp)
+                        .testTag("Detail screen like button test tag"),
                     onClick = {
                         isContains = !isContains
                         isLiked = !isLiked
@@ -168,7 +171,11 @@ fun DetailsScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
-            text = "Published: ${if (majorStringToDateChanger(postModel.publishDate) != null) majorStringToDateChanger(postModel.publishDate) else "not-selected"}",
+            text = "Published: ${
+                if (majorStringToDateChanger(postModel.publishDate) != null) majorStringToDateChanger(
+                    postModel.publishDate
+                ) else "not-selected"
+            }",
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 1.sp,

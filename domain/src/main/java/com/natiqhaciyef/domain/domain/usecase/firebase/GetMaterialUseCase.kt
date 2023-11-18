@@ -1,11 +1,11 @@
 package com.natiqhaciyef.domain.domain.usecase.firebase
 
 import android.net.Uri
-import com.natiqhaciyef.domain.domain.repository.impl.FirebaseRepositoryImpl
+import com.natiqhaciyef.domain.domain.repository.FirebaseRepository
 import javax.inject.Inject
 
 class GetMaterialUseCase @Inject constructor(
-    private val firebaseRepositoryImpl: FirebaseRepositoryImpl
+    private val firebaseRepositoryImpl: FirebaseRepository
 ) {
 
     operator fun invoke(
@@ -14,7 +14,7 @@ class GetMaterialUseCase @Inject constructor(
         onSuccess: (Uri?) -> Unit = {},
         onFail: (Exception) -> Unit = {}
     ) {
-        firebaseRepositoryImpl.ds.storage.reference
+        firebaseRepositoryImpl.storage().reference
             .child("Materials")
             .child(field)
             .child(filename)

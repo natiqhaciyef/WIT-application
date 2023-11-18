@@ -3,11 +3,11 @@ package com.natiqhaciyef.domain.domain.usecase.firebase
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.data.models.MaterialModel
 import com.natiqhaciyef.data.models.enums.FileTypes
-import com.natiqhaciyef.domain.domain.repository.impl.FirebaseRepositoryImpl
+import com.natiqhaciyef.domain.domain.repository.FirebaseRepository
 import javax.inject.Inject
 
 class GetAllMaterialsNameUseCase @Inject constructor(
-    private val firebaseRepositoryImpl: FirebaseRepositoryImpl,
+    private val firebaseRepositoryImpl: FirebaseRepository,
 ) {
 
     operator fun invoke(
@@ -17,7 +17,7 @@ class GetAllMaterialsNameUseCase @Inject constructor(
         onLoading: () -> Unit = {},
     ) {
         val list = mutableListOf<MaterialModel>()
-        firebaseRepositoryImpl.ds.firestore.collection("Materials")
+        firebaseRepositoryImpl.firestore().collection("Materials")
             .addSnapshotListener { value, error ->
                 onLoading()
                 if (value != null && !value.isEmpty) {

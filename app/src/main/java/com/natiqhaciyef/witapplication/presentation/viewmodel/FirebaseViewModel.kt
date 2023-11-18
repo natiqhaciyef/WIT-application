@@ -3,7 +3,7 @@ package com.natiqhaciyef.witapplication.presentation.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.natiqhaciyef.data.models.MaterialModel
-import com.natiqhaciyef.domain.domain.repository.impl.FirebaseRepositoryImpl
+import com.natiqhaciyef.domain.domain.repository.FirebaseRepository
 import com.natiqhaciyef.domain.domain.usecase.firebase.GetAllFAQUseCase
 import com.natiqhaciyef.domain.domain.usecase.firebase.GetAllMaterialsNameUseCase
 import com.natiqhaciyef.domain.domain.usecase.firebase.GetAllNotificationsUseCase
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FirebaseViewModel @Inject constructor(
-    private val firebaseRepository: FirebaseRepositoryImpl,
+    private val firebaseRepository: FirebaseRepository,
     private val getAllMaterialsNameUseCase: GetAllMaterialsNameUseCase,
     private val getAllFAQUseCase: GetAllFAQUseCase,
     private val getAllNotificationsUseCase: GetAllNotificationsUseCase,

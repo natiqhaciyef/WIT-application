@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -94,7 +95,7 @@ fun RegisterScreen(
 
 
 @Composable
-private fun RegisterTopView() {
+fun RegisterTopView() {
     val composition by rememberLottieComposition(
         spec = LottieCompositionSpec.RawRes(R.raw.register_animation),
     )
@@ -138,12 +139,11 @@ private fun RegisterTopView() {
 
 
 @Composable
-private fun RegisterMainPart(
+fun RegisterMainPart(
     navController: NavController,
     userViewModel: UserViewModel = hiltViewModel(),
     firebaseViewModel: FirebaseViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
     val errorAvailable = remember { mutableStateOf("") }
     val fullNameState = remember { mutableStateOf("") }
     val emailState = remember { mutableStateOf("") }
@@ -191,7 +191,8 @@ private fun RegisterMainPart(
             Button(
                 modifier = Modifier
                     .height(50.dp)
-                    .width(200.dp),
+                    .width(200.dp)
+                    .testTag("Registration test tag"),
                 onClick = {
                     val username = fullNameState.value
                     val email = emailState.value
