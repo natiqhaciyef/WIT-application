@@ -12,7 +12,7 @@ plugins {
 
 android {
     namespace = "com.natiqhaciyef.witapplication"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.natiqhaciyef.witapplication"
@@ -21,10 +21,10 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.natiqhaciyef.witapplication.util.HiltTestRunner"
+
+        vectorDrawables { useSupportLibrary = true }
 
         val properties = Properties()
         properties.load(project.rootProject.file("local.properties").inputStream())
@@ -192,14 +192,22 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("org.mockito:mockito-core:4.7.0")
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.43.2")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.5.4")
 
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
     debugImplementation("androidx.fragment:fragment-testing:1.3.0-alpha08")
     kaptTest("com.google.dagger:hilt-android-compiler:2.44")
+//    implementation("androidx.emoji2:emoji2-views-helper:1.4.0")
 
     androidTestImplementation("androidx.test.espresso:espresso-contrib:3.5.1") {
         exclude(group = "org.checkerframework", module = "checker")
     }
+
+    implementation("com.google.protobuf:protobuf-kotlin:3.21.7") {
+        exclude(group = "com.google.protobuf", module = "protobuf-java")
+    }
+
 }
 
 kapt {

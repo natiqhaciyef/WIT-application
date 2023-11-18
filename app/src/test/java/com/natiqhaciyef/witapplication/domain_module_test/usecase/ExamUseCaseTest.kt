@@ -24,62 +24,66 @@ class ExamUseCaseTest {
         FakeExamRepository(mutableListOf(DefaultImpl.mappedExamModel.toExam()!!))
 
     @Test
-    fun `get all exams use case (remote) returns success`() = runTest {
-        val result = GetAllExamsUseCase(fakeExamRepository).invoke().last()
+    fun `get all exams use case (remote) returns success`() =
+        runTest {
+            val result = GetAllExamsUseCase(fakeExamRepository).invoke().last()
 
-        assertThat(result).isEqualTo(Resource.success(mutableListOf(DefaultImpl.mappedExamModel)))
-    }
-
-    @Test
-    fun `insert exam use case (remote) returns success`() = runTest {
-        val examModel = MappedExamModel(
-            id = 0,
-            title = "Title 1",
-            field = "field 1",
-            image = "image 1",
-            questions = listOf(DefaultImpl.questionModel),
-            level = "Level 1",
-            limitPoint = 40.0,
-            isActive = true
-        )
-        val result = InsertExamUseCase(fakeExamRepository).invoke(examModel).last()
-
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.INSERT_SUCCESS))
-    }
+            assertThat(result).isEqualTo(Resource.success(mutableListOf(DefaultImpl.mappedExamModel)))
+        }
 
     @Test
-    fun `remove participated exam use case (local) returns success`() = runTest {
-        val examModel = MappedExamModel(
-            id = 0,
-            title = "Title 1",
-            field = "field 1",
-            image = "image 1",
-            questions = listOf(DefaultImpl.questionModel),
-            level = "Level 1",
-            limitPoint = 40.0,
-            isActive = true
-        )
-        val result = RemoveExamParticipationUseCase(fakeExamRepository).invoke(examModel).last()
+    fun `insert exam use case (remote) returns success`() =
+        runTest {
+            val examModel = MappedExamModel(
+                id = 0,
+                title = "Title 1",
+                field = "field 1",
+                image = "image 1",
+                questions = listOf(DefaultImpl.questionModel),
+                level = "Level 1",
+                limitPoint = 40.0,
+                isActive = true
+            )
+            val result = InsertExamUseCase(fakeExamRepository).invoke(examModel).last()
 
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.REMOVE_SUCCESS))
-    }
+            assertThat(result).isEqualTo(Resource.success(BaseUseCase.INSERT_SUCCESS))
+        }
 
     @Test
-    fun `save or participate exam use case (local) returns success`() = runTest {
-        val examModel = MappedExamModel(
-            id = 0,
-            title = "Title 1",
-            field = "field 1",
-            image = "image 1",
-            questions = listOf(DefaultImpl.questionModel),
-            level = "Level 1",
-            limitPoint = 40.0,
-            isActive = true
-        )
-        val result = ParticipateExamUseCase(fakeExamRepository).invoke(examModel).last()
+    fun `remove participated exam use case (local) returns success`() =
+        runTest {
+            val examModel = MappedExamModel(
+                id = 0,
+                title = "Title 1",
+                field = "field 1",
+                image = "image 1",
+                questions = listOf(DefaultImpl.questionModel),
+                level = "Level 1",
+                limitPoint = 40.0,
+                isActive = true
+            )
+            val result = RemoveExamParticipationUseCase(fakeExamRepository).invoke(examModel).last()
 
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.INSERT_SUCCESS))
-    }
+            assertThat(result).isEqualTo(Resource.success(BaseUseCase.REMOVE_SUCCESS))
+        }
+
+    @Test
+    fun `save or participate exam use case (local) returns success`() =
+        runTest {
+            val examModel = MappedExamModel(
+                id = 0,
+                title = "Title 1",
+                field = "field 1",
+                image = "image 1",
+                questions = listOf(DefaultImpl.questionModel),
+                level = "Level 1",
+                limitPoint = 40.0,
+                isActive = true
+            )
+            val result = ParticipateExamUseCase(fakeExamRepository).invoke(examModel).last()
+
+            assertThat(result).isEqualTo(Resource.success(BaseUseCase.INSERT_SUCCESS))
+        }
 
     @Test
     fun `remove participated exam use case (local) with exam model contains empty field returns error`() =
@@ -118,19 +122,20 @@ class ExamUseCaseTest {
         }
 
     @Test
-    fun `save or participate exam use case (local) with exam model contains empty field returns error`() = runTest {
-        val examModel = MappedExamModel(
-            id = 0,
-            title = "",
-            field = "field 1",
-            image = "image 1",
-            questions = listOf(DefaultImpl.questionModel),
-            level = "Level 1",
-            limitPoint = 40.0,
-            isActive = true
-        )
-        val result = ParticipateExamUseCase(fakeExamRepository).invoke(examModel).last()
+    fun `save or participate exam use case (local) with exam model contains empty field returns error`() =
+        runTest {
+            val examModel = MappedExamModel(
+                id = 0,
+                title = "",
+                field = "field 1",
+                image = "image 1",
+                questions = listOf(DefaultImpl.questionModel),
+                level = "Level 1",
+                limitPoint = 40.0,
+                isActive = true
+            )
+            val result = ParticipateExamUseCase(fakeExamRepository).invoke(examModel).last()
 
-        assertThat(result).isEqualTo(Resource.error(ErrorMessages.EMPTY_FIELD, null))
-    }
+            assertThat(result).isEqualTo(Resource.error(ErrorMessages.EMPTY_FIELD, null))
+        }
 }

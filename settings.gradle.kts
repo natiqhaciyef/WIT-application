@@ -17,5 +17,4 @@ rootProject.name = "WIT application"
 include(":app")
 include(":data")
 include(":domain")
-include(":common")
 include(":util")
