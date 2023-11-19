@@ -215,7 +215,6 @@ private fun LoginMainPart(
                             errorAvailable.value = ErrorMessages.SOMETHING_WENT_WRONG
                         },
                         onSuccess = {
-                            println("A")
                             userViewModel.userLoginCheckFromDB(
                                 userState = userState,
                                 email = email,

@@ -1,4 +1,4 @@
-package com.natiqhaciyef.domain.common.util.objects
+package com.natiqhaciyef.witapplication.util
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf

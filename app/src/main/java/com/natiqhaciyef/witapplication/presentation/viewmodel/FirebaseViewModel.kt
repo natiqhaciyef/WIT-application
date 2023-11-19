@@ -7,6 +7,7 @@ import com.natiqhaciyef.domain.domain.repository.FirebaseRepository
 import com.natiqhaciyef.domain.domain.usecase.firebase.GetAllFAQUseCase
 import com.natiqhaciyef.domain.domain.usecase.firebase.GetAllMaterialsNameUseCase
 import com.natiqhaciyef.domain.domain.usecase.firebase.GetAllNotificationsUseCase
+import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.UserModel
 import com.natiqhaciyef.util.models.service.InfoModel
 import com.natiqhaciyef.util.models.service.NotificationModel
@@ -38,11 +39,14 @@ class FirebaseViewModel @Inject constructor(
         onFail: (Exception) -> Unit,
     ) {
         viewModelScope.launch {
-            firebaseRepository.signInUser(
-                user = user,
-                onSuccess = onSuccess,
-                onFail = onFail
-            )
+            if (user.email.isNotEmpty() && user.password.isNotEmpty())
+                firebaseRepository.signInUser(
+                    user = user,
+                    onSuccess = onSuccess,
+                    onFail = onFail
+                )
+            else
+                onFail(Exception(ErrorMessages.EMPTY_FIELD))
 
         }
     }
@@ -53,11 +57,14 @@ class FirebaseViewModel @Inject constructor(
         onFail: (Exception) -> Unit,
     ) {
         viewModelScope.launch {
-            firebaseRepository.createAccount(
-                user = user,
-                onSuccess = onSuccess,
-                onFail = onFail
-            )
+            if (user.email.isNotEmpty() && user.password.isNotEmpty())
+                firebaseRepository.createAccount(
+                    user = user,
+                    onSuccess = onSuccess,
+                    onFail = onFail
+                )
+            else
+                onFail(Exception(ErrorMessages.EMPTY_FIELD))
         }
     }
 
@@ -67,11 +74,14 @@ class FirebaseViewModel @Inject constructor(
         onFail: (Exception) -> Unit,
     ) {
         viewModelScope.launch {
-            firebaseRepository.resetPasswordFromEmail(
-                email = email,
-                onSuccess = onSuccess,
-                onFail = onFail
-            )
+            if (email.isNotEmpty())
+                firebaseRepository.resetPasswordFromEmail(
+                    email = email,
+                    onSuccess = onSuccess,
+                    onFail = onFail
+                )
+            else
+                onFail(Exception(ErrorMessages.EMPTY_FIELD))
         }
     }
 
@@ -79,7 +89,8 @@ class FirebaseViewModel @Inject constructor(
         user: UserModel,
     ) {
         viewModelScope.launch {
-            firebaseRepository.updatePassword(user)
+            if (user.email.isNotEmpty() && user.password.isNotEmpty())
+                firebaseRepository.updatePassword(user)
         }
     }
 

@@ -9,7 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.natiqhaciyef.domain.common.util.objects.StateHolder.selectedIndex
+import com.natiqhaciyef.witapplication.util.StateHolder.selectedIndex
 import com.natiqhaciyef.witapplication.presentation.component.NavBar
 import com.natiqhaciyef.witapplication.presentation.screens.main.home.HomeScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.LearnScreen

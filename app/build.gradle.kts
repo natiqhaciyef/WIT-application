@@ -18,11 +18,11 @@ android {
         applicationId = "com.natiqhaciyef.witapplication"
         minSdk = 28
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.2"
 
-//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunner = "com.natiqhaciyef.witapplication.util.HiltTestRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner = "com.natiqhaciyef.witapplication.util.HiltTestRunner"
 
         vectorDrawables { useSupportLibrary = true }
 

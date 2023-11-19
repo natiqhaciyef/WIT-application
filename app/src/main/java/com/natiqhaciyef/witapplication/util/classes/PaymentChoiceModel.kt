@@ -1,7 +1,9 @@
-package com.natiqhaciyef.domain.common.util.classes
+package com.natiqhaciyef.witapplication.util.classes
+
+import com.natiqhaciyef.domain.common.util.classes.PaymentTypes
 
 data class PaymentChoiceModel(
-    var type: com.natiqhaciyef.domain.common.util.classes.PaymentTypes,
+    var type: PaymentTypes,
     var image: Int,
     var isSelected: Boolean,
 )
