@@ -38,7 +38,7 @@ object DefaultImpl {
         description = "Jetpack Compose is designed with View interoperability in mind. This means that existing View-based libraries can readily be used in Compose. However, considering how View-based libraries are used in Compose can improve support for Compose. For library authors, this can inform how you design your APIs, and further, how you may want to provide explicit support for Compose through additional libraries.",
         image = "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*lQAfLPEsevYZmnYDBSqylQ.png",
         likeCount = 5,
-        location = null,
+        location = "null",
         publishDate = "18.10.2023 13:21",
         user = UserWithoutPasswordModel(
             id = 0,

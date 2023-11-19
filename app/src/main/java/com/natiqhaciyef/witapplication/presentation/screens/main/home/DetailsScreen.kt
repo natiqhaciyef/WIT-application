@@ -73,7 +73,8 @@ fun DetailsScreen(
         Image(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(350.dp),
+                .height(350.dp)
+                .testTag("Details screen image button test tag"),
             painter = rememberImagePainter(postModel.image),
             contentDescription = "Image",
             contentScale = ContentScale.Crop
@@ -88,7 +89,8 @@ fun DetailsScreen(
             Text(
                 modifier = Modifier
                     .align(Alignment.TopStart)
-                    .fillMaxWidth(0.7f),
+                    .fillMaxWidth(0.7f)
+                    .testTag("Details screen title text test tag"),
                 text = postModel.title,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
