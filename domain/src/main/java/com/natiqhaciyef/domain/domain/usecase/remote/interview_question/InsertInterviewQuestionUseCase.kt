@@ -17,9 +17,7 @@ class InsertInterviewQuestionUseCase @Inject constructor(
         if (questionModel.field.isNotEmpty() &&
             questionModel.level.isNotEmpty() &&
             questionModel.date.isNotEmpty() &&
-            questionModel.description.isNotEmpty() &&
             questionModel.origin.isNotEmpty() &&
-            questionModel.description.isNotEmpty() &&
             questionModel.solution.isNotEmpty() &&
             questionModel.field.isNotEmpty() &&
             questionModel.subfield.isNotEmpty() &&

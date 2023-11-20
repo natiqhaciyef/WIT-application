@@ -42,7 +42,8 @@ fun LanguageScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppExtraLightBrown),
+            .background(AppExtraLightBrown)
+            .padding(bottom = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(30.dp))
@@ -69,7 +70,6 @@ fun LanguageScreen(navController: NavController) {
                 }
             }
         }
-        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 

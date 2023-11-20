@@ -6,7 +6,8 @@ enum class QuestionCategories(val title: String) {
     // fields
     ANDROID("Android"),
     IOS("iOS"),
-    CROSS_PLATFORM_MOBILE("Cross-platform Mobile"),
+    MOBILE("Mobile"),
+    GENERAL_PROGRAMMING("General programming"),
     BACKEND("Backend"),
     FRONTEND("Frontend"),
     AI("Artificial Intelligence"),

@@ -3,12 +3,9 @@ package com.natiqhaciyef.util.common.util.objects
 import android.content.Context
 import com.natiqhaciyef.util.R
 import com.natiqhaciyef.util.models.LearnSectionModel
-import com.natiqhaciyef.util.models.QuestionModel
-import com.natiqhaciyef.util.models.enums.ExamLevels
 import com.natiqhaciyef.util.models.enums.Season
 import com.natiqhaciyef.util.models.enums.QuestionCategories
 import com.natiqhaciyef.util.models.enums.QuestionLevels
-import com.natiqhaciyef.util.models.mapped.MappedExamModel
 import com.natiqhaciyef.util.models.service.InfoModel
 import com.natiqhaciyef.util.models.service.LanguageModel
 
@@ -99,7 +96,8 @@ object EnumList {
     val questionCategoriesFields = listOf(
         QuestionCategories.ANDROID.title,
         QuestionCategories.IOS.title,
-        QuestionCategories.CROSS_PLATFORM_MOBILE.title,
+        QuestionCategories.MOBILE.title,
+        QuestionCategories.GENERAL_PROGRAMMING.title,
         QuestionCategories.BACKEND.title,
         QuestionCategories.FRONTEND.title,
         QuestionCategories.AI.title,

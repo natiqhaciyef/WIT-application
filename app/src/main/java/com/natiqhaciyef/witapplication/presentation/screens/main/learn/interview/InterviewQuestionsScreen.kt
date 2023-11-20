@@ -74,7 +74,8 @@ fun InterviewQuestions(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppExtraLightBrown),
+            .background(AppExtraLightBrown)
+            .padding(bottom = 55.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (interviewQuestions.value.list.any { it.field.lowercase() == field.lowercase() }) {
@@ -206,7 +207,6 @@ fun InterviewQuestions(
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(50.dp))
         } else if (interviewQuestions.value.isLoading) {
             Box(
                 modifier = Modifier

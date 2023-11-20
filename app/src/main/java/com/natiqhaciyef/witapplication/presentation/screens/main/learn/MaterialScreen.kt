@@ -50,7 +50,8 @@ fun MaterialScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppExtraLightBrown),
+            .background(AppExtraLightBrown)
+            .padding(bottom = 55.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (materials.value.list.any { it.field.lowercase() == field.lowercase() }) {
