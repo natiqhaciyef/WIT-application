@@ -31,4 +31,7 @@ enum class ScreenId {
     LanguageScreen,
     VerifyAccountScreen,
     HelpScreen,
+
+    TestScreen,
+    MainTestScreen,
 }

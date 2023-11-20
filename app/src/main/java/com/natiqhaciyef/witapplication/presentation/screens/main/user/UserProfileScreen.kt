@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -98,7 +99,7 @@ fun UserProfileScreen(
 
 //@Preview
 @Composable
-private fun UserProfileTopView() {
+fun UserProfileTopView() {
     Icon(
         imageVector = Icons.Default.AccountCircle,
         contentDescription = "User profile icon",
@@ -111,7 +112,7 @@ private fun UserProfileTopView() {
 
 
 @Composable
-private fun UserProfileMainView(
+fun UserProfileMainView(
     navController: NavController,
     openDialog: MutableState<Boolean>,
 ) {
@@ -124,8 +125,10 @@ private fun UserProfileMainView(
         TitleComponent(titleID = R.string.contents)
         Spacer(modifier = Modifier.height(5.dp))
         SubComponent(
+            modifier = Modifier.testTag("User Profile field test tag"),
             navigationId = {
-                navController.navigate(ScreenId.LikedPostsScreen.name)
+//                navController.navigate(ScreenId.LikedPostsScreen.name)
+                navController.navigate(ScreenId.TestScreen.name)
             },
             icon = Icons.Outlined.BookmarkBorder,
             iconSize = 28.dp,
@@ -237,6 +240,7 @@ private fun TitleComponent(titleID: Int) {
 
 @Composable
 private fun SubComponent(
+    modifier: Modifier = Modifier,
     navigationId: () -> Unit = {},
     icon: ImageVector,
     iconSize: Dp,
@@ -244,7 +248,7 @@ private fun SubComponent(
     textId: Int,
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(Color.Transparent)
             .clickable {
@@ -285,6 +289,7 @@ private fun SubComponent(
 
 @Composable
 private fun SubComponent(
+    modifier: Modifier = Modifier,
     navigationId: () -> Unit = {},
     iconId: Int,
     padding: Dp = 0.dp,
@@ -292,7 +297,7 @@ private fun SubComponent(
     textId: Int,
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(Color.Transparent)
             .clickable {

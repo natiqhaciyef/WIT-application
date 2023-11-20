@@ -18,8 +18,8 @@ android {
         applicationId = "com.natiqhaciyef.witapplication"
         minSdk = 28
         targetSdk = 33
-        versionCode = 3
-        versionName = "1.2"
+        versionCode = 4
+        versionName = "1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 //        testInstrumentationRunner = "com.natiqhaciyef.witapplication.util.HiltTestRunner"
