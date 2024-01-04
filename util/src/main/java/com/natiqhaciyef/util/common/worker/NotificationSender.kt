@@ -1,4 +1,4 @@
-package com.natiqhaciyef.domain.domain.utils.worker
+package com.natiqhaciyef.util.common.worker
 
 import android.Manifest
 import android.app.NotificationChannel

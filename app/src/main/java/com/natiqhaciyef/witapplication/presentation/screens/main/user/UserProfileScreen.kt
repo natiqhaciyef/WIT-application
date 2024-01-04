@@ -127,8 +127,8 @@ fun UserProfileMainView(
         SubComponent(
             modifier = Modifier.testTag("User Profile field test tag"),
             navigationId = {
-//                navController.navigate(ScreenId.LikedPostsScreen.name)
-                navController.navigate(ScreenId.TestScreen.name)
+                navController.navigate(ScreenId.LikedPostsScreen.name)
+//                navController.navigate(ScreenId.TestScreen.name)
             },
             icon = Icons.Outlined.BookmarkBorder,
             iconSize = 28.dp,
