@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("kotlin-parcelize")
+//    id("com.google.gms.google-services")
 }
 
 android {
@@ -54,14 +55,13 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-
-    // Maps
-//    implementation("com.google.android.gms:play-services-maps:18.1.0")
-//    implementation("com.google.android.gms:play-services-location:21.0.1")
-//    implementation("com.google.maps.android:maps-compose:2.8.0")
-//    implementation("com.google.maps.android:maps-ktx:3.2.1")
-//    implementation("com.google.maps.android:maps-utils-ktx:3.2.1")
-//    implementation("com.google.accompanist:accompanist-permissions:0.25.0")
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:31.1.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
+//    implementation("com.google.firebase:firebase-messaging-ktx")
 
     // Icons
     implementation("androidx.compose.material:material-icons-core:1.3.1")

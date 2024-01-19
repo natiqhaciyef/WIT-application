@@ -1,9 +1,7 @@
 package com.natiqhaciyef.witapplication.domain_module_test.repository
 
+import com.natiqhaciyef.domain.domain.base.ConfigUseCase
 import com.natiqhaciyef.domain.domain.repository.ExamRepository
-import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
-import com.natiqhaciyef.util.common.mappers.toExam
-import com.natiqhaciyef.util.common.util.objects.DefaultImpl
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.ExamModel
 import com.natiqhaciyef.util.models.result.CRUDResponse
@@ -26,9 +24,9 @@ class FakeExamRepository(private val list: MutableList<ExamModel>) : ExamReposit
         list?.add(examModel)
         remoteExamResult.examResult = list
         return if (remoteExamResult.examResult!!.contains(examModel))
-            CRUDResponse(success = 1, message = BaseUseCase.INSERT_SUCCESS)
+            CRUDResponse(success = 1, message = ConfigUseCase.INSERT_SUCCESS)
         else
-            CRUDResponse(success = 0, message = BaseUseCase.INSERT_FAIL)
+            CRUDResponse(success = 0, message = ConfigUseCase.INSERT_FAIL)
     }
 
     override suspend fun getAllParticipatedExams(): List<ExamModel>? {

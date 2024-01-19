@@ -1,6 +1,6 @@
 package com.natiqhaciyef.data.network.service
 
-import com.natiqhaciyef.data.BuildConfig
+import com.natiqhaciyef.data.network.NetworkConfig
 import com.natiqhaciyef.data.network.PostEndpoint
 import com.natiqhaciyef.util.models.result.CRUDResponse
 import com.natiqhaciyef.util.models.result.PostResult
@@ -14,13 +14,13 @@ interface PostService {
 
     @GET(PostEndpoint.GET)
     suspend fun getAllPosts(
-        @Query("apiKey") key: String = BuildConfig.API_KEY
+        @Query("apiKey") key: String = NetworkConfig.API_KEY
     ): PostResult
 
     @POST(PostEndpoint.INSERT)
     @FormUrlEncoded
     suspend fun insertPost(
-        @Query("apiKey") key: String = BuildConfig.API_KEY,
+        @Query("apiKey") key: String = NetworkConfig.API_KEY,
         @Field("title") title: String,
         @Field("description") description: String,
         @Field("image") image: String?,
@@ -33,7 +33,7 @@ interface PostService {
     @POST(PostEndpoint.UPDATE)
     @FormUrlEncoded
     suspend fun updatePost(
-        @Query("apiKey") key: String = BuildConfig.API_KEY,
+        @Query("apiKey") key: String = NetworkConfig.API_KEY,
         @Field("id") id: Int,
         @Field("title") title: String,
         @Field("description") description: String,
@@ -47,7 +47,7 @@ interface PostService {
     @POST(PostEndpoint.DELETE)
     @FormUrlEncoded
     suspend fun deletePost(
-        @Query("apiKey") key: String = BuildConfig.API_KEY,
+        @Query("apiKey") key: String = NetworkConfig.API_KEY,
         @Field("id") id: Int,
     ): CRUDResponse
 }

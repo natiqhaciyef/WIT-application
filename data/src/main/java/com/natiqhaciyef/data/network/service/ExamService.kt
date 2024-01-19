@@ -1,7 +1,7 @@
 package com.natiqhaciyef.data.network.service
 
-import com.natiqhaciyef.data.BuildConfig
 import com.natiqhaciyef.data.network.ExamEndpoint
+import com.natiqhaciyef.data.network.NetworkConfig
 import com.natiqhaciyef.util.models.result.CRUDResponse
 import com.natiqhaciyef.util.models.result.ExamResult
 import retrofit2.http.Field
@@ -14,13 +14,13 @@ interface ExamService {
 
     @GET(ExamEndpoint.GET)
     suspend fun getAllExams(
-        @Query("apiKey") key: String = BuildConfig.API_KEY,
+        @Query("apiKey") key: String = NetworkConfig.API_KEY,
     ): ExamResult
 
     @POST(ExamEndpoint.INSERT)
     @FormUrlEncoded
     suspend fun insertExam(
-        @Query("apiKey") key: String = BuildConfig.API_KEY,
+        @Query("apiKey") key: String = NetworkConfig.API_KEY,
         @Field("title") title: String,
         @Field("field") field: String,
         @Field("image") image: String,

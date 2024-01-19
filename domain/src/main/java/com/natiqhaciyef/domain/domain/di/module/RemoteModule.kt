@@ -9,26 +9,18 @@ import com.natiqhaciyef.data.network.service.ContactService
 import com.natiqhaciyef.data.network.service.ExamService
 import com.natiqhaciyef.data.network.service.InterviewQuestionService
 import com.natiqhaciyef.data.network.service.PostService
-import com.natiqhaciyef.data.network.service.UserService
-import com.natiqhaciyef.data.network.service.VerifiedUserService
 import com.natiqhaciyef.data.source.ContactDataSource
 import com.natiqhaciyef.data.source.ExamDataSource
 import com.natiqhaciyef.data.source.InterviewQuestionDataSource
 import com.natiqhaciyef.data.source.PostDataSource
-import com.natiqhaciyef.data.source.UserDataSource
-import com.natiqhaciyef.data.source.VerifiedUserDataSource
 import com.natiqhaciyef.domain.domain.repository.ContactRepository
 import com.natiqhaciyef.domain.domain.repository.ExamRepository
 import com.natiqhaciyef.domain.domain.repository.InterviewQuestionRepository
 import com.natiqhaciyef.domain.domain.repository.PostRepository
-import com.natiqhaciyef.domain.domain.repository.UserRepository
-import com.natiqhaciyef.domain.domain.repository.VerifiedUserRepository
 import com.natiqhaciyef.domain.domain.repository.impl.ContactRepositoryImpl
 import com.natiqhaciyef.domain.domain.repository.impl.ExamRepositoryImpl
 import com.natiqhaciyef.domain.domain.repository.impl.InterviewQuestionRepositoryImpl
 import com.natiqhaciyef.domain.domain.repository.impl.PostRepositoryImpl
-import com.natiqhaciyef.domain.domain.repository.impl.UserRepositoryImpl
-import com.natiqhaciyef.domain.domain.repository.impl.VerifiedUserRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,15 +45,6 @@ object RemoteModule {
     // provide services
     @Provides
     @Singleton
-    fun provideUserService(network: Retrofit): UserService = network.create(UserService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideVerifiedUserService(network: Retrofit): VerifiedUserService =
-        network.create(VerifiedUserService::class.java)
-
-    @Provides
-    @Singleton
     fun providePostService(network: Retrofit): PostService = network.create(PostService::class.java)
 
     @Provides
@@ -81,15 +64,6 @@ object RemoteModule {
 
 
     // provide data sources
-    @Provides
-    @Singleton
-    fun provideUserDataSource(service: UserService) = UserDataSource(service)
-
-    @Provides
-    @Singleton
-    fun provideVerifiedUserDataSource(service: VerifiedUserService) =
-        VerifiedUserDataSource(service)
-
     @Provides
     @Singleton
     fun providePostDataSource(service: PostService, dao: PostDao) = PostDataSource(service, dao)
@@ -112,15 +86,6 @@ object RemoteModule {
 
 
     // provide data sources
-    @Provides
-    @Singleton
-    fun provideUserRepository(ds: UserDataSource) = UserRepositoryImpl(ds) as UserRepository
-
-    @Provides
-    @Singleton
-    fun provideVerifiedUserRepository(ds: VerifiedUserDataSource) =
-        VerifiedUserRepositoryImpl(ds) as VerifiedUserRepository
-
     @Provides
     @Singleton
     fun providePostRepository(ds: PostDataSource) = PostRepositoryImpl(ds) as PostRepository

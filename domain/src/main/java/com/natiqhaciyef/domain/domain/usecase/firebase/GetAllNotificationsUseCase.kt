@@ -1,12 +1,13 @@
 package com.natiqhaciyef.domain.domain.usecase.firebase
 
+import com.natiqhaciyef.domain.domain.base.BaseUseCase
 import com.natiqhaciyef.domain.domain.repository.FirebaseRepository
 import com.natiqhaciyef.util.models.service.NotificationModel
 import javax.inject.Inject
 
 class GetAllNotificationsUseCase @Inject constructor(
-    private val firebaseRepositoryImpl: FirebaseRepository,
-) {
+    firebaseRepositoryImpl: FirebaseRepository,
+): BaseUseCase<FirebaseRepository>(firebaseRepositoryImpl) {
 
     operator fun invoke(
         onSuccess: (List<NotificationModel>) -> Unit = {},
@@ -15,7 +16,7 @@ class GetAllNotificationsUseCase @Inject constructor(
     ) {
         onLoading()
         val list = mutableListOf<NotificationModel>()
-        firebaseRepositoryImpl.firestore().collection("Notifications")
+        repository.firestore().collection("Notifications")
             .addSnapshotListener { value, error ->
                 if (value != null && !value.isEmpty) {
                     val docs = value.documents

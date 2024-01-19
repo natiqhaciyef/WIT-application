@@ -26,7 +26,7 @@ object DefaultImpl {
     )
 
     val user = UserModel(
-        id = 0,
+        id = "0",
         name = "Nathan",
         email = "nathan@gmail.com",
         password = "Nathan123"
@@ -41,7 +41,7 @@ object DefaultImpl {
         location = "null",
         publishDate = "18.10.2023 13:21",
         user = UserWithoutPasswordModel(
-            id = 0,
+            id = "0",
             name = "Google",
             email = "google.com",
         )
@@ -163,7 +163,7 @@ object DefaultImpl {
     )
 
     val verifiedUserModel = VerifiedUserModel(
-        id = 0,
+        id = "0",
         name = "Nathan",
         email = "nathan123@gmail.com",
         phone = "+994 99 555 5665",

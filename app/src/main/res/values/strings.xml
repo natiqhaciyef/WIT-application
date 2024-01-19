@@ -9,6 +9,7 @@
     <string name="reset">Reset</string>
     <string name="finish">Finish</string>
     <string name="submit">Submit</string>
+    <string name="extra">Extra</string>
     <string name="create">Create</string>
     <string name="create_new_account">Create new account ?</string>
     <string name="do_you_have_an_account">Do you have an account ?</string>

@@ -1,10 +1,11 @@
 package com.natiqhaciyef.domain.domain.repository
 
+import com.natiqhaciyef.domain.domain.base.BaseRepository
 import com.natiqhaciyef.util.models.ContactModel
 import com.natiqhaciyef.util.models.result.CRUDResponse
 import com.natiqhaciyef.util.models.result.ContactResult
 
-interface ContactRepository {
+interface ContactRepository : BaseRepository{
 
     suspend fun getAllContacts(): ContactResult
 

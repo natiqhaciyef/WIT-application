@@ -12,8 +12,11 @@ import com.natiqhaciyef.domain.domain.usecase.remote.post.GetAllPostRemoteUseCas
 import com.natiqhaciyef.domain.domain.usecase.remote.post.InsertPostRemoteUseCase
 import com.natiqhaciyef.domain.domain.usecase.remote.post.RemovePostRemoteUseCase
 import com.natiqhaciyef.domain.domain.usecase.remote.post.UpdatePostRemoteUseCase
+import com.natiqhaciyef.util.common.util.objects.ErrorMessages
+import com.natiqhaciyef.util.common.util.objects.SuccessMessages
 import com.natiqhaciyef.util.models.mapped.MappedPostModel
-import com.natiqhaciyef.witapplication.presentation.viewmodel.state.UIState
+import com.natiqhaciyef.witapplication.presentation.base.BaseViewModel
+import com.natiqhaciyef.witapplication.presentation.base.BaseUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -21,21 +24,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PostViewModel @Inject constructor(
-    private val getAllPostRemoteUseCase: GetAllPostRemoteUseCase,
     private val insertPostRemoteUseCase: InsertPostRemoteUseCase,
     private val removePostRemoteUseCase: RemovePostRemoteUseCase,
-    private val updatePostRemoteUseCase: UpdatePostRemoteUseCase,
-    private val savePostUseCase: SavePostUseCase,
-    private val getAllSavedPostsUseCase: GetAllSavedPostsUseCase,
-    private val removeSavedPostUseCase: RemoveSavedPostUseCase,
-    private val updateSavedPostUseCase: UpdateSavedPostUseCase,
 ) : BaseViewModel() {
-    val postUIState = mutableStateOf(UIState<MappedPostModel>())
-    val savedPostUIState = mutableStateOf(UIState<MappedPostModel>())
+    val postBaseUIState = mutableStateOf(BaseUIState<MappedPostModel>())
+    val savedPostBaseUIState = mutableStateOf(BaseUIState<MappedPostModel>())
 
     init {
-        getAllPosts()
-        getAllSavedPosts()
 //        insertPostRemote(
 //            postModel = MappedPostModel(
 //                id = 0,
@@ -64,87 +59,82 @@ class PostViewModel @Inject constructor(
 //        )
     }
 
-    fun getAllPosts() {
-        viewModelScope.launch {
-            getAllPostRemoteUseCase.invoke().collectLatest { result ->
-                when (result.status) {
-                    Status.LOADING -> {
-                        postUIState.value = postUIState.value.copy(
-                            isLoading = true
-                        )
-                    }
-
-                    Status.ERROR -> {
-                        postUIState.value = postUIState.value.copy(
-                            message = result.message,
-                            isLoading = false
-                        )
-                    }
-
-                    Status.SUCCESS -> {
-                        if (result.data != null)
-                            postUIState.value = postUIState.value.copy(
-                                list = result.data!!,
-                                isLoading = false
-                            )
-                    }
-                }
-            }
-        }
-    }
 
     fun insertPostRemote(postModel: MappedPostModel) {
         viewModelScope.launch {
             insertPostRemoteUseCase.invoke(postModel).collectLatest { result ->
                 when (result.status) {
                     Status.LOADING -> {
-                        postUIState.value = postUIState.value.copy(
+                        postBaseUIState.value = postBaseUIState.value.copy(
                             isLoading = true
                         )
                     }
 
                     Status.ERROR -> {
-                        postUIState.value = postUIState.value.copy(
-                            message = result.message,
-                            isLoading = false
+                        postBaseUIState.value = postBaseUIState.value.copy(
+                            data = null,
+                            list = listOf(),
+                            isLoading = false,
+                            isSuccess = false,
+                            isFail = true,
+                            isSuccessMessage = null,
+                            isFailMessage = ErrorMessages.ERROR,
+                            isFailReason = Exception(result.message),
                         )
                     }
 
                     Status.SUCCESS -> {
                         if (result.data != null)
-                            postUIState.value = postUIState.value.copy(
-                                message = result.data,
-                                isLoading = false
+                            postBaseUIState.value = postBaseUIState.value.copy(
+                                data = null,
+                                list = listOf(),
+                                isLoading = false,
+                                isSuccess = true,
+                                isFail = false,
+                                isSuccessMessage = result.data,
+                                isFailMessage = null,
+                                isFailReason = null,
                             )
                     }
                 }
             }
         }
     }
-
 
     fun removePostRemote(id: Int) {
         viewModelScope.launch {
             removePostRemoteUseCase.invoke(id).collectLatest { result ->
                 when (result.status) {
                     Status.LOADING -> {
-                        postUIState.value = postUIState.value.copy(
+                        postBaseUIState.value = postBaseUIState.value.copy(
                             isLoading = true
                         )
                     }
 
                     Status.ERROR -> {
-                        postUIState.value = postUIState.value.copy(
-                            message = result.message,
-                            isLoading = false
+                        postBaseUIState.value = postBaseUIState.value.copy(
+                            data = null,
+                            list = listOf(),
+                            isLoading = false,
+                            isSuccess = false,
+                            isFail = true,
+                            isSuccessMessage = null,
+                            isFailMessage = ErrorMessages.ERROR,
+                            isFailReason = Exception(result.message),
                         )
                     }
 
                     Status.SUCCESS -> {
                         if (result.data != null)
-                            postUIState.value = postUIState.value.copy(
-                                message = result.data,
-                                isLoading = false
+                            postBaseUIState.value = postBaseUIState.value.copy(
+                                data = null,
+                                list = listOf(),
+                                isLoading = false,
+                                isSuccess = true,
+                                isFail = false,
+                                isSuccessMessage = result.data,
+                                isFailMessage = null,
+                                isFailReason = null,
                             )
                     }
                 }
@@ -152,153 +142,4 @@ class PostViewModel @Inject constructor(
         }
     }
 
-
-    fun updatePostRemote(
-        postModel: MappedPostModel,
-        onFail: () -> Unit = {},
-        onSuccess: () -> Unit = {},
-    ) {
-        viewModelScope.launch {
-            updatePostRemoteUseCase.invoke(postModel).collectLatest { result ->
-                when (result.status) {
-                    Status.LOADING -> {
-                        postUIState.value = postUIState.value.copy(
-                            isLoading = true
-                        )
-                    }
-
-                    Status.ERROR -> {
-                        postUIState.value = postUIState.value.copy(
-                            message = result.message,
-                            isLoading = false
-                        )
-                        onFail()
-                    }
-
-                    Status.SUCCESS -> {
-                        if (result.data != null)
-                            postUIState.value = postUIState.value.copy(
-                                message = result.data,
-                                isLoading = false
-                            )
-                        onSuccess()
-                    }
-                }
-            }
-        }
-    }
-
-
-    fun getAllSavedPosts() {
-        viewModelScope.launch {
-            getAllSavedPostsUseCase.invoke().collectLatest { result ->
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        if (result.data != null)
-                            savedPostUIState.value.apply {
-                                this.isLoading = false
-                                this.list = result.data!!
-                            }
-                    }
-
-                    Status.ERROR -> {
-                        savedPostUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
-                    }
-
-                    Status.LOADING -> {
-                        savedPostUIState.value.isLoading = true
-                    }
-                }
-            }
-        }
-    }
-
-
-    fun removeSavedPost(postModel: MappedPostModel) {
-        viewModelScope.launch {
-            removeSavedPostUseCase.invoke(postModel).collectLatest { result ->
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        savedPostUIState.value.apply {
-                            this.message = result.data
-                            this.isLoading = false
-                        }
-                    }
-
-                    Status.ERROR -> {
-                        savedPostUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
-                    }
-
-                    Status.LOADING -> {
-                        savedPostUIState.value.isLoading = true
-                    }
-                }
-            }
-        }
-    }
-
-    fun savePost(postModel: MappedPostModel) {
-        viewModelScope.launch {
-            savePostUseCase.invoke(postModel).collectLatest { result ->
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        savedPostUIState.value.apply {
-                            this.message = result.data
-                            this.isLoading = false
-                        }
-                    }
-
-                    Status.ERROR -> {
-                        savedPostUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
-                    }
-
-                    Status.LOADING -> {
-                        savedPostUIState.value.isLoading = true
-                    }
-                }
-            }
-        }
-    }
-
-    fun updateSavedPost(postModel: MappedPostModel, onSuccess: () -> Unit = {}) {
-        viewModelScope.launch {
-            updateSavedPostUseCase.invoke(postModel).collectLatest { result ->
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        savedPostUIState.value.apply {
-                            this.message = result.data
-                            this.isLoading = false
-                        }
-                        onSuccess()
-                    }
-
-                    Status.ERROR -> {
-                        savedPostUIState.value.apply {
-                            this.message = result.message
-                            this.isLoading = false
-                        }
-                    }
-
-                    Status.LOADING -> {
-                        savedPostUIState.value.isLoading = true
-                    }
-                }
-            }
-        }
-    }
-
-    fun refreshData(count: MutableState<Int>) {
-        postUIState.value.isLoading = true
-        count.value += 1
-        postUIState.value.isLoading = false
-    }
 }

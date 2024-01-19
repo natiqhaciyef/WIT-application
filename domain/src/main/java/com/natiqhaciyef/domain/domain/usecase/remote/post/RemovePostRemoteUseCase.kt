@@ -1,14 +1,15 @@
 package com.natiqhaciyef.domain.domain.usecase.remote.post
 
+import com.natiqhaciyef.domain.domain.base.BaseUseCase
 import com.natiqhaciyef.util.common.Resource
-import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
 import com.natiqhaciyef.domain.domain.repository.PostRepository
+import com.natiqhaciyef.domain.domain.base.ConfigUseCase
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RemovePostRemoteUseCase @Inject constructor(
-    private val repository: PostRepository
-) {
+    repository: PostRepository
+): BaseUseCase<PostRepository>(repository) {
 
     suspend operator fun invoke(id: Int) = flow {
         emit(Resource.loading(null))
@@ -17,7 +18,7 @@ class RemovePostRemoteUseCase @Inject constructor(
         if (result.success > 0){
             emit(Resource.success(result.message))
         }else{
-            emit(Resource.error(BaseUseCase.REMOVE_FAIL, null))
+            emit(Resource.error(ConfigUseCase.REMOVE_FAIL, null))
         }
 
     }

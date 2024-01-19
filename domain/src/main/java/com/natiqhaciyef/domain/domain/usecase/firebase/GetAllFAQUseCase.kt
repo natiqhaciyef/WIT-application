@@ -1,13 +1,14 @@
 package com.natiqhaciyef.domain.domain.usecase.firebase
 
+import com.natiqhaciyef.domain.domain.base.BaseUseCase
 import com.natiqhaciyef.domain.domain.repository.FirebaseRepository
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.service.InfoModel
 import javax.inject.Inject
 
 class GetAllFAQUseCase @Inject constructor(
-    private val firebaseRepository: FirebaseRepository
-) {
+    firebaseRepository: FirebaseRepository
+):BaseUseCase<FirebaseRepository>(firebaseRepository) {
 
 
     operator fun invoke(
@@ -15,7 +16,7 @@ class GetAllFAQUseCase @Inject constructor(
         onFail: (Exception?) -> Unit
     ) {
         val list = mutableListOf<InfoModel>()
-        firebaseRepository.firestore().collection("FAQ")
+        repository.firestore().collection("FAQ")
             .addSnapshotListener { value, error ->
                 if (value != null && !value.isEmpty) {
                     val docs = value.documents

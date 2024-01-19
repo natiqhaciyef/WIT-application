@@ -7,22 +7,7 @@ object NetworkConfig{
     private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     val logger = OkHttpClient.Builder().addInterceptor(interceptor)
     val BASE_URL = "https://techtive.tech/wit/"
-}
-
-internal object UserEndpoint{
-    const val GET = "users/get_users.php"
-    const val GET_BY_EMAIL = "users/get_user_by_email.php"
-    const val DELETE = "users/delete_user.php"
-    const val UPDATE = "users/update_user.php"
-    const val INSERT = "users/insert_user.php"
-}
-
-internal object VerifiedUserEndpoint{
-    const val GET = "users/verified_users/get_verified_users.php"
-    const val GET_BY_EMAIL = "users/verified_users/get_verified_user_by_email.php"
-    const val DELETE = "users/verified_users/delete_verified_user.php"
-    const val UPDATE = "users/verified_users/update_verified_user.php"
-    const val INSERT = "users/verified_users/insert_verified_user.php"
+    const val API_KEY = "30e171ab-3e37-4a9e-b146-5965922caf97"
 }
 
 internal object PostEndpoint{

@@ -1,12 +1,10 @@
 package com.natiqhaciyef.witapplication.repository
 
+import com.natiqhaciyef.domain.domain.base.ConfigUseCase
 import com.natiqhaciyef.domain.domain.repository.PostRepository
-import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.PostModel
-import com.natiqhaciyef.util.models.mapped.MappedPostModel
 import com.natiqhaciyef.util.models.result.CRUDResponse
-import com.natiqhaciyef.util.models.result.InterviewQuestionResult
 import com.natiqhaciyef.util.models.result.PostResult
 
 class FakePostRepository(
@@ -29,9 +27,9 @@ class FakePostRepository(
         remotePostsResult.postResult = temp
 
         return if (remotePostsResult.postResult!!.contains(postModel))
-            CRUDResponse(success = 1, message = BaseUseCase.INSERT_SUCCESS)
+            CRUDResponse(success = 1, message = ConfigUseCase.INSERT_SUCCESS)
         else
-            CRUDResponse(success = 0, message = BaseUseCase.INSERT_FAIL)
+            CRUDResponse(success = 0, message = ConfigUseCase.INSERT_FAIL)
     }
 
     override suspend fun updatePost(postModel: PostModel): CRUDResponse {
@@ -52,9 +50,9 @@ class FakePostRepository(
         }
 
         return if (remotePostsResult.postResult!!.contains(postModel))
-            CRUDResponse(success = 1, message = BaseUseCase.UPDATE_SUCCESS)
+            CRUDResponse(success = 1, message = ConfigUseCase.UPDATE_SUCCESS)
         else
-            CRUDResponse(success = 0, message = BaseUseCase.UPDATE_FAIL)
+            CRUDResponse(success = 0, message = ConfigUseCase.UPDATE_FAIL)
     }
 
     override suspend fun removePost(id: Int): CRUDResponse {
@@ -67,9 +65,9 @@ class FakePostRepository(
         remotePostsResult.postResult = temp
 
         return if (!remotePostsResult.postResult!!.contains(element))
-            CRUDResponse(success = 1, message = BaseUseCase.REMOVE_SUCCESS)
+            CRUDResponse(success = 1, message = ConfigUseCase.REMOVE_SUCCESS)
         else
-            CRUDResponse(success = 0, message = BaseUseCase.REMOVE_FAIL)
+            CRUDResponse(success = 0, message = ConfigUseCase.REMOVE_FAIL)
     }
 
     override suspend fun getAllSavedPosts(): List<PostModel>? {

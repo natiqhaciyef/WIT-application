@@ -21,7 +21,6 @@ import androidx.compose.material.icons.filled.AccountBalance
 import androidx.compose.material.icons.filled.Article
 import androidx.compose.material.icons.filled.ContactSupport
 import androidx.compose.material.icons.filled.HourglassEmpty
-import androidx.compose.material.icons.filled.LiveTv
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -50,7 +49,6 @@ import com.natiqhaciyef.witapplication.presentation.component.FAQInfoBox
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.NavStandards
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
-import com.natiqhaciyef.witapplication.presentation.viewmodel.FirebaseViewModel
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
@@ -58,9 +56,9 @@ import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 @Composable
 fun LearnScreen(
     navController: NavController = rememberNavController(),
-    firebaseViewModel: FirebaseViewModel = hiltViewModel(),
+    learnViewModel: LearnViewModel = hiltViewModel(),
 ) {
-    val faqState = remember { firebaseViewModel.faqState }
+    val faqState = remember { learnViewModel.faqState }
 
     Column(
         modifier = Modifier

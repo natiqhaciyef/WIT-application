@@ -1,7 +1,7 @@
 package com.natiqhaciyef.witapplication.domain_module_test.usecase
 
 import com.google.common.truth.Truth.assertThat
-import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
+import com.natiqhaciyef.domain.domain.base.ConfigUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.exam.ParticipateExamUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.exam.RemoveExamParticipationUseCase
 import com.natiqhaciyef.domain.domain.usecase.remote.exam.GetAllExamsUseCase
@@ -13,10 +13,8 @@ import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.mapped.MappedExamModel
 import com.natiqhaciyef.witapplication.domain_module_test.repository.FakeExamRepository
 import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import java.lang.Error
 
 class ExamUseCaseTest {
 
@@ -46,7 +44,7 @@ class ExamUseCaseTest {
             )
             val result = InsertExamUseCase(fakeExamRepository).invoke(examModel).last()
 
-            assertThat(result).isEqualTo(Resource.success(BaseUseCase.INSERT_SUCCESS))
+            assertThat(result).isEqualTo(Resource.success(ConfigUseCase.INSERT_SUCCESS))
         }
 
     @Test
@@ -64,7 +62,7 @@ class ExamUseCaseTest {
             )
             val result = RemoveExamParticipationUseCase(fakeExamRepository).invoke(examModel).last()
 
-            assertThat(result).isEqualTo(Resource.success(BaseUseCase.REMOVE_SUCCESS))
+            assertThat(result).isEqualTo(Resource.success(ConfigUseCase.REMOVE_SUCCESS))
         }
 
     @Test
@@ -82,7 +80,7 @@ class ExamUseCaseTest {
             )
             val result = ParticipateExamUseCase(fakeExamRepository).invoke(examModel).last()
 
-            assertThat(result).isEqualTo(Resource.success(BaseUseCase.INSERT_SUCCESS))
+            assertThat(result).isEqualTo(Resource.success(ConfigUseCase.INSERT_SUCCESS))
         }
 
     @Test

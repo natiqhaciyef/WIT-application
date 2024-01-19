@@ -1,11 +1,10 @@
 package com.natiqhaciyef.witapplication.repository
 
+import com.natiqhaciyef.domain.domain.base.ConfigUseCase
 import com.natiqhaciyef.domain.domain.repository.InterviewQuestionRepository
-import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.InterviewQuestionModel
 import com.natiqhaciyef.util.models.result.CRUDResponse
-import com.natiqhaciyef.util.models.result.ExamResult
 import com.natiqhaciyef.util.models.result.InterviewQuestionResult
 
 class FakeInterviewQuestionRepository(
@@ -27,9 +26,9 @@ class FakeInterviewQuestionRepository(
         temp.add(questionModel)
         remoteInterviewQuestionsResult.list = temp
         return if (remoteInterviewQuestionsResult.list!!.contains(questionModel))
-            CRUDResponse(success = 1, message = BaseUseCase.INSERT_SUCCESS)
+            CRUDResponse(success = 1, message = ConfigUseCase.INSERT_SUCCESS)
         else
-            CRUDResponse(success = 0, message = BaseUseCase.INSERT_FAIL)
+            CRUDResponse(success = 0, message = ConfigUseCase.INSERT_FAIL)
     }
 
     override suspend fun getAllSavedInterviewQuestions(): List<InterviewQuestionModel>? {

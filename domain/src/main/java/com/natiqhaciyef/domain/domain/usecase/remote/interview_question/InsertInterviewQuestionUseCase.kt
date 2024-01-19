@@ -1,15 +1,17 @@
 package com.natiqhaciyef.domain.domain.usecase.remote.interview_question
 
+import com.natiqhaciyef.domain.domain.base.BaseUseCase
 import com.natiqhaciyef.util.common.Resource
 import com.natiqhaciyef.util.models.InterviewQuestionModel
 import com.natiqhaciyef.domain.domain.repository.InterviewQuestionRepository
+import com.natiqhaciyef.domain.domain.base.ConfigUseCase
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class InsertInterviewQuestionUseCase @Inject constructor(
-    private val repository: InterviewQuestionRepository,
-) {
+    interviewQuestionRepository: InterviewQuestionRepository
+) : BaseUseCase<InterviewQuestionRepository>(interviewQuestionRepository) {
 
     suspend operator fun invoke(questionModel: InterviewQuestionModel) = flow {
         emit(Resource.loading(null))
@@ -25,7 +27,7 @@ class InsertInterviewQuestionUseCase @Inject constructor(
         ) {
             val result = repository.insertInterviewQuestion(questionModel)
             if (result.success > 0) {
-                emit(Resource.success(result.message))
+                emit(Resource.success(ConfigUseCase.INSERT_SUCCESS))
             } else {
                 emit(Resource.error(result.message, null))
             }

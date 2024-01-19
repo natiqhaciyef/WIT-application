@@ -1,10 +1,11 @@
 package com.natiqhaciyef.domain.domain.repository
 
+import com.natiqhaciyef.domain.domain.base.BaseRepository
 import com.natiqhaciyef.util.models.result.CRUDResponse
 import com.natiqhaciyef.util.models.result.PostResult
 import com.natiqhaciyef.util.models.PostModel
 
-interface PostRepository {
+interface PostRepository : BaseRepository {
 
     suspend fun getAllPosts(): PostResult
 

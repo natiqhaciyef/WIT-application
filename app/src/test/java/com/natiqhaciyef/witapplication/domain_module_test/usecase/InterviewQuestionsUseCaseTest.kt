@@ -1,9 +1,8 @@
 package com.natiqhaciyef.witapplication.domain_module_test.usecase
 
 import com.google.common.truth.Truth.assertThat
-import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
+import com.natiqhaciyef.domain.domain.base.ConfigUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.interview_question.GetAllSavedInterviewQuestionsUseCase
-import com.natiqhaciyef.domain.domain.usecase.local.interview_question.GetAllSavedInterviewQuestionsUseCase_Factory
 import com.natiqhaciyef.domain.domain.usecase.local.interview_question.RemoveSavedInterviewQuestionUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.interview_question.SaveInterviewQuestionUseCase
 import com.natiqhaciyef.domain.domain.usecase.remote.interview_question.GetAllInterviewQuestionsUseCase
@@ -11,7 +10,6 @@ import com.natiqhaciyef.domain.domain.usecase.remote.interview_question.InsertIn
 import com.natiqhaciyef.util.common.Resource
 import com.natiqhaciyef.util.common.util.objects.DefaultImpl
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
-import com.natiqhaciyef.util.models.InterviewQuestionModel
 import com.natiqhaciyef.witapplication.domain_module_test.repository.FakeInterviewQuestionRepository
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.test.runTest
@@ -34,7 +32,7 @@ class InterviewQuestionsUseCaseTest {
         val result = InsertInterviewQuestionUseCase(fakeInterviewQuestionRepository)
             .invoke(interviewQuestionModel)
             .last()
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.INSERT_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.INSERT_SUCCESS))
     }
 
     @Test
@@ -51,7 +49,7 @@ class InterviewQuestionsUseCaseTest {
         val result = SaveInterviewQuestionUseCase(fakeInterviewQuestionRepository)
             .invoke(interviewQuestionModel)
             .last()
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.INSERT_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.INSERT_SUCCESS))
     }
 
     @Test
@@ -60,7 +58,7 @@ class InterviewQuestionsUseCaseTest {
         val result = RemoveSavedInterviewQuestionUseCase(fakeInterviewQuestionRepository)
             .invoke(interviewQuestionModel)
             .last()
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.REMOVE_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.REMOVE_SUCCESS))
     }
 
     @Test

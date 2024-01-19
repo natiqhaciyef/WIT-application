@@ -1,7 +1,7 @@
 package com.natiqhaciyef.witapplication.domain_module_test.usecase
 
 import com.google.common.truth.Truth.assertThat
-import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
+import com.natiqhaciyef.domain.domain.base.ConfigUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.contact.GetAllSavedContactsUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.contact.SaveContactUseCase
 import com.natiqhaciyef.domain.domain.usecase.remote.contact.GetAllContactUseCase
@@ -11,11 +11,8 @@ import com.natiqhaciyef.util.common.Resource
 import com.natiqhaciyef.util.common.util.objects.DefaultImpl
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.ContactModel
-import com.natiqhaciyef.util.models.result.CRUDResponse
 import com.natiqhaciyef.witapplication.domain_module_test.repository.FakeContactRepository
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -42,14 +39,14 @@ class ContactUseCasesTest {
         )
         val result = InsertContactUseCase(fakeContactRepository).invoke(contactModel).last()
 
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.INSERT_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.INSERT_SUCCESS))
     }
 
     @Test
     fun `remove contact use case (remote) returns success`() = runTest {
         val result = RemoveContactUseCase(fakeContactRepository).invoke(0).last()
 
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.REMOVE_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.REMOVE_SUCCESS))
     }
 
     @Test
@@ -71,14 +68,14 @@ class ContactUseCasesTest {
         )
         val result = SaveContactUseCase(fakeContactRepository).invoke(contactModel).last()
 
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.INSERT_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.INSERT_SUCCESS))
     }
 
     @Test
     fun `remove saved contact use case (local) returns success`() = runTest {
         val result = RemoveContactUseCase(fakeContactRepository).invoke(0).last()
 
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.REMOVE_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.REMOVE_SUCCESS))
     }
 
 

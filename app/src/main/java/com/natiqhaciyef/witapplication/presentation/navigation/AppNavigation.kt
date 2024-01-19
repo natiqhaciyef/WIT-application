@@ -11,26 +11,26 @@ import androidx.navigation.navArgument
 import com.natiqhaciyef.util.common.util.objects.DefaultImpl
 import com.natiqhaciyef.witapplication.presentation.navigation.type.PostType
 import com.natiqhaciyef.witapplication.presentation.screens.main.MainScreenLine
-import com.natiqhaciyef.witapplication.presentation.screens.main.home.DetailsScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.home.NotificationScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.learn.CustomPlanScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.learn.FieldScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.learn.MaterialScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.learn.exam.ExamScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.learn.exam.StartExamScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.learn.interview.InterviewQuestions
-import com.natiqhaciyef.witapplication.presentation.screens.main.learn.interview.LiveInterviewScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.user.HelpScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.user.LanguageScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.user.ResetPasswordScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.user.LastContactScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.user.LikedPostScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.user.SavedQuestionsScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.user.VerifyAccountScreen
-import com.natiqhaciyef.witapplication.presentation.screens.register.ForgotPasswordScreen
-import com.natiqhaciyef.witapplication.presentation.screens.register.LoginScreen
-import com.natiqhaciyef.witapplication.presentation.screens.register.RegisterScreen
-import com.natiqhaciyef.witapplication.presentation.screens.register.SplashScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.details.DetailsScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.notification.NotificationScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.customplan.CustomPlanScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.field.FieldScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.materials.MaterialScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.exam.ExamScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.exam.StartExamScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.interview.InterviewQuestions
+import com.natiqhaciyef.witapplication.presentation.screens.main.interview.LiveInterviewScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.help.HelpScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.language.LanguageScreen
+import com.natiqhaciyef.witapplication.presentation.screens.register.forgotpassword.ResetPasswordScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.lastcontacts.LastContactScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.details.LikedPostScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.interview.SavedQuestionsScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.verifyaccount.VerifyAccountScreen
+import com.natiqhaciyef.witapplication.presentation.screens.register.forgotpassword.ForgotPasswordScreen
+import com.natiqhaciyef.witapplication.presentation.screens.register.login.LoginScreen
+import com.natiqhaciyef.witapplication.presentation.screens.register.registration.RegisterScreen
+import com.natiqhaciyef.witapplication.presentation.screens.register.onboard.SplashScreen
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable

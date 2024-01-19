@@ -12,9 +12,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.test.filters.MediumTest
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.witapplication.presentation.navigation.TestNavigation
-import com.natiqhaciyef.witapplication.presentation.screens.main.user.UserProfileMainView
+import com.natiqhaciyef.witapplication.presentation.screens.main.profile.UserProfileMainView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 

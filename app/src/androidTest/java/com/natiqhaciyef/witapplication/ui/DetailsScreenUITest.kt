@@ -1,15 +1,15 @@
 package com.natiqhaciyef.witapplication.ui
 
-import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.rememberNavController
 import androidx.test.filters.MediumTest
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
+import com.natiqhaciyef.domain.domain.usecase.firebase.user.GetAllUsersUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.post.GetAllSavedPostsUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.post.RemoveSavedPostUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.post.SavePostUseCase
@@ -19,14 +19,12 @@ import com.natiqhaciyef.domain.domain.usecase.remote.post.InsertPostRemoteUseCas
 import com.natiqhaciyef.domain.domain.usecase.remote.post.RemovePostRemoteUseCase
 import com.natiqhaciyef.domain.domain.usecase.remote.post.UpdatePostRemoteUseCase
 import com.natiqhaciyef.util.common.mappers.toMappedPost
-import com.natiqhaciyef.util.common.mappers.toPost
-import com.natiqhaciyef.util.common.util.objects.DefaultImpl
-import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.PostModel
 import com.natiqhaciyef.util.models.UserWithoutPasswordModel
-import com.natiqhaciyef.util.models.mapped.MappedPostModel
-import com.natiqhaciyef.witapplication.presentation.screens.main.home.DetailsScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.details.DetailsScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.home.HomeViewModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.PostViewModel
+import com.natiqhaciyef.witapplication.repository.FakeFirebaseRepository
 import com.natiqhaciyef.witapplication.repository.FakePostRepository
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -57,7 +55,7 @@ class DetailsScreenUITest {
         publishDate = "18.10.2023 13:21",
         user = Gson().toJson(
             UserWithoutPasswordModel(
-                id = 0,
+                id = "0",
                 name = "Google",
                 email = "google.com",
             )
@@ -65,11 +63,12 @@ class DetailsScreenUITest {
     )
 
     private lateinit var fakePostRepository: FakePostRepository
-    private lateinit var postViewModel: PostViewModel
+    private lateinit var fakeFirebaseRepository: FakeFirebaseRepository
+    private lateinit var homeViewModel: HomeViewModel
 
 
     @Before
-    fun setup(){
+    fun setup() {
         fakePostRepository =
             FakePostRepository(
                 mutableListOf(
@@ -79,17 +78,12 @@ class DetailsScreenUITest {
                 )
             )
 
-         postViewModel =
-            PostViewModel(
-                getAllPostRemoteUseCase = GetAllPostRemoteUseCase(fakePostRepository),
-                insertPostRemoteUseCase = InsertPostRemoteUseCase(fakePostRepository),
-                removePostRemoteUseCase = RemovePostRemoteUseCase(fakePostRepository),
-                updatePostRemoteUseCase = UpdatePostRemoteUseCase(fakePostRepository),
-                savePostUseCase = SavePostUseCase(fakePostRepository),
-                removeSavedPostUseCase = RemoveSavedPostUseCase(fakePostRepository),
-                getAllSavedPostsUseCase = GetAllSavedPostsUseCase(fakePostRepository),
-                updateSavedPostUseCase = UpdateSavedPostUseCase(fakePostRepository)
-            )
+        homeViewModel = HomeViewModel(
+            getAllPostRemoteUseCase = GetAllPostRemoteUseCase(fakePostRepository),
+            getAllUsersUseCase = GetAllUsersUseCase(fakeFirebaseRepository),
+            firebaseAuth = FirebaseAuth.getInstance()
+        )
+
     }
 
 
@@ -100,7 +94,7 @@ class DetailsScreenUITest {
             DetailsScreen(
                 navController = navController,
                 postModel = postModel.toMappedPost()!!,
-                postViewModel = postViewModel
+                homeViewModel = homeViewModel
             )
         }
 
@@ -118,7 +112,7 @@ class DetailsScreenUITest {
             DetailsScreen(
                 navController = navController,
                 postModel = postModel.toMappedPost()!!,
-                postViewModel = postViewModel
+                homeViewModel = homeViewModel
             )
         }
 
@@ -135,7 +129,7 @@ class DetailsScreenUITest {
             DetailsScreen(
                 navController = navController,
                 postModel = postModel.toMappedPost()!!,
-                postViewModel = postViewModel
+                homeViewModel = homeViewModel
             )
         }
 

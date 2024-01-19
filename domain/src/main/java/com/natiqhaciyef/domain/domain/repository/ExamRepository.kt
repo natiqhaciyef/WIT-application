@@ -1,10 +1,11 @@
 package com.natiqhaciyef.domain.domain.repository
 
+import com.natiqhaciyef.domain.domain.base.BaseRepository
 import com.natiqhaciyef.util.models.result.CRUDResponse
 import com.natiqhaciyef.util.models.result.ExamResult
 import com.natiqhaciyef.util.models.ExamModel
 
-interface ExamRepository {
+interface ExamRepository : BaseRepository{
 
     suspend fun getAllExams(): ExamResult
 

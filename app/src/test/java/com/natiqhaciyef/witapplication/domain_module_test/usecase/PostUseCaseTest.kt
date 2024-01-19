@@ -1,7 +1,7 @@
 package com.natiqhaciyef.witapplication.domain_module_test.usecase
 
 import com.google.common.truth.Truth.assertThat
-import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
+import com.natiqhaciyef.domain.domain.base.ConfigUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.post.GetAllSavedPostsUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.post.RemoveSavedPostUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.post.SavePostUseCase
@@ -15,7 +15,6 @@ import com.natiqhaciyef.util.common.mappers.toPost
 import com.natiqhaciyef.util.common.util.objects.DefaultImpl
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.UserWithoutPasswordModel
-import com.natiqhaciyef.util.models.result.PostResult
 import com.natiqhaciyef.witapplication.domain_module_test.repository.FakePostRepository
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.test.runTest
@@ -51,14 +50,14 @@ class PostUseCaseTest {
             InsertPostRemoteUseCase(fakePostRepository).invoke(DefaultImpl.mappedPost.copy(id = 3))
                 .last()
 
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.INSERT_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.INSERT_SUCCESS))
     }
 
     @Test
     fun `remove post use case (remote) returns success`() = runTest {
         val result = RemovePostRemoteUseCase(fakePostRepository).invoke(1).last()
 
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.REMOVE_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.REMOVE_SUCCESS))
     }
 
     @Test
@@ -66,7 +65,7 @@ class PostUseCaseTest {
         val result = UpdatePostRemoteUseCase(fakePostRepository)
             .invoke(DefaultImpl.mappedPost.copy(id = 1, title = "Hello world!")).last()
 
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.UPDATE_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.UPDATE_SUCCESS))
     }
 
     @Test
@@ -90,7 +89,7 @@ class PostUseCaseTest {
         val result = SavePostUseCase(fakePostRepository)
             .invoke(DefaultImpl.mappedPost.copy(id = 3)).last()
 
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.INSERT_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.INSERT_SUCCESS))
     }
 
     @Test
@@ -98,7 +97,7 @@ class PostUseCaseTest {
         val result = RemoveSavedPostUseCase(fakePostRepository)
             .invoke(DefaultImpl.mappedPost.copy(id = 3)).last()
 
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.REMOVE_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.REMOVE_SUCCESS))
     }
 
     @Test
@@ -106,7 +105,7 @@ class PostUseCaseTest {
         val result = UpdateSavedPostUseCase(fakePostRepository)
             .invoke(DefaultImpl.mappedPost.copy(id = 0, title = "Hello world")).last()
 
-        assertThat(result).isEqualTo(Resource.success(BaseUseCase.UPDATE_SUCCESS))
+        assertThat(result).isEqualTo(Resource.success(ConfigUseCase.UPDATE_SUCCESS))
     }
 
 
@@ -124,7 +123,7 @@ class PostUseCaseTest {
     fun `update post use case (remote) with post model contains empty field returns error`() = runTest {
         val result = UpdatePostRemoteUseCase(fakePostRepository)
             .invoke(DefaultImpl.mappedPost
-                .copy(id = 1, user = UserWithoutPasswordModel(email = "", id = 0, name = "Empty"))).last()
+                .copy(id = 1, user = UserWithoutPasswordModel(email = "", id = "0", name = "Empty"))).last()
 
         assertThat(result).isEqualTo(Resource.error(ErrorMessages.EMPTY_FIELD, null))
     }

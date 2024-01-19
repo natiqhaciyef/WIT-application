@@ -13,7 +13,7 @@ import com.natiqhaciyef.witapplication.util.StateHolder.selectedIndex
 import com.natiqhaciyef.witapplication.presentation.component.NavBar
 import com.natiqhaciyef.witapplication.presentation.screens.main.home.HomeScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.LearnScreen
-import com.natiqhaciyef.witapplication.presentation.screens.main.user.UserProfileScreen
+import com.natiqhaciyef.witapplication.presentation.screens.main.profile.UserProfileScreen
 
 @Composable
 fun MainScreenLine(

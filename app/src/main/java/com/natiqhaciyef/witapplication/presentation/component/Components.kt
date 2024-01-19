@@ -1301,14 +1301,14 @@ fun CustomSnackbar(
                     modifier = Modifier
                         .padding(horizontal = 20.dp)
                         .fillMaxWidth()
-                        .height(60.dp),
+                        .height(55.dp),
                     action = {
                         Text(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(end = 10.dp),
                             text = "Okay",
-                            fontSize = 17.sp,
+                            fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
                             color = LightYellow,
                             textAlign = TextAlign.End
@@ -1327,7 +1327,7 @@ fun CustomSnackbar(
                                 .padding(horizontal = 10.dp)
                                 .fillMaxWidth(),
                             text = returnMessage,
-                            fontSize = 17.sp,
+                            fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
                             color = textColor,
                             textAlign = TextAlign.Start
@@ -1339,7 +1339,7 @@ fun CustomSnackbar(
                     modifier = Modifier
                         .padding(horizontal = 20.dp)
                         .fillMaxWidth()
-                        .height(60.dp),
+                        .height(55.dp),
                     backgroundColor = backgroundColor,
                     shape = RoundedCornerShape(8.dp),
                 ) {
@@ -1353,7 +1353,7 @@ fun CustomSnackbar(
                                 .padding(horizontal = 10.dp)
                                 .fillMaxWidth(),
                             text = returnMessage,
-                            fontSize = 17.sp,
+                            fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
                             color = textColor,
                             textAlign = TextAlign.Center

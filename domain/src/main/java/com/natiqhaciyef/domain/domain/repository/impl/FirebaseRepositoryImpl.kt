@@ -9,7 +9,7 @@ import com.natiqhaciyef.domain.domain.repository.FirebaseRepository
 
 class FirebaseRepositoryImpl(
     val ds: FirebaseDataSource
-) : FirebaseRepository{
+) : FirebaseRepository {
     override fun auth(): FirebaseAuth = ds.auth
 
     override fun storage(): FirebaseStorage = ds.storage
@@ -19,7 +19,7 @@ class FirebaseRepositoryImpl(
     override fun signInUser(
         user: UserModel,
         onSuccess: () -> Unit,
-        onFail: (Exception) -> Unit
+        onFail: (Exception?) -> Unit
     ) {
         ds.auth.signInWithEmailAndPassword(user.email, user.password)
             .addOnSuccessListener { onSuccess() }
@@ -29,7 +29,7 @@ class FirebaseRepositoryImpl(
     override fun createAccount(
         user: UserModel,
         onSuccess: () -> Unit,
-        onFail: (Exception) -> Unit
+        onFail: (Exception?) -> Unit
     ) {
         ds.auth.createUserWithEmailAndPassword(user.email, user.password)
             .addOnSuccessListener { onSuccess() }
@@ -39,7 +39,7 @@ class FirebaseRepositoryImpl(
     override fun resetPasswordFromEmail(
         email: String,
         onSuccess: () -> Unit,
-        onFail: (Exception) -> Unit
+        onFail: (Exception?) -> Unit
     ) {
         ds.auth.sendPasswordResetEmail(email)
             .addOnSuccessListener { onSuccess() }
@@ -47,9 +47,14 @@ class FirebaseRepositoryImpl(
     }
 
     override fun updatePassword(
-        user: UserModel,
+        newPassword: String,
+        onSuccess: () -> Unit,
+        onFail: (Exception?) -> Unit
     ) {
-        ds.auth.currentUser?.updatePassword(user.password)
+        ds.auth.currentUser?.updatePassword(newPassword)
+            ?.addOnSuccessListener {
+                onSuccess()
+            }?.addOnFailureListener(onFail)
     }
 
 

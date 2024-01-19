@@ -1,7 +1,7 @@
 package com.natiqhaciyef.data.network.service
 
-import com.natiqhaciyef.data.BuildConfig
 import com.natiqhaciyef.data.network.InterviewQuestionEndpoint
+import com.natiqhaciyef.data.network.NetworkConfig
 import com.natiqhaciyef.util.models.result.CRUDResponse
 import com.natiqhaciyef.util.models.result.InterviewQuestionResult
 import retrofit2.http.Field
@@ -14,13 +14,13 @@ interface InterviewQuestionService {
 
     @GET(InterviewQuestionEndpoint.GET)
     suspend fun getAllQuestions(
-        @Query("apiKey") key: String = BuildConfig.API_KEY,
+        @Query("apiKey") key: String = NetworkConfig.API_KEY,
     ): InterviewQuestionResult
 
     @POST(InterviewQuestionEndpoint.INSERT)
     @FormUrlEncoded
     suspend fun insertInterviewQuestion(
-        @Query("apiKey") key: String = BuildConfig.API_KEY,
+        @Query("apiKey") key: String = NetworkConfig.API_KEY,
         @Field("title") title: String,
         @Field("description") description: String,
         @Field("solution") solution: String,

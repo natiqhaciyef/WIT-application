@@ -55,8 +55,8 @@ import com.natiqhaciyef.witapplication.presentation.component.PostComponent
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
+import com.natiqhaciyef.witapplication.presentation.screens.main.details.DetailsViewModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.PostViewModel
-import com.natiqhaciyef.witapplication.presentation.viewmodel.UserViewModel
 import com.natiqhaciyef.witapplication.ui.theme.*
 
 @Composable
@@ -86,10 +86,9 @@ fun HomeScreen(
 private fun HomeTopView(
     searchQuery: MutableState<String>,
     navController: NavController,
-    userViewModel: UserViewModel = hiltViewModel(),
+    homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
-    userViewModel.getUserByEmail()
-    val users = remember { userViewModel.userUIState }
+    val users = remember { homeViewModel.userState }
 
     Column(
         modifier = Modifier
@@ -126,7 +125,7 @@ private fun HomeTopView(
                         fontFamily = Lobster.lobster
                     )
                 ) {
-                    if (users.value.selectedElement != null) append(users.value.selectedElement!!.name)
+                    if (users.value.data != null) append(users.value.data!!.name)
                     else append(stringResource(id = R.string.guest))
                 }
 
@@ -172,12 +171,11 @@ private fun HomeBodyView(
     searchQuery: MutableState<String>,
     navController: NavController,
     count: MutableState<Int>,
-    postViewModel: PostViewModel = hiltViewModel(),
+    homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
-    postViewModel.getAllSavedPosts()
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
-    val postState = remember { postViewModel.postUIState }
+    val postState = remember { homeViewModel.postState }
 
     if (postState.value.list.filter { postState.value.list.indexOf(it) < count.value }
             .isNotEmpty()) {
@@ -227,7 +225,7 @@ private fun HomeBodyView(
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp)
                         .clickable {
-                            postViewModel.refreshData(count)
+                            homeViewModel.refreshData(count)
                         },
                     text = stringResource(id = R.string.load_more),
                     fontSize = 16.sp,

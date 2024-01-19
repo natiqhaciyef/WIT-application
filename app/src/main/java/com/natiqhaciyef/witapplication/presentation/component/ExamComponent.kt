@@ -41,7 +41,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.natiqhaciyef.util.models.mapped.MappedExamModel
 import com.natiqhaciyef.witapplication.R
-import com.natiqhaciyef.witapplication.presentation.screens.main.user.CustomAlertDialogSample
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkGray
 

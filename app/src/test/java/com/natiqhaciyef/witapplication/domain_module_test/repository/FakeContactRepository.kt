@@ -1,8 +1,7 @@
 package com.natiqhaciyef.witapplication.domain_module_test.repository
 
+import com.natiqhaciyef.domain.domain.base.ConfigUseCase
 import com.natiqhaciyef.domain.domain.repository.ContactRepository
-import com.natiqhaciyef.domain.domain.usecase.config.BaseUseCase
-import com.natiqhaciyef.util.common.util.objects.DefaultImpl
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.ContactModel
 import com.natiqhaciyef.util.models.result.CRUDResponse
@@ -25,9 +24,9 @@ class FakeContactRepository(private val list: MutableList<ContactModel>?) : Cont
         list?.add(contactModel)
         remoteContactResult.contactResult = list
         return if (remoteContactResult.contactResult!!.contains(contactModel))
-             CRUDResponse(success = 1, message = BaseUseCase.INSERT_SUCCESS)
+             CRUDResponse(success = 1, message = ConfigUseCase.INSERT_SUCCESS)
         else
-            CRUDResponse(success = 0, message = BaseUseCase.INSERT_FAIL)
+            CRUDResponse(success = 0, message = ConfigUseCase.INSERT_FAIL)
     }
 
     override suspend fun removeContact(id: Int): CRUDResponse {
@@ -39,9 +38,9 @@ class FakeContactRepository(private val list: MutableList<ContactModel>?) : Cont
         list?.removeAt(id)
         remoteContactResult.contactResult = list
         return if (!remoteContactResult.contactResult!!.contains(element))
-            CRUDResponse(success = 1, message = BaseUseCase.REMOVE_SUCCESS)
+            CRUDResponse(success = 1, message = ConfigUseCase.REMOVE_SUCCESS)
         else
-            CRUDResponse(success = 0, message = BaseUseCase.REMOVE_FAIL)
+            CRUDResponse(success = 0, message = ConfigUseCase.REMOVE_FAIL)
     }
 
     override suspend fun getAllSavedContacts(): List<ContactModel>? {
