@@ -35,6 +35,10 @@ class DetailsViewModel @Inject constructor(
     var postModel: MappedPostModel? = null
     var homeViewModel: HomeViewModel? = null
 
+    init {
+        getAllSavedPosts()
+    }
+
     fun likeButton(isContains: Boolean) {
         if (postModel != null && homeViewModel != null)
             if (isContains) {
@@ -47,7 +51,6 @@ class DetailsViewModel @Inject constructor(
                 postModel!!.likeCount -= 1
                 updatePostRemote(postModel!!) {
                     updateSavedPost(postModel!!) {
-                        println(postModel!!.likeCount)
                         removeSavedPost(postModel!!)
                     }
                 }
@@ -104,7 +107,12 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun removeSavedPost(postModel: MappedPostModel) {
+    fun removeSavedPost(
+        postModel: MappedPostModel,
+        onSuccess: () -> Unit = { },
+        onFail: () -> Unit = { },
+        onLoading: () -> Unit = { }
+    ) {
         viewModelScope.launch {
             removeSavedPostUseCase.invoke(postModel).collectLatest { result ->
                 when (result.status) {
@@ -112,6 +120,7 @@ class DetailsViewModel @Inject constructor(
                         savedPostBaseUIState.value = savedPostBaseUIState.value.copy(
                             isLoading = true
                         )
+                        onLoading()
                     }
 
                     Status.ERROR -> {
@@ -125,6 +134,7 @@ class DetailsViewModel @Inject constructor(
                             isFailMessage = ErrorMessages.ERROR,
                             isFailReason = Exception(result.message),
                         )
+                        onFail()
                     }
 
                     Status.SUCCESS -> {
@@ -139,6 +149,7 @@ class DetailsViewModel @Inject constructor(
                                 isFailMessage = null,
                                 isFailReason = null,
                             )
+                        onSuccess()
                     }
                 }
             }

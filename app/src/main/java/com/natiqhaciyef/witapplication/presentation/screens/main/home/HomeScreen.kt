@@ -186,8 +186,7 @@ private fun HomeBodyView(
     val screenHeight = configuration.screenHeightDp.dp
     val postState = remember { homeViewModel.postState }
 
-    if (postState.value.list.filter { postState.value.list.indexOf(it) < count.value }
-            .isNotEmpty()) {
+    if (postState.value.list.any { postState.value.list.indexOf(it) < count.value }) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -214,7 +213,9 @@ private fun HomeBodyView(
                         .fillMaxWidth()
                         .heightIn(min = 300.dp, max = screenHeight + 300.dp)
                 ) {
-                    items(postState.value.list.filter { postState.value.list.indexOf(it) < count.value }) { post ->
+                    items(postState.value.list.filter { post ->
+                        postState.value.list.indexOf(post) < count.value && post.title.contains(searchQuery.value)
+                    }) { post ->
                         PostComponent(mappedPostModel = post) {
                             val json = Uri.encode(Gson().toJson(post))
                             navController.navigate("${ScreenId.DetailsScreen.name}/$json")
@@ -292,11 +293,11 @@ fun NotificationSenderPart(
     if (notifications.value.isSuccess && notifications.value.list.isNotEmpty()) {
         val notification = notifications.value.list.last()
 //        notificationResult.value =
-            sendNotification(
-                activityCompat,
-                context,
-                notification.title,
-                notification.description
-            )
+        sendNotification(
+            activityCompat,
+            context,
+            notification.title,
+            notification.description
+        )
     }
 }

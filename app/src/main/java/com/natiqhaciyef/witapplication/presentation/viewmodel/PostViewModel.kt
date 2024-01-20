@@ -12,8 +12,11 @@ import com.natiqhaciyef.domain.domain.usecase.remote.post.GetAllPostRemoteUseCas
 import com.natiqhaciyef.domain.domain.usecase.remote.post.InsertPostRemoteUseCase
 import com.natiqhaciyef.domain.domain.usecase.remote.post.RemovePostRemoteUseCase
 import com.natiqhaciyef.domain.domain.usecase.remote.post.UpdatePostRemoteUseCase
+import com.natiqhaciyef.util.common.util.helpers.getNow
+import com.natiqhaciyef.util.common.util.objects.DefaultImpl
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.common.util.objects.SuccessMessages
+import com.natiqhaciyef.util.models.UserWithoutPasswordModel
 import com.natiqhaciyef.util.models.mapped.MappedPostModel
 import com.natiqhaciyef.witapplication.presentation.base.BaseViewModel
 import com.natiqhaciyef.witapplication.presentation.base.BaseUIState
@@ -30,34 +33,37 @@ class PostViewModel @Inject constructor(
     val postBaseUIState = mutableStateOf(BaseUIState<MappedPostModel>())
     val savedPostBaseUIState = mutableStateOf(BaseUIState<MappedPostModel>())
 
-    init {
+//    init {
 //        insertPostRemote(
 //            postModel = MappedPostModel(
 //                id = 0,
-//                title = "",
-//                description = "The Jetpack Benchmark library provides a set of tools to inspect and improve application performance in a controlled environment.\n" +
+//                title = "Now in Android",
+//                description = "On December 6th , we announced Gemini, our most capable AI model yet!\n" +
+//                        "It’s been optimized for three different sizes: Ultra, Pro and Nano. Gemini Nano is our most efficient model built for on-device tasks, running directly on mobile silicon which opens support for offline, privacy-sensitive inference.\n" +
 //                        "\n" +
-//                        "These lab tests can inspect entire end to end user flows using Macrobenchmark or implementation details in a loop with Microbenchmark.\n" +
+//                        "We announced that you will soon be able to use the Google AI Edge SDK to leverage Gemini Nano through Android AICore. It is currently rolling out to Pixel 8 Pro with more devices and silicon partners to be announced in the coming months.\n" +
 //                        "\n" +
-//                        "Macrobenchmark also can be used to generate baseline profiles and now Startup Profiles. Both help to improve application performance.\n" +
+//                        "AICore is currently being used to summarize content in the Recorder app, even when the phone’s network connection is offline.\n" +
 //                        "\n" +
-//                        "All these features are provided by the androidx.benchmark library group. Despite the minor version increment from 1.1.1 to 1.2.0, a lot of new features have been added. Let’s dive into what’s new in Jetpack Benchmark 1.2.0.\n" +
+//                        "If you are interested in building apps using Gemini Nano and Google AI Edge SDK, please sign up for our Early Access Program.\n" +
 //                        "\n" +
-//                        "Baseline profiles improve overall code execution speed of included paths by about 30% by avoiding interpretation and the cost of class initialization by ahead of time compiling.\n" +
+//                        "The new ML Kit Subject Segmentation API, now in beta, lets you easily separate multiple subjects from the background in a picture. The API takes an input image and generates an output mask or bitmap for the foreground. It also provides a mask and bitmap for each one of the subjects detected.\n" +
 //                        "\n" +
-//                        "These profiles have been around for a while and are already used by many apps and games on the Google Play Store. Libraries can also contribute baseline profiles and improve app performance seamlessly. And with the new Gradle plugin, automated baseline profile generation is easier than ever.",
-//                image = "https://miro.medium.com/v2/resize:fit:2000/format:webp/1*Tebpw326SZ5SzhkXGPYJrA.png",
+//                        "ML Kit Subject Segmentation API \uD83E\uDDE0" +
+//                        "\n" +
+//                        "It enables cool use cases such as background swap, or add unique effects to people, pets, or objects with just a few lines of code.",
+//                image = "https://miro.medium.com/v2/resize:fit:2000/format:webp/1*aIux1an8zPUXIhTLY7psfw.png",
 //                likeCount = 0,
 //                location = null,
-//                publishDate = getNow(),
+//                publishDate = getNow() ?: DefaultImpl.mappedPost.publishDate,
 //                user = UserWithoutPasswordModel(
-//                    id = 1,
+//                    id = "1",
 //                    name = "Natiq Haciyev",
 //                    email = "natig.haciyef@gmail.com"
 //                )
 //            )
 //        )
-    }
+//    }
 
 
     fun insertPostRemote(postModel: MappedPostModel) {

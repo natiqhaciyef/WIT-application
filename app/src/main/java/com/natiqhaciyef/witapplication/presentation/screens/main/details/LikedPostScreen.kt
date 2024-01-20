@@ -75,7 +75,7 @@ fun LikedPostScreen(
                                         isTapped.value = !isTapped.value
                                     }
                                 ) {
-                                    postViewModel.removeSavedPost(post)
+                                    postViewModel.removeSavedPost(postModel = post)
                                 }
                             }
                             true
