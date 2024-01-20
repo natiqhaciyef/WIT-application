@@ -14,7 +14,14 @@ object ConfigUseCase {
     const val UPDATE_SUCCESS = "Update successfully finished"
 }
 
-object FirebaseDirectories{
-    const val PROFILE_DIRECTORY = "Profiles"
-    const val USER_DIRECTORY = "User"
-}
+const val PROFILE_DIRECTORY = "Profiles"
+const val USER_DIRECTORY = "Users"
+const val FAQ_DIRECTORY = "FAQ"
+const val MATERIAL_DIRECTORY = "Materials"
+const val VERIFIED_USER_DIRECTORY = "VerifiedUsers"
+const val NOTIFICATION_DIRECTORY = "Notifications"
+
+const val USER = "UserModel"
+const val USER_WITHOUT_PASSWORD = "UserWithoutPasswordModel"
+const val VERIFIED_USER = "VerifiedUserModel"
+const val VERIFIED_USER_WITHOUT_PASSWORD = "VerifiedUserWithoutPasswordModel"

@@ -2,8 +2,8 @@ package com.natiqhaciyef.domain.domain.usecase.firebase.verified_user
 
 import com.natiqhaciyef.domain.domain.base.BaseUseCase
 import com.natiqhaciyef.domain.domain.base.ConfigUseCase
+import com.natiqhaciyef.domain.domain.base.VERIFIED_USER_DIRECTORY
 import com.natiqhaciyef.domain.domain.repository.FirebaseRepository
-import com.natiqhaciyef.domain.domain.usecase.firebase.VERIFIED_USER_DIRECTORY
 import com.natiqhaciyef.util.common.mappers.mapToWithoutPassword
 import com.natiqhaciyef.util.common.mappers.toVerifiedUserModel
 import com.natiqhaciyef.util.models.VerifiedUserWithoutPasswordModel

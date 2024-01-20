@@ -4,6 +4,7 @@ import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.data.models.MaterialModel
 import com.natiqhaciyef.data.models.enums.FileTypes
 import com.natiqhaciyef.domain.domain.base.BaseUseCase
+import com.natiqhaciyef.domain.domain.base.MATERIAL_DIRECTORY
 import com.natiqhaciyef.domain.domain.repository.FirebaseRepository
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class GetAllMaterialsNameUseCase @Inject constructor(
         onLoading: () -> Unit = {},
     ) {
         val list = mutableListOf<MaterialModel>()
-        repository.firestore().collection("Materials")
+        repository.firestore().collection(MATERIAL_DIRECTORY)
             .addSnapshotListener { value, error ->
                 onLoading()
                 if (value != null && !value.isEmpty) {

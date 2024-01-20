@@ -3,8 +3,8 @@ package com.natiqhaciyef.witapplication.presentation.screens.main.verifyaccount
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
+import com.natiqhaciyef.domain.domain.base.USER
 import com.natiqhaciyef.domain.domain.usecase.firebase.user.GetAllUsersUseCase
-import com.natiqhaciyef.domain.domain.usecase.firebase.USER
 import com.natiqhaciyef.domain.domain.usecase.firebase.verified_user.CreateVerifiedUserUseCase
 import com.natiqhaciyef.domain.domain.usecase.firebase.verified_user.GetAllVerifiedUsersUseCase
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages

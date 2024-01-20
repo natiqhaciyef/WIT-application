@@ -1,6 +1,7 @@
 package com.natiqhaciyef.util.common.worker
 
 import android.content.Context
+import androidx.activity.ComponentActivity
 import androidx.core.app.ActivityCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -11,11 +12,11 @@ class NotificationWorker(val context: Context, workerParams: WorkerParameters) :
     companion object {
         var title = ""
         var description = ""
-        val activityCompat: ActivityCompat? = null
+        var activityCompat: ComponentActivity? = null
     }
 
     override fun doWork(): Result {
-        NotificationSender.sendNotification(
+        sendNotification(
             context = context,
             title = title,
             desc = description,

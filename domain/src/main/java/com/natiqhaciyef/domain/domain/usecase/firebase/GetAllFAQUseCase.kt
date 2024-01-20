@@ -1,6 +1,7 @@
 package com.natiqhaciyef.domain.domain.usecase.firebase
 
 import com.natiqhaciyef.domain.domain.base.BaseUseCase
+import com.natiqhaciyef.domain.domain.base.FAQ_DIRECTORY
 import com.natiqhaciyef.domain.domain.repository.FirebaseRepository
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.service.InfoModel
@@ -16,7 +17,7 @@ class GetAllFAQUseCase @Inject constructor(
         onFail: (Exception?) -> Unit
     ) {
         val list = mutableListOf<InfoModel>()
-        repository.firestore().collection("FAQ")
+        repository.firestore().collection(FAQ_DIRECTORY)
             .addSnapshotListener { value, error ->
                 if (value != null && !value.isEmpty) {
                     val docs = value.documents

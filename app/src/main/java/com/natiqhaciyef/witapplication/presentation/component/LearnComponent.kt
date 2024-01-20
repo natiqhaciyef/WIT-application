@@ -41,7 +41,6 @@ fun FAQInfoBox(infoModel: InfoModel) {
 
     Card(
         modifier = Modifier
-            .animateContentSize(animationSpec = tween(600, 100))
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(horizontal = 20.dp)
@@ -79,7 +78,13 @@ fun FAQInfoBox(infoModel: InfoModel) {
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
-            AnimatedVisibility(visible = isClicked) {
+            AnimatedVisibility(
+                visible = isClicked,
+                modifier = Modifier
+                    .animateContentSize(
+                        animationSpec = tween(800, 0),
+                    )
+            ) {
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()

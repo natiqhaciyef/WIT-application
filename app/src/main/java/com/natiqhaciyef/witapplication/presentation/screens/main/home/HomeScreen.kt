@@ -1,5 +1,6 @@
 package com.natiqhaciyef.witapplication.presentation.screens.main.home
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
@@ -28,6 +29,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -48,7 +51,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.gson.Gson
+import com.natiqhaciyef.util.common.Resource
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
+import com.natiqhaciyef.util.common.worker.NotificationWorker
+import com.natiqhaciyef.util.common.worker.NotificationWorker.Companion.activityCompat
+import com.natiqhaciyef.util.common.worker.sendNotification
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.PostComponent
@@ -56,6 +63,7 @@ import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.presentation.screens.main.details.DetailsViewModel
+import com.natiqhaciyef.witapplication.presentation.screens.main.notification.NotificationViewModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.PostViewModel
 import com.natiqhaciyef.witapplication.ui.theme.*
 
@@ -65,6 +73,7 @@ fun HomeScreen(
     count: MutableState<Int>,
 ) {
     val searchQuery = remember { mutableStateOf("") }
+//    NotificationSenderPart()
 
     Column(
         modifier = Modifier
@@ -267,5 +276,27 @@ private fun HomeBodyView(
                 textAlign = TextAlign.Center
             )
         }
+    }
+}
+
+
+@SuppressLint("SuspiciousIndentation")
+@Composable
+fun NotificationSenderPart(
+    notificationViewModel: NotificationViewModel = hiltViewModel()
+) {
+    val notifications = remember { notificationViewModel.notificationState }
+    val context = LocalContext.current
+//    val notificationResult = remember { mutableStateOf<Resource<String>>(Resource.loading(null)) }
+
+    if (notifications.value.isSuccess && notifications.value.list.isNotEmpty()) {
+        val notification = notifications.value.list.last()
+//        notificationResult.value =
+            sendNotification(
+                activityCompat,
+                context,
+                notification.title,
+                notification.description
+            )
     }
 }

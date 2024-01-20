@@ -1,8 +1,8 @@
 package com.natiqhaciyef.domain.domain.usecase.firebase.user
 
 import com.natiqhaciyef.domain.domain.base.BaseUseCase
+import com.natiqhaciyef.domain.domain.base.USER_DIRECTORY
 import com.natiqhaciyef.domain.domain.repository.FirebaseRepository
-import com.natiqhaciyef.domain.domain.usecase.firebase.USER_DIRECTORY
 import javax.inject.Inject
 
 class SignOutUserUseCase @Inject constructor(
