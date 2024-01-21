@@ -31,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -42,6 +43,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.common.util.objects.DefaultImpl
+import com.natiqhaciyef.util.common.util.objects.EnumList.getSelectedLanguage
+import com.natiqhaciyef.util.common.util.objects.EnumList.languages
 import com.natiqhaciyef.util.models.LearnSectionModel
 import com.natiqhaciyef.util.models.enums.ContactFields
 import com.natiqhaciyef.witapplication.R
@@ -49,6 +52,7 @@ import com.natiqhaciyef.witapplication.presentation.component.FAQInfoBox
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.NavStandards
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
+import com.natiqhaciyef.witapplication.presentation.screens.main.language.loadLocale
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
@@ -59,6 +63,9 @@ fun LearnScreen(
     learnViewModel: LearnViewModel = hiltViewModel(),
 ) {
     val faqState = remember { learnViewModel.faqState }
+    val context = LocalContext.current
+    val langTitle = loadLocale(context)
+    val lang = getSelectedLanguage(langTitle)
 
     Column(
         modifier = Modifier
@@ -85,14 +92,20 @@ fun LearnScreen(
         ) {
             Spacer(modifier = Modifier.width(20.dp))
             LearnSection(
-                lsm = LearnSectionModel(title = "Interview practice", icon = Icons.Default.MenuBook)
+                lsm = LearnSectionModel(
+                    title = stringResource(id = R.string.interview_practice),
+                    icon = Icons.Default.MenuBook
+                )
             ) {
                 navController.navigate("${ScreenId.FieldScreen.name}/${NavStandards.INTERVIEW}")
             }
 
             Spacer(modifier = Modifier.width(15.dp))
             LearnSection(
-                lsm = LearnSectionModel(title = "Practice exam", icon = Icons.Default.AccountBalance)
+                lsm = LearnSectionModel(
+                    title = stringResource(id = R.string.practice_exam),
+                    icon = Icons.Default.AccountBalance
+                )
             ) {
                 navController.navigate(ScreenId.ExamScreen.name)
             }
@@ -105,14 +118,20 @@ fun LearnScreen(
         ) {
             Spacer(modifier = Modifier.width(20.dp))
             LearnSection(
-                lsm = LearnSectionModel(title = "Materials", icon = Icons.Default.Article)
+                lsm = LearnSectionModel(
+                    title = stringResource(id = R.string.materials),
+                    icon = Icons.Default.Article
+                )
             ) {
                 navController.navigate("${ScreenId.FieldScreen.name}/${NavStandards.MATERIAL}")
             }
 
             Spacer(modifier = Modifier.width(15.dp))
             LearnSection(
-                lsm = LearnSectionModel(title = "Custom plan", icon = Icons.Default.ContactSupport)
+                lsm = LearnSectionModel(
+                    title = stringResource(id = R.string.custom_plan),
+                    icon = Icons.Default.ContactSupport
+                )
             ) {
                 navController.navigate("${ScreenId.CustomPlanScreen.name}/${ContactFields.CUSTOM_PLAN.name.lowercase()}")
             }
@@ -132,7 +151,7 @@ fun LearnScreen(
         Spacer(modifier = Modifier.height(20.dp))
         if (faqState.value.list.isNotEmpty()) {
             for (faqModel in faqState.value.list) {
-                FAQInfoBox(infoModel = faqModel)
+                FAQInfoBox(infoModel = faqModel, langModel = lang)
                 Spacer(modifier = Modifier.height(10.dp))
             }
         } else {

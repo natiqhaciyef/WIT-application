@@ -1,0 +1,96 @@
+<resources>
+    <string name="app_name">WIT</string>
+
+    <string name="check_message">Lütfen e-postanızı kontrol edin, şifre sıfırlama bağlantısını göndereceğiz. Gösterilmiyorsa spam mesajları kutusunu kontrol edin</string>
+    <string name="send">Gönder</string>
+    <string name="save_it">Kaydet</string>
+    <string name="continue_">Devam et</string>
+    <string name="apply">Uygula</string>
+    <string name="reset">Yenile</string>
+    <string name="finish">Bitir</string>
+    <string name="submit">Gönder</string>
+    <string name="extra">Fazla</string>
+    <string name="create">Oluştur</string>
+    <string name="create_new_account">Yeni hesab mı oluşturmak ?</string>
+    <string name="do_you_have_an_account">Hesabın var mı ?</string>
+    <string name="sign_up">&#160;Üye ol</string>
+    <string name="sign_in">&#160;Kayıt ol</string>
+
+
+    <string name="reset_password">Şifreyi yenile</string>
+    <string name="update_password">Şifreyi güncelle</string>
+    <string name="verify_account">Hesabı doğrula</string>
+    <string name="forgot_password">Şifreyi mi unuttun ?</string>
+    <string name="email">E-posta</string>
+    <string name="password">Şifre</string>
+    <string name="phone_number">Telefon numarası</string>
+    <string name="description">Detaylar</string>
+    <string name="full_name">Ad, Soyadı</string>
+
+    <string name="login_n_share">Giriş yap &amp; paylaş &#160;</string>
+    <string name="posts">paylaşımları</string>
+    <string name="register">Kayıt ol &#160;</string>
+    <string name="n_join_us">&amp; aramıza katıl</string>
+
+    <string name="welcome">Hoş geldin, &#160;</string>
+    <string name="guest">Dostum</string>
+    <string name="search">Arama</string>
+    <string name="recent_updates">Son güncellemeler</string>
+    <string name="load_more">Daha fazlası</string>
+
+    <string name="learn_from">Buradan öğren: </string>
+    <string name="interview_practice">Mülakat</string>
+    <string name="practice_exam">Sınav</string>
+    <string name="custom_plan">Özel plan</string>
+    <string name="last_contact_requests">Son iletişim istekleri</string>
+    <string name="faq">FAQ</string>
+
+    <string name="home">Ana menu</string>
+    <string name="learn">Öğren</string>
+    <string name="profile">Profil</string>
+
+    <string name="fields">Alanlar</string>
+    <string name="fields_info">Bir alan seçtiğinizde ekibimiz temelleri öğrenmeniz, konsepti anlamanız ve uluslararası geliştirici olmanız konusunda size destek olacaktır. Üstelik bizden size özel planla yolunuzu seçmenize, oluşturmanıza ve inşa etmenize destek oluyoruz. Size iyi şanslar!</string>
+    <string name="contact_with_us">Bizimle iletişime geç</string>
+    <string name="materials">Malzemeler</string>
+
+    <string name="exams">Sınavlar</string>
+    <string name="interview_questions">Mülakat soruları</string>
+
+    <string name="contents">İçerikler</string>
+    <string name="liked_posts">Beğenilmiş paylaşımlar</string>
+    <string name="saved_questions">Kayıtlı sorular</string>
+    <string name="last_applications">Son başvurular</string>
+    <string name="settings">Ayarlar</string>
+    <string name="languages">Diller</string>
+    <string name="help">Yardım</string>
+    <string name="log_out">Çıkış yap</string>
+
+    <string name="alert">Bildirim</string>
+    <string name="alert_dialog_title">Çıkış yapmaq isteğinizden eminmisiniz ?</string>
+    <string name="alert_dialog_negative_button">Hayır</string>
+    <string name="alert_dialog_positive_button">Evet</string>
+
+    <string name="change_language">Dili değiştir</string>
+    <string name="general_questions">Genel sorular</string>
+
+    <string name="notifications">Bildirimler</string>
+
+    <string name="how_to_verify">Hesap nasıl doğrulanır?</string>
+    <string name="how_to_verify_description">Şimdilik hesabı doğrulamak mümkün değil, ancak yeni sürümlerden sonra hesap doğrulama ve türünü ayarlamaq erişilebilir olucak.</string>
+    <string name="how_to_become_partner">Nasıl ortak olunur?</string>
+    <string name="how_to_become_partner_description">Ortak olmak istiyorsanız bu formu doldurmanız ve 7\-10 gün içinde yanıt gönderilecektir. Lütfen doldururken dikkatli olunuz.</string>
+    <string name="how_to_learn_from_mentor">Belirli bir alan için kursa veya mentora nasıl başvurulur?</string>
+    <string name="how_to_learn_from_mentor_description">Öğrenme ekranına gidebilir ve Özel Plan\'ı seçebilirsiniz. Bize mesaj yazın, 2\-4 gün sonra sizi bilgilendireceğiz.</string>
+    <string name="how_to_configure_custom_events">Özel etkinlikler nasıl yapılandırılır?</string>
+    <string name="how_to_configure_custom_events_description">Ortak olduktan sonra, biletle herkes veya kendi öğrencileriniz için etkinlikler ve canlı toplantılar oluşturabileceksiniz.</string>
+    <string name="how_to_ticket_system_works_for_events">Etkinlikler için bilet sistemi nasıl çalışır?</string>
+    <string name="how_to_ticket_system_works_for_events_description">Bilet satın aldıktan sonra bilet paneline (kullanıcı profili ekranında) kaydedilecektir. Bilete tıkladığınızda QR kodu oluşturulacaktır. QR kodu ile etkinlik güvenlik kontrolünden veya çevrimiçi QR aramasından kontrol edebilirsiniz. Uygulama üzerinden satın alırken biletin fiziksel versiyonuna ihtiyacınız yoktur.</string>
+    <string name="other">Diğer</string>
+    <string name="how_help">Nasıl yardımcı ola biliriz ?</string>
+
+
+    <string name="exam_alert">Başvuru için sadece 1 şansınız olacak. Başlamak ister misin ?</string>
+    <string name="exam_taken_alert">Zaten sınava kayıtlısınız. İkinci kez sınava girmek için bizimle iletişime geçin.</string>
+    <string name="exam_result">Sınav sonucu</string>
+</resources>

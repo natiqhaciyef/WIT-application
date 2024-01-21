@@ -99,7 +99,7 @@ fun CustomPlanScreen(
 
         Spacer(modifier = Modifier.height(15.dp))
         InputBox(
-            concept = stringResource(id = R.string.phone),
+            concept = stringResource(id = R.string.phone_number),
             input = phone,
             isSingleLine = true,
             isBottomShadowActive = false,

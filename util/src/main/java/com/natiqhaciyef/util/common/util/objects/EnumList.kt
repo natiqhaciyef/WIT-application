@@ -51,6 +51,13 @@ object EnumList {
         LanguageModel(title = "", "English", false),
     )
 
+    fun getSelectedLanguage(lang: String) = when (lang) {
+        "az" -> LanguageModel(title = "az", "Azerbaijani", false)
+        "en" -> LanguageModel(title = "en", "English", false)
+        "tr" -> LanguageModel(title = "tr", "Turkish", false)
+        else -> LanguageModel(title = "", "English", false)
+    }
+
 
     fun getAllHelpInformation(context: Context) = listOf(
         InfoModel(

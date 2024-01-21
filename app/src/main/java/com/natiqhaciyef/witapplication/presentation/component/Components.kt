@@ -81,6 +81,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -115,11 +116,11 @@ import kotlin.math.floor
 fun NavBar(
     selectedIndex: MutableState<Int>,
     list: MutableList<NavItemModel> = mutableListOf(
-        NavItemModel(Icons.Default.Home, title = "Home", id = ScreenId.HomeScreen.name),
-        NavItemModel(Icons.Default.AccountBalance, title = "Learn", id = ScreenId.LearnScreen.name),
+        NavItemModel(Icons.Default.Home, title = stringResource(id = R.string.home), id = ScreenId.HomeScreen.name),
+        NavItemModel(Icons.Default.AccountBalance, title = stringResource(id = R.string.learn), id = ScreenId.LearnScreen.name),
         NavItemModel(
             Icons.Default.AccountCircle,
-            title = "Profile",
+            title = stringResource(id = R.string.profile),
             id = ScreenId.UserProfileScreen.name
         ),
     ),

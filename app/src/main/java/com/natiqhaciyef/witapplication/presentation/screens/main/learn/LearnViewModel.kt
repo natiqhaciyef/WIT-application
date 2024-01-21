@@ -7,6 +7,7 @@ import com.natiqhaciyef.domain.domain.usecase.firebase.GetAllFAQUseCase
 import com.natiqhaciyef.domain.domain.usecase.firebase.GetAllMaterialsNameUseCase
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.common.util.objects.SuccessMessages
+import com.natiqhaciyef.util.models.service.InfoLangModel
 import com.natiqhaciyef.util.models.service.InfoModel
 import com.natiqhaciyef.witapplication.presentation.base.BaseUIState
 import com.natiqhaciyef.witapplication.presentation.base.BaseViewModel
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class LearnViewModel @Inject constructor(
     private val getAllFAQUseCase: GetAllFAQUseCase
 ) : BaseViewModel() {
-    val faqState = mutableStateOf(BaseUIState<InfoModel>())
+    val faqState = mutableStateOf(BaseUIState<InfoLangModel>())
 
     init {
         getAllFAQ()

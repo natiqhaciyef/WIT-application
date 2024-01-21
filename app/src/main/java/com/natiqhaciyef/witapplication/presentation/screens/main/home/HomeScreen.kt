@@ -63,6 +63,7 @@ import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.presentation.screens.main.details.DetailsViewModel
+import com.natiqhaciyef.witapplication.presentation.screens.main.language.loadLocale
 import com.natiqhaciyef.witapplication.presentation.screens.main.notification.NotificationViewModel
 import com.natiqhaciyef.witapplication.presentation.viewmodel.PostViewModel
 import com.natiqhaciyef.witapplication.ui.theme.*
@@ -73,6 +74,8 @@ fun HomeScreen(
     count: MutableState<Int>,
 ) {
     val searchQuery = remember { mutableStateOf("") }
+    val context = LocalContext.current
+    loadLocale(context)
 //    NotificationSenderPart()
 
     Column(
@@ -214,7 +217,9 @@ private fun HomeBodyView(
                         .heightIn(min = 300.dp, max = screenHeight + 300.dp)
                 ) {
                     items(postState.value.list.filter { post ->
-                        postState.value.list.indexOf(post) < count.value && post.title.contains(searchQuery.value)
+                        postState.value.list.indexOf(post) < count.value && post.title.contains(
+                            searchQuery.value
+                        )
                     }) { post ->
                         PostComponent(mappedPostModel = post) {
                             val json = Uri.encode(Gson().toJson(post))

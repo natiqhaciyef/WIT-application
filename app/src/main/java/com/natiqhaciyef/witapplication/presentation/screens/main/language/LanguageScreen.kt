@@ -126,9 +126,10 @@ fun setLocaleLang(lang: String, context: Context) {
     editor.apply()
 }
 
-fun loadLocale(context: Context) {
+fun loadLocale(context: Context): String {
     val sharedPreferences = context.getSharedPreferences("Settings", Activity.MODE_PRIVATE)
     val language = sharedPreferences.getString("My_Lang", "")
     setLocaleLang(language!!, context)
+    return language
 }
 
