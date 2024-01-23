@@ -4,7 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.natiqhaciyef.data.common.Status
+import com.natiqhaciyef.util.common.Status
 import com.natiqhaciyef.util.common.util.objects.SuccessMessages
 import com.natiqhaciyef.domain.domain.usecase.firebase.user.GetAllUsersUseCase
 import com.natiqhaciyef.domain.domain.usecase.remote.post.GetAllPostRemoteUseCase

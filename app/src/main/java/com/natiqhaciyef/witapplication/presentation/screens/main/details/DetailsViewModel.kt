@@ -1,9 +1,8 @@
 package com.natiqhaciyef.witapplication.presentation.screens.main.details
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.natiqhaciyef.data.common.Status
+import com.natiqhaciyef.util.common.Status
 import com.natiqhaciyef.domain.domain.usecase.local.post.GetAllSavedPostsUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.post.RemoveSavedPostUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.post.SavePostUseCase
@@ -11,12 +10,10 @@ import com.natiqhaciyef.domain.domain.usecase.local.post.UpdateSavedPostUseCase
 import com.natiqhaciyef.domain.domain.usecase.remote.post.UpdatePostRemoteUseCase
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.common.util.objects.SuccessMessages
-import com.natiqhaciyef.util.models.PostModel
 import com.natiqhaciyef.util.models.mapped.MappedPostModel
 import com.natiqhaciyef.witapplication.presentation.base.BaseUIState
 import com.natiqhaciyef.witapplication.presentation.base.BaseViewModel
 import com.natiqhaciyef.witapplication.presentation.screens.main.home.HomeViewModel
-import com.natiqhaciyef.witapplication.presentation.viewmodel.PostViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

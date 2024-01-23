@@ -3,7 +3,7 @@ package com.natiqhaciyef.witapplication.presentation.screens.main.customplan
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.natiqhaciyef.data.common.Status
+import com.natiqhaciyef.util.common.Status
 import com.natiqhaciyef.domain.domain.usecase.local.contact.GetAllSavedContactsUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.contact.RemoveSavedContactUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.contact.SaveContactUseCase

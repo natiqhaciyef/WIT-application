@@ -1,22 +1,11 @@
 package com.natiqhaciyef.witapplication.presentation.viewmodel
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.natiqhaciyef.data.common.Status
-import com.natiqhaciyef.domain.domain.usecase.local.post.GetAllSavedPostsUseCase
-import com.natiqhaciyef.domain.domain.usecase.local.post.RemoveSavedPostUseCase
-import com.natiqhaciyef.domain.domain.usecase.local.post.SavePostUseCase
-import com.natiqhaciyef.domain.domain.usecase.local.post.UpdateSavedPostUseCase
-import com.natiqhaciyef.domain.domain.usecase.remote.post.GetAllPostRemoteUseCase
+import com.natiqhaciyef.util.common.Status
 import com.natiqhaciyef.domain.domain.usecase.remote.post.InsertPostRemoteUseCase
 import com.natiqhaciyef.domain.domain.usecase.remote.post.RemovePostRemoteUseCase
-import com.natiqhaciyef.domain.domain.usecase.remote.post.UpdatePostRemoteUseCase
-import com.natiqhaciyef.util.common.util.helpers.getNow
-import com.natiqhaciyef.util.common.util.objects.DefaultImpl
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
-import com.natiqhaciyef.util.common.util.objects.SuccessMessages
-import com.natiqhaciyef.util.models.UserWithoutPasswordModel
 import com.natiqhaciyef.util.models.mapped.MappedPostModel
 import com.natiqhaciyef.witapplication.presentation.base.BaseViewModel
 import com.natiqhaciyef.witapplication.presentation.base.BaseUIState

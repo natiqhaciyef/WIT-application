@@ -2,7 +2,7 @@ package com.natiqhaciyef.witapplication.presentation.screens.main.exam
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.natiqhaciyef.data.common.Status
+import com.natiqhaciyef.util.common.Status
 import com.natiqhaciyef.domain.domain.usecase.local.exam.GetAllParticipatedExamsUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.exam.ParticipateExamUseCase
 import com.natiqhaciyef.domain.domain.usecase.local.exam.RemoveExamParticipationUseCase

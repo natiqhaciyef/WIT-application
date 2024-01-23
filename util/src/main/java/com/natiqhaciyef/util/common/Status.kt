@@ -1,4 +1,4 @@
-package com.natiqhaciyef.data.common
+package com.natiqhaciyef.util.common
 
 enum class Status {
     SUCCESS,
