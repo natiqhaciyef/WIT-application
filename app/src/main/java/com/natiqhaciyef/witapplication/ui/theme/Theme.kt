@@ -62,6 +62,7 @@ fun WITApplicationTheme(
         SideEffect {
             val window = (view.context as Activity).window
             systemUiController.setStatusBarColor(color = Color.Transparent)
+            systemUiController.setNavigationBarColor(color = Color.Black)
             WindowCompat.setDecorFitsSystemWindows(window, false)
         }
     }

@@ -1,6 +1,5 @@
 package com.natiqhaciyef.witapplication.presentation.screens.register.login
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,8 +13,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -32,7 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -65,7 +67,11 @@ fun LoginScreen(
     navController: NavController,
 ) {
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
         Image(
             painter = painterResource(id = R.drawable.ellipse_design_5),
             contentDescription = "Ellipse 1",
@@ -106,7 +112,7 @@ private fun LoginTopView() {
         LottieAnimation(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(260.dp),
+                .height(290.dp),
             composition = composition,
             iterations = LottieConstants.IterateForever,
             contentScale = ContentScale.Crop
@@ -145,7 +151,6 @@ private fun LoginMainPart(
     navController: NavController,
     loginViewModel: LoginViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
     val errorAvailable = remember { mutableStateOf("") }
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
@@ -160,7 +165,8 @@ private fun LoginMainPart(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .padding(bottom = 50.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
@@ -195,8 +201,8 @@ private fun LoginMainPart(
                     },
                 textAlign = TextAlign.End
             )
-            Spacer(modifier = Modifier.height(60.dp))
 
+            Spacer(modifier = Modifier.height(45.dp))
             Button(
                 modifier = Modifier
                     .height(50.dp)
@@ -251,8 +257,55 @@ private fun LoginMainPart(
                     )
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
+
+            Spacer(modifier = Modifier.height(25.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(),
+            ) {
+                Spacer(modifier = Modifier.width(15.dp))
+                Box(
+                    modifier = Modifier
+                        .padding(end = 250.dp)
+                        .align(Alignment.Center)
+                        .width(90.dp)
+                        .height(1.dp)
+                        .background(AppExtraLightBrown),
+                )
+
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(horizontal = 20.dp),
+                    text = stringResource(id = R.string.other_sign_in_methods),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(modifier = Modifier.width(10.dp))
+                Box(
+                    modifier = Modifier
+                        .padding(start = 250.dp)
+                        .align(Alignment.Center)
+                        .width(90.dp)
+                        .height(1.dp)
+                        .background(AppExtraLightBrown),
+                )
+
+                Spacer(modifier = Modifier.width(15.dp))
+            }
+
+            Spacer(modifier = Modifier.height(30.dp))
+            // add facebook and google sign in buttons
+
+            GoogleSignIn()
+
+            Spacer(modifier = Modifier.height(25.dp))
             Row(
+                modifier = Modifier.padding(bottom = 20.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -288,3 +341,44 @@ private fun LoginMainPart(
     }
 }
 
+
+@Composable
+fun GoogleSignIn() {
+    Button(
+        modifier = Modifier
+            .height(50.dp)
+            .fillMaxWidth()
+            .padding(horizontal = 35.dp)
+            .testTag("Registration with Google test tag"),
+        onClick = {
+
+        },
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.White
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Image(
+                modifier = Modifier
+                    .padding(end = 15.dp)
+                    .size(25.dp),
+                painter = painterResource(id = R.drawable.google),
+                contentDescription = "Google"
+            )
+
+            Text(
+                modifier = Modifier,
+                text = stringResource(id = R.string.continue_with_google),
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+        }
+    }
+}
