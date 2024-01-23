@@ -13,8 +13,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -62,7 +65,11 @@ fun RegisterScreen(
     navController: NavController,
 ) {
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxSize(),
+    ) {
         Image(
             painter = painterResource(id = R.drawable.ellipse_design_5),
             contentDescription = "Ellipse 1",
@@ -81,7 +88,8 @@ fun RegisterScreen(
         )
 
         Column(
-            modifier = Modifier.background(Color.Transparent),
+            modifier = Modifier
+                .background(Color.Transparent),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             RegisterTopView()
@@ -96,6 +104,7 @@ fun RegisterTopView() {
     val composition by rememberLottieComposition(
         spec = LottieCompositionSpec.RawRes(R.raw.register_animation),
     )
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -146,6 +155,7 @@ fun RegisterMainPart(
     val passwordState = remember { mutableStateOf("") }
 
     val passwordVisible = remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth(1f)
@@ -234,7 +244,87 @@ fun RegisterMainPart(
                     )
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(20.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(),
+            ) {
+                Spacer(modifier = Modifier.width(15.dp))
+                Box(
+                    modifier = Modifier
+                        .padding(end = 250.dp)
+                        .align(Alignment.Center)
+                        .width(90.dp)
+                        .height(1.dp)
+                        .background(AppExtraLightBrown),
+                )
+
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(horizontal = 20.dp),
+                    text = stringResource(id = R.string.other_sign_up_methods),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(modifier = Modifier.width(10.dp))
+                Box(
+                    modifier = Modifier
+                        .padding(start = 250.dp)
+                        .align(Alignment.Center)
+                        .width(90.dp)
+                        .height(1.dp)
+                        .background(AppExtraLightBrown),
+                )
+
+                Spacer(modifier = Modifier.width(15.dp))
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+            // add facebook and google sign in buttons
+
+            Button(
+                modifier = Modifier
+                    .height(50.dp)
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .testTag("Registration with Google test tag"),
+                onClick = {
+
+                },
+                shape = RoundedCornerShape(10.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.White
+                )
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        modifier = Modifier
+                            .padding(end = 15.dp)
+                            .size(25.dp),
+                        painter = painterResource(id = R.drawable.google),
+                        contentDescription = "Google"
+                    )
+
+                    Text(
+                        modifier = Modifier,
+                        text = stringResource(id = R.string.continue_with_google),
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+                }
+            }
+
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically

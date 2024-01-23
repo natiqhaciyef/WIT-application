@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">WIT</string>
+    <string name="default_web_client_id" translatable="false">493955034274-41go5tflarkcbdf201n23c6lo1abreo2.apps.googleusercontent.com</string>
 
     <string name="check_message">Please check your email, we will send the reset password link. If it is not show, check spam messages box</string>
     <string name="send">Send</string>
@@ -16,6 +17,11 @@
     <string name="sign_up">&#160;Sign up</string>
     <string name="sign_in">&#160;Sign in</string>
 
+    <string name="other_sign_up_methods">Or sign up with</string>
+    <string name="other_sign_in_methods">Or sign in with</string>
+
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
 
     <string name="reset_password">Reset password</string>
     <string name="update_password">Update password</string>

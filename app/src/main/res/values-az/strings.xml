@@ -16,6 +16,11 @@
     <string name="sign_up">&#160;Qeydiyyatdan keç</string>
     <string name="sign_in">&#160;Giriş et</string>
 
+    <string name="other_sign_up_methods">Və ya digər üsullar ilə</string>
+    <string name="other_sign_in_methods">Və ya digər üsullar ilə</string>
+
+    <string name="continue_with_google">Google ilə davam et</string>
+    <string name="continue_with_facebook">Facebook ilə davam et</string>
 
     <string name="reset_password">Şifrəni yenilə</string>
     <string name="update_password">Şifrəni güncəllə</string>
