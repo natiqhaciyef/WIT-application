@@ -13,12 +13,13 @@ class SignOutUserUseCase @Inject constructor(
         onSuccess: () -> Unit,
         onFail: (Exception?) -> Unit
     ) {
-        removeUser(
-            onSuccess = {
-                onSuccess()
-            },
-            onFail = onFail
-        )
+        repository.signOut()
+//        removeUser(
+//            onSuccess = {
+//                onSuccess()
+//            },
+//            onFail = onFail
+//        )
     }
 
     private fun removeUser(

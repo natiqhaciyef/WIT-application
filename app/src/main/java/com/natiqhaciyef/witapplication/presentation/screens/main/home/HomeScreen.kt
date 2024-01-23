@@ -29,7 +29,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,9 +50,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.gson.Gson
-import com.natiqhaciyef.util.common.Resource
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
-import com.natiqhaciyef.util.common.worker.NotificationWorker
 import com.natiqhaciyef.util.common.worker.NotificationWorker.Companion.activityCompat
 import com.natiqhaciyef.util.common.worker.sendNotification
 import com.natiqhaciyef.witapplication.R
@@ -62,10 +59,8 @@ import com.natiqhaciyef.witapplication.presentation.component.PostComponent
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
-import com.natiqhaciyef.witapplication.presentation.screens.main.details.DetailsViewModel
 import com.natiqhaciyef.witapplication.presentation.screens.main.language.loadLocale
 import com.natiqhaciyef.witapplication.presentation.screens.main.notification.NotificationViewModel
-import com.natiqhaciyef.witapplication.presentation.viewmodel.PostViewModel
 import com.natiqhaciyef.witapplication.ui.theme.*
 
 @Composable
