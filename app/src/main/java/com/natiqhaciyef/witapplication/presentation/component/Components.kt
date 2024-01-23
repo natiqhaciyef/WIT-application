@@ -116,8 +116,16 @@ import kotlin.math.floor
 fun NavBar(
     selectedIndex: MutableState<Int>,
     list: MutableList<NavItemModel> = mutableListOf(
-        NavItemModel(Icons.Default.Home, title = stringResource(id = R.string.home), id = ScreenId.HomeScreen.name),
-        NavItemModel(Icons.Default.AccountBalance, title = stringResource(id = R.string.learn), id = ScreenId.LearnScreen.name),
+        NavItemModel(
+            Icons.Default.Home,
+            title = stringResource(id = R.string.home),
+            id = ScreenId.HomeScreen.name
+        ),
+        NavItemModel(
+            Icons.Default.AccountBalance,
+            title = stringResource(id = R.string.learn),
+            id = ScreenId.LearnScreen.name
+        ),
         NavItemModel(
             Icons.Default.AccountCircle,
             title = stringResource(id = R.string.profile),
@@ -571,7 +579,10 @@ fun InputBoxForCardDateAndCVV(
                 if (expireDate.value.all { it.isDigit() })
                     formatExpirationDate(expireDate.value)!!
                 else
-                    TransformedText(text = AnnotatedString("0101"), creditCardOffsetTranslatorExpirationDate)
+                    TransformedText(
+                        text = AnnotatedString("0101"),
+                        creditCardOffsetTranslatorExpirationDate
+                    )
             },
         )
 
@@ -1301,6 +1312,7 @@ fun CustomSnackbar(
                 Snackbar(
                     modifier = Modifier
                         .padding(horizontal = 20.dp)
+                        .padding(bottom = 30.dp)
                         .fillMaxWidth()
                         .height(55.dp),
                     action = {

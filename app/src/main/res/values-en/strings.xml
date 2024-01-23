@@ -16,6 +16,11 @@
     <string name="sign_up">&#160;Sign up</string>
     <string name="sign_in">&#160;Sign in</string>
 
+    <string name="other_sign_up_methods">Or sign up with</string>
+    <string name="other_sign_in_methods">Or sign in with</string>
+
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
 
     <string name="reset_password">Reset password</string>
     <string name="update_password">Update password</string>

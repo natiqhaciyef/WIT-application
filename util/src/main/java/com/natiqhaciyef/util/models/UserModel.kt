@@ -43,3 +43,9 @@ data class VerifiedUserWithoutPasswordModel(
     var idImage: String,
     var type: String = UserTypes.PreVerifiedUser.name,
 ) : UserAbstraction(), Parcelable
+
+data class UserGoogleSignInModel(
+    val userId: String,
+    val username: String?,
+    val profilePictureUrl: String?
+)
