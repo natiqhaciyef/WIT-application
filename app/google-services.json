@@ -12,7 +12,16 @@
           "package_name": "com.natiqhaciyef.data"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "493955034274-9p4o52p5u9cfnt7g9rve99hqa2adiq0t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.natiqhaciyef.data",
+            "certificate_hash": "716aa07287967b41cf1ff34034f8606dc298fcc7"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCOsP3lV6DnOY5W4QdVRJvQfwIhtFM4JM4"
@@ -20,7 +29,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493955034274-sqhrsvgbg0aj8n00sriihb29e980k8mp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -31,7 +45,16 @@
           "package_name": "com.natiqhaciyef.domain"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "493955034274-kor93t9nhbrui4ctsci4879fod9tdlf7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.natiqhaciyef.domain",
+            "certificate_hash": "6d950d28e9d3dce5a9b48c2c3acefd3f7da56b8b"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCOsP3lV6DnOY5W4QdVRJvQfwIhtFM4JM4"
@@ -39,7 +62,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493955034274-sqhrsvgbg0aj8n00sriihb29e980k8mp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -50,7 +78,16 @@
           "package_name": "com.natiqhaciyef.witapplication"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "493955034274-vpsabvfdfuctmq6led7drkp46mpb3ual.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.natiqhaciyef.witapplication",
+            "certificate_hash": "23209525738193377fd394e86930e13b9def055b"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCOsP3lV6DnOY5W4QdVRJvQfwIhtFM4JM4"
@@ -58,7 +95,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493955034274-sqhrsvgbg0aj8n00sriihb29e980k8mp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

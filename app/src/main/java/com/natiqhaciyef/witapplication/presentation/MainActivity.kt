@@ -9,9 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.natiqhaciyef.util.common.worker.NotificationWorker
 import com.natiqhaciyef.witapplication.presentation.component.isInternetAvailable
 import com.natiqhaciyef.witapplication.presentation.navigation.AppNavigation
 import com.natiqhaciyef.witapplication.presentation.navigation.NetworkLessNavigation
@@ -27,11 +24,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppTheme {
                 val context = LocalContext.current
-                val isNetworkAvailable = remember { mutableStateOf(isInternetAvailable(context)) }
-                if (isNetworkAvailable.value)
-                    AppNavigation(false)
-                else
+                val isNetworkAvailable =
+                    remember { mutableStateOf(isInternetAvailable(context)) }
+                if (isNetworkAvailable.value) {
+                    AppNavigation(onStop = false)
+                } else {
                     NetworkLessNavigation()
+                }
             }
         }
     }

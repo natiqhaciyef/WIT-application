@@ -34,7 +34,10 @@ import com.natiqhaciyef.witapplication.presentation.screens.register.onboard.Spl
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
-fun AppNavigation(onStop: Boolean) {
+fun AppNavigation(
+    onStop: Boolean,
+) {
+
     val navController = rememberNavController()
     if (onStop)
         navController.clearBackStack(ScreenId.MainScreenLine.name)

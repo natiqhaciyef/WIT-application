@@ -1,5 +1,8 @@
 package com.natiqhaciyef.witapplication.presentation.screens.register.login
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,11 +32,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -50,6 +55,14 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.UserModel
 import com.natiqhaciyef.witapplication.R
@@ -59,14 +72,16 @@ import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.InputBoxPassword
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
+import com.natiqhaciyef.witapplication.presentation.screens.register.sign_in.GoogleAuthUiClient.handleSignInResult
 import com.natiqhaciyef.witapplication.ui.theme.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 
 @Composable
 fun LoginScreen(
     navController: NavController,
 ) {
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -301,7 +316,7 @@ private fun LoginMainPart(
             Spacer(modifier = Modifier.height(30.dp))
             // add facebook and google sign in buttons
 
-            GoogleSignIn()
+            GoogleSignInButton(navController)
 
             Spacer(modifier = Modifier.height(25.dp))
             Row(
@@ -343,7 +358,34 @@ private fun LoginMainPart(
 
 
 @Composable
-fun GoogleSignIn() {
+fun GoogleSignInButton(
+    navController: NavController
+) {
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+    val googleSignInClient by lazy {
+        GoogleSignIn.getClient(
+            context,
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(context.getString(R.string.default_web_client_id))
+                .requestEmail()
+                .requestProfile()
+                .requestId()
+                .build()
+        )
+    }
+
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        handleSignInResult(result, onSuccess = {
+            navController.navigate(ScreenId.MainScreenLine.name)
+        }, onFail = {
+            println(it)
+        })
+    }
+
     Button(
         modifier = Modifier
             .height(50.dp)
@@ -351,7 +393,10 @@ fun GoogleSignIn() {
             .padding(horizontal = 35.dp)
             .testTag("Registration with Google test tag"),
         onClick = {
-
+            coroutineScope.launch {
+                val signInIntent = googleSignInClient.signInIntent
+                launcher.launch(signInIntent)
+            }
         },
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(
