@@ -1,6 +1,5 @@
 package com.natiqhaciyef.witapplication.presentation.screens.register.registration
 
-import android.app.Activity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -360,7 +359,7 @@ fun GoogleSignIn(
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        GoogleAuthUiClient.handleSignInResult(result) {
+        GoogleAuthUiClient.handleSignInResultForGoogleAuth(result) {
             navController.navigate(ScreenId.MainScreenLine.name)
         }
     }
