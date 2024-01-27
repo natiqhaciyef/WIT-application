@@ -7,44 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:493955034274:android:afa94aacd197a62adc3bfb",
-        "android_client_info": {
-          "package_name": "com.natiqhaciyef.data"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCOsP3lV6DnOY5W4QdVRJvQfwIhtFM4JM4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:493955034274:android:f36bc19422bcd2ecdc3bfb",
-        "android_client_info": {
-          "package_name": "com.natiqhaciyef.domain"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCOsP3lV6DnOY5W4QdVRJvQfwIhtFM4JM4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:493955034274:android:8e2e3ada746061dfdc3bfb",
         "android_client_info": {
           "package_name": "com.natiqhaciyef.witapplication"

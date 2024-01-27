@@ -1,10 +1,11 @@
 package com.natiqhaciyef.witapplication.presentation.screens.register.login
 
-import android.app.Activity
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
+import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -35,6 +36,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -52,6 +54,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -60,8 +63,11 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInCredential
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -75,8 +81,12 @@ import com.natiqhaciyef.witapplication.presentation.component.InputBoxPassword
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
 import com.natiqhaciyef.witapplication.presentation.screens.register.sign_in.GoogleAuthUiClient
-import com.natiqhaciyef.witapplication.presentation.screens.register.sign_in.GoogleAuthUiClient.handleSignInResultForGoogleAuth
+import com.natiqhaciyef.witapplication.presentation.screens.register.sign_in.GoogleAuthUiClient.Companion.generateSignInRequest
+import com.natiqhaciyef.witapplication.presentation.screens.register.sign_in.GoogleAuthUiClient.Companion.handleSignInResultForGoogleAuth
+import com.natiqhaciyef.witapplication.presentation.screens.register.sign_in.SignInViewModel
 import com.natiqhaciyef.witapplication.ui.theme.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -317,7 +327,7 @@ private fun LoginMainPart(
             Spacer(modifier = Modifier.height(30.dp))
             // add facebook and google sign in buttons
 
-            GoogleSignInButton2(navController)
+            GoogleSignInButton(navController = navController)
 
             Spacer(modifier = Modifier.height(25.dp))
             Row(
@@ -357,34 +367,29 @@ private fun LoginMainPart(
     }
 }
 
-
 @Composable
 fun GoogleSignInButton(
-    navController: NavController
+    navController: NavController,
+    signInViewModel: SignInViewModel = hiltViewModel()
 ) {
+    val auth = signInViewModel.auth
     val context = LocalContext.current
-    val auth = Firebase.auth
-    val googleSignInClient by lazy {
-        GoogleSignIn.getClient(
-            context,
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(context.getString(R.string.default_web_client_id))
-                .requestEmail()
-//                .requestProfile()
-//                .requestId()
-                .build()
-        )
-    }
+    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestIdToken(context.getString(R.string.default_web_client_id))
+        .requestEmail()
+        .build()
 
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        handleSignInResultForGoogleAuth(result, onSuccess = {
-//            navController.navigate(ScreenId.MainScreenLine.name)
-        }, onFail = {
-            println(it)
-        })
-    }
+    val googleSignInClient = GoogleSignIn.getClient(context, gso)
+    val launcher =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                manageResult(task, navController, auth)
+            } else {
+                println("Permission denied")
+            }
+        }
+
 
     Button(
         modifier = Modifier
@@ -393,7 +398,8 @@ fun GoogleSignInButton(
             .padding(horizontal = 35.dp)
             .testTag("Registration with Google test tag"),
         onClick = {
-            launcher.launch(googleSignInClient.signInIntent)
+            val signInClient = googleSignInClient.signInIntent
+            launcher.launch(signInClient)
         },
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(
@@ -425,99 +431,24 @@ fun GoogleSignInButton(
     }
 }
 
-@Composable
-fun GoogleSignInButton2(
-    navController: NavController
-) {
-    val context = LocalContext.current
-    val auth = Firebase.auth
 
-    // Use appropriate contract for Google sign-in
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        handleSignInResult(context, result, onSuccess = { data ->
-            val idToken = data.googleIdToken ?: return@handleSignInResult
-            val credential = GoogleAuthProvider.getCredential(idToken, null)
-            auth.signInWithCredential(credential)
-                .addOnCompleteListener(context as Activity) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, navigate to MainScreenLine
-                        Log.d("Bomboklad", "signInWithCredential:success")
-                        navController.navigate(ScreenId.MainScreenLine.name)
-                    } else {
-                        // Sign in failed, handle the error
-                        Log.w("Bomboklad", "signInWithCredential:failure", task.exception)
-//                        handleSignInFailure(task.exception) // Implement this function
-                    }
+private fun manageResult(
+    task: Task<GoogleSignInAccount>,
+    navController: NavController,
+    auth: FirebaseAuth,
+) {
+    val account: GoogleSignInAccount? = task.result
+
+    if (account != null) {
+        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener {
+                if (task.isSuccessful) {
+                    navController.navigate(ScreenId.MainScreenLine.name)
+//                    findNavController().navigate(R.id.secondFragment)
+                } else {
+                    println("Something went wrong!")
                 }
-        }, onFail = {
-            Log.w("Bomboklad", "signInWithCredential:failure", null)
-//            handleSignInFailure(it) // Implement this function
-        })
-    }
-
-
-    Button(
-        modifier = Modifier
-            .height(50.dp)
-            .fillMaxWidth()
-            .padding(horizontal = 35.dp)
-            .testTag("Registration with Google test tag"),
-        onClick = {
-            launcher.launch(
-                GoogleSignIn.getClient(
-                    context,
-                    GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(context.getString(R.string.default_web_client_id))
-                        .requestEmail()
-                        .build()
-                ).signInIntent
-            )
-        },
-        shape = RoundedCornerShape(10.dp),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.White
-        )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Image(
-                modifier = Modifier
-                    .padding(end = 15.dp)
-                    .size(25.dp),
-                painter = painterResource(id = R.drawable.google),
-                contentDescription = "Google"
-            )
-
-            Text(
-                modifier = Modifier,
-                text = stringResource(id = R.string.continue_with_google),
-                fontSize = 17.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
-            )
-        }
+            }
     }
 }
-
-// Helper function to handle sign-in result
-fun handleSignInResult(
-    context: Context,
-    result: ActivityResult,
-    onSuccess: (SignInCredential) -> Unit,
-    onFail: (Exception?) -> Unit
-) {
-    try {
-        val credential = Identity.getSignInClient(context)
-            .getSignInCredentialFromIntent(result.data)
-        onSuccess(credential)
-    } catch (e: ApiException) {
-        onFail(e)
-    }
-}
-
