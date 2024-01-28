@@ -12,7 +12,16 @@
           "package_name": "com.natiqhaciyef.data"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "493955034274-kroppscrf9bq697qskmuo8q8q5a9gc01.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.natiqhaciyef.data",
+            "certificate_hash": "22d46c3689670923032698c3d1afff1f554d77b2"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCOsP3lV6DnOY5W4QdVRJvQfwIhtFM4JM4"
@@ -31,7 +40,44 @@
           "package_name": "com.natiqhaciyef.domain"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "493955034274-0earqmg7h1fi6snrt446csn9hapa8jj9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.natiqhaciyef.domain",
+            "certificate_hash": "22d46c3689670923032698c3d1afff1f554d77b2"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOsP3lV6DnOY5W4QdVRJvQfwIhtFM4JM4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493955034274:android:cd2abd027b8490a1dc3bfb",
+        "android_client_info": {
+          "package_name": "com.natiqhaciyef.util"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493955034274-952tlg2khl115os0uervmiq3k6gsh3kd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.natiqhaciyef.util",
+            "certificate_hash": "22d46c3689670923032698c3d1afff1f554d77b2"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCOsP3lV6DnOY5W4QdVRJvQfwIhtFM4JM4"
@@ -52,11 +98,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "493955034274-vpsabvfdfuctmq6led7drkp46mpb3ual.apps.googleusercontent.com",
+          "client_id": "493955034274-7ctvuknd704mtdprfva21145c7a8t251.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.natiqhaciyef.witapplication",
-            "certificate_hash": "23209525738193377fd394e86930e13b9def055b"
+            "certificate_hash": "22d46c3689670923032698c3d1afff1f554d77b2"
           }
         }
       ],
