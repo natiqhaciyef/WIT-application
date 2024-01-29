@@ -1,6 +1,5 @@
 package com.natiqhaciyef.witapplication.presentation.screens.register.registration
 
-import android.app.Activity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -55,6 +54,7 @@ import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.UserModel
 import com.natiqhaciyef.witapplication.R
@@ -64,6 +64,7 @@ import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.InputBoxPassword
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
+import com.natiqhaciyef.witapplication.presentation.screens.register.sign_in.GoogleAuthUiClient
 import com.natiqhaciyef.witapplication.ui.theme.*
 import kotlinx.coroutines.launch
 
@@ -297,7 +298,7 @@ fun RegisterMainPart(
             Spacer(modifier = Modifier.height(30.dp))
             // add facebook and google sign in buttons
 
-            GoogleSignIn()
+            GoogleSignIn(navController)
 
             Spacer(modifier = Modifier.height(25.dp))
 
@@ -327,18 +328,43 @@ fun RegisterMainPart(
                 )
             }
 
-            if (errorAvailable.value.isNotEmpty())
-                CustomSnackbar(
-                    returnMessage = errorAvailable.value.ifEmpty { ErrorMessages.SOMETHING_WENT_WRONG },
-                    backgroundColor = AppExtraLightBrown,
-                    textColor = AppDarkBlue
-                )
+//            if (errorAvailable.value.isNotEmpty())
+//                // create new architecture for handling error & success case
+//                CustomSnackbar(
+//                    returnMessage = errorAvailable.value.ifEmpty { ErrorMessages.SOMETHING_WENT_WRONG },
+//                    backgroundColor = AppExtraLightBrown,
+//                    textColor = AppDarkBlue
+//                )
         }
     }
 }
 
 @Composable
-fun GoogleSignIn() {
+fun GoogleSignIn(
+    navController: NavController
+) {
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+    val googleSignInClient by lazy {
+        com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(
+            context, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(context.getString(R.string.default_web_client_id))
+                .requestEmail()
+                .requestProfile()
+                .requestId()
+                .build()
+        )
+    }
+
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        GoogleAuthUiClient.handleSignInResultForGoogleAuth(result) {
+            navController.navigate(ScreenId.MainScreenLine.name)
+        }
+    }
+
 
     Button(
         modifier = Modifier
@@ -347,6 +373,10 @@ fun GoogleSignIn() {
             .padding(horizontal = 35.dp)
             .testTag("Registration with Google test tag"),
         onClick = {
+            coroutineScope.launch {
+                val signInIntent = googleSignInClient.signInIntent
+                launcher.launch(signInIntent)
+            }
         },
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(

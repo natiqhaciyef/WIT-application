@@ -14,17 +14,19 @@ import com.natiqhaciyef.witapplication.presentation.component.NavBar
 import com.natiqhaciyef.witapplication.presentation.screens.main.home.HomeScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.learn.LearnScreen
 import com.natiqhaciyef.witapplication.presentation.screens.main.profile.UserProfileScreen
+import com.natiqhaciyef.witapplication.presentation.screens.register.sign_in.GoogleAuthUiClient
 
 @Composable
 fun MainScreenLine(
-    navController: NavController
+    navController: NavController,
 ) {
     val count = remember { mutableIntStateOf(10) }
 
     Scaffold(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .padding(bottom = 45.dp),
-        bottomBar = { NavBar(selectedIndex = selectedIndex,) }
+        bottomBar = { NavBar(selectedIndex = selectedIndex) }
     ) {
         it.calculateBottomPadding()
         when (selectedIndex.value) {

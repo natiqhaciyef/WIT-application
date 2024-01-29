@@ -1,4 +1,3 @@
-import java.util.*
 
 plugins {
     id("com.android.application")
@@ -25,11 +24,6 @@ android {
 //        testInstrumentationRunner = "com.natiqhaciyef.witapplication.util.HiltTestRunner"
 
         vectorDrawables { useSupportLibrary = true }
-
-        val properties = Properties()
-        properties.load(project.rootProject.file("local.properties").inputStream())
-
-        buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")}\"")
     }
 
     buildTypes {
@@ -66,7 +60,6 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-//    implementation(project(":data"))
     implementation(project(":util"))
 
     implementation("androidx.core:core-ktx:1.9.0")
@@ -85,7 +78,6 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
 
     // Maps
 //    implementation("com.google.android.gms:play-services-maps:18.1.0")
@@ -106,6 +98,9 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.6.0-alpha04")
 
     // Lifecycle - Constraint layout
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0")
+    implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0-alpha03")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha05")
 
@@ -160,6 +155,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
+    implementation("com.github.stevdza-san:OneTapCompose:1.0.11")
 
     // Status bar transparent
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")

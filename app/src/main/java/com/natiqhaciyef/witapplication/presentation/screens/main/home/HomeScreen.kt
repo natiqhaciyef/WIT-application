@@ -49,6 +49,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.common.worker.NotificationWorker.Companion.activityCompat
@@ -133,6 +135,7 @@ private fun HomeTopView(
                     )
                 ) {
                     if (users.value.data != null) append(users.value.data!!.name)
+                    else if (Firebase.auth.currentUser != null) Firebase.auth.currentUser!!.displayName
                     else append(stringResource(id = R.string.guest))
                 }
 

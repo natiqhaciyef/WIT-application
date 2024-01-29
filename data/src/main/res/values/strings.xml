@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">WIT application</string>
+    <string name="default_web_client_id">493955034274-41go5tflarkcbdf201n23c6lo1abreo2.apps.googleusercontent.com</string>
 
     <string name="check_message">Please check your email, we will send the reset password link. If it is not show, check spam messages box</string>
     <string name="send">Send</string>

@@ -1,5 +1,9 @@
 package com.natiqhaciyef.witapplication.presentation.screens.register.login
 
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -50,6 +55,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.UserModel
 import com.natiqhaciyef.witapplication.R
@@ -59,6 +65,7 @@ import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.InputBoxPassword
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
+import com.natiqhaciyef.witapplication.presentation.screens.register.sign_in.SignInViewModel
 import com.natiqhaciyef.witapplication.ui.theme.*
 
 
@@ -66,7 +73,6 @@ import com.natiqhaciyef.witapplication.ui.theme.*
 fun LoginScreen(
     navController: NavController,
 ) {
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -301,7 +307,7 @@ private fun LoginMainPart(
             Spacer(modifier = Modifier.height(30.dp))
             // add facebook and google sign in buttons
 
-            GoogleSignIn()
+            GoogleSignInButton(navController = navController)
 
             Spacer(modifier = Modifier.height(25.dp))
             Row(
@@ -330,20 +336,40 @@ private fun LoginMainPart(
                 )
             }
 
-            if (errorAvailable.value.isNotEmpty())
-                CustomSnackbar(
-                    returnMessage = ErrorMessages.SOMETHING_WENT_WRONG,
-                    backgroundColor = AppExtraLightBrown,
-                    textColor = AppDarkBlue
-                )
-
+//            if (errorAvailable.value.isNotEmpty())
+//                // create new architecture for handling error & success case
+//                CustomSnackbar(
+//                    returnMessage = ErrorMessages.SOMETHING_WENT_WRONG,
+//                    backgroundColor = AppExtraLightBrown,
+//                    textColor = AppDarkBlue
+//                )
         }
     }
 }
 
-
 @Composable
-fun GoogleSignIn() {
+fun GoogleSignInButton(
+    navController: NavController,
+    signInViewModel: SignInViewModel = hiltViewModel()
+) {
+    val context = LocalContext.current
+    val clientId = context.getString(R.string.default_web_client_id)
+    val gso = signInViewModel.generateGoogleSignInOptions(clientId)
+
+    val googleSignInClient = signInViewModel.generateGoogleSignInClient(context, gso)
+    val launcher =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                signInViewModel.googleSignInResultHandler(task){
+                    navController.navigate(ScreenId.MainScreenLine.name)
+                }
+            } else if (result.resultCode == RESULT_CANCELED) {
+                println("Permission denied")
+            }
+        }
+
+
     Button(
         modifier = Modifier
             .height(50.dp)
@@ -351,7 +377,8 @@ fun GoogleSignIn() {
             .padding(horizontal = 35.dp)
             .testTag("Registration with Google test tag"),
         onClick = {
-
+            val signInClient = googleSignInClient.signInIntent
+            launcher.launch(signInClient)
         },
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(

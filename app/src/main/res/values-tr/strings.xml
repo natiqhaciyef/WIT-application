@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">WIT</string>
+    <string name="default_web_client_id">493955034274-41go5tflarkcbdf201n23c6lo1abreo2.apps.googleusercontent.com</string>
 
     <string name="check_message">Lütfen e-postanızı kontrol edin, şifre sıfırlama bağlantısını göndereceğiz. Gösterilmiyorsa spam mesajları kutusunu kontrol edin</string>
     <string name="send">Gönder</string>
