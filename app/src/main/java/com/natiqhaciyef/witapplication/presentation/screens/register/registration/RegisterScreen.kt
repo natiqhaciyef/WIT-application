@@ -328,12 +328,13 @@ fun RegisterMainPart(
                 )
             }
 
-            if (errorAvailable.value.isNotEmpty())
-                CustomSnackbar(
-                    returnMessage = errorAvailable.value.ifEmpty { ErrorMessages.SOMETHING_WENT_WRONG },
-                    backgroundColor = AppExtraLightBrown,
-                    textColor = AppDarkBlue
-                )
+//            if (errorAvailable.value.isNotEmpty())
+//                // create new architecture for handling error & success case
+//                CustomSnackbar(
+//                    returnMessage = errorAvailable.value.ifEmpty { ErrorMessages.SOMETHING_WENT_WRONG },
+//                    backgroundColor = AppExtraLightBrown,
+//                    textColor = AppDarkBlue
+//                )
         }
     }
 }

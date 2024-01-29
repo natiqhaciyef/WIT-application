@@ -356,13 +356,13 @@ private fun LoginMainPart(
                 )
             }
 
-            if (errorAvailable.value.isNotEmpty())
-                CustomSnackbar(
-                    returnMessage = ErrorMessages.SOMETHING_WENT_WRONG,
-                    backgroundColor = AppExtraLightBrown,
-                    textColor = AppDarkBlue
-                )
-
+//            if (errorAvailable.value.isNotEmpty())
+//                // create new architecture for handling error & success case
+//                CustomSnackbar(
+//                    returnMessage = ErrorMessages.SOMETHING_WENT_WRONG,
+//                    backgroundColor = AppExtraLightBrown,
+//                    textColor = AppDarkBlue
+//                )
         }
     }
 }
