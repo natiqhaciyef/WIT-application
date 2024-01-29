@@ -1,4 +1,3 @@
-import java.util.*
 
 plugins {
     id("com.android.application")
@@ -25,11 +24,6 @@ android {
 //        testInstrumentationRunner = "com.natiqhaciyef.witapplication.util.HiltTestRunner"
 
         vectorDrawables { useSupportLibrary = true }
-
-        val properties = Properties()
-        properties.load(project.rootProject.file("local.properties").inputStream())
-
-        buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")}\"")
     }
 
     buildTypes {
@@ -66,7 +60,6 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-//    implementation(project(":data"))
     implementation(project(":util"))
 
     implementation("androidx.core:core-ktx:1.9.0")
@@ -85,7 +78,6 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
 
     // Maps
 //    implementation("com.google.android.gms:play-services-maps:18.1.0")
