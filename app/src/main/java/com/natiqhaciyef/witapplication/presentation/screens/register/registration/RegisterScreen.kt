@@ -59,7 +59,7 @@ import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.UserModel
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.presentation.component.BottomShadow
-import com.natiqhaciyef.witapplication.presentation.component.CustomSnackbar
+import com.natiqhaciyef.witapplication.presentation.component.CustomAlertDialogSample
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.InputBoxPassword
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
@@ -159,6 +159,8 @@ fun RegisterMainPart(
     navController: NavController,
     registerViewModel: RegistrationViewModel = hiltViewModel(),
 ) {
+    val isAlertDialogOpenState = remember { mutableStateOf(false) }
+
     val errorAvailable = remember { mutableStateOf("") }
     val fullNameState = remember { mutableStateOf("") }
     val emailState = remember { mutableStateOf("") }
@@ -328,13 +330,15 @@ fun RegisterMainPart(
                 )
             }
 
-//            if (errorAvailable.value.isNotEmpty())
-//                // create new architecture for handling error & success case
-//                CustomSnackbar(
-//                    returnMessage = errorAvailable.value.ifEmpty { ErrorMessages.SOMETHING_WENT_WRONG },
-//                    backgroundColor = AppExtraLightBrown,
-//                    textColor = AppDarkBlue
-//                )
+            if (errorAvailable.value.isNotEmpty())
+                isAlertDialogOpenState.value = true
+
+            CustomAlertDialogSample(
+                message = ErrorMessages.SIGN_UP_FAILED,
+                openDialog = isAlertDialogOpenState
+            ) {
+                errorAvailable.value = ""
+            }
         }
     }
 }

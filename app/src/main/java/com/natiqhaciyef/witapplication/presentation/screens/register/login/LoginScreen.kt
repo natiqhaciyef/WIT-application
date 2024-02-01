@@ -27,9 +27,12 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.ErrorOutline
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -60,7 +63,7 @@ import com.natiqhaciyef.util.common.util.objects.ErrorMessages
 import com.natiqhaciyef.util.models.UserModel
 import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.presentation.component.BottomShadow
-import com.natiqhaciyef.witapplication.presentation.component.CustomSnackbar
+import com.natiqhaciyef.witapplication.presentation.component.CustomAlertDialogSample
 import com.natiqhaciyef.witapplication.presentation.component.InputBox
 import com.natiqhaciyef.witapplication.presentation.component.InputBoxPassword
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Lobster
@@ -157,6 +160,7 @@ private fun LoginMainPart(
     navController: NavController,
     loginViewModel: LoginViewModel = hiltViewModel(),
 ) {
+    val isAlertDialogOpenState = remember { mutableStateOf(false) }
     val errorAvailable = remember { mutableStateOf("") }
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
@@ -217,14 +221,10 @@ private fun LoginMainPart(
                     val email = emailState.value
                     val password = passwordState.value
 
-                    val user = UserModel(name = " ", email = email, password = password)
+                    val user = UserModel("-", " ", email, password)
                     loginViewModel.signIn(
                         user = user,
-                        onFail = {
-                            errorAvailable.value = ErrorMessages.SOMETHING_WENT_WRONG
-                        },
                         onSuccess = {
-
                             errorAvailable.value = ""
                             navController.navigate(ScreenId.MainScreenLine.name) {
                                 navController.popBackStack(
@@ -232,6 +232,9 @@ private fun LoginMainPart(
                                     inclusive = true
                                 )
                             }
+                        },
+                        onFail = {
+                            errorAvailable.value = ErrorMessages.SOMETHING_WENT_WRONG
                         }
                     )
                 },
@@ -336,7 +339,15 @@ private fun LoginMainPart(
                 )
             }
 
-//            if (errorAvailable.value.isNotEmpty())
+            if (errorAvailable.value.isNotEmpty())
+                isAlertDialogOpenState.value = true
+
+            CustomAlertDialogSample(
+                message = ErrorMessages.SIGN_IN_FAILED,
+                openDialog = isAlertDialogOpenState
+            ) {
+                errorAvailable.value = ""
+            }
 //                // create new architecture for handling error & success case
 //                CustomSnackbar(
 //                    returnMessage = ErrorMessages.SOMETHING_WENT_WRONG,
@@ -361,7 +372,7 @@ fun GoogleSignInButton(
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                signInViewModel.googleSignInResultHandler(task){
+                signInViewModel.googleSignInResultHandler(task) {
                     navController.navigate(ScreenId.MainScreenLine.name)
                 }
             } else if (result.resultCode == RESULT_CANCELED) {

@@ -35,7 +35,6 @@ import com.natiqhaciyef.witapplication.R
 import com.natiqhaciyef.witapplication.presentation.component.ExamComponent
 import com.natiqhaciyef.witapplication.presentation.component.fonts.Opensans
 import com.natiqhaciyef.witapplication.presentation.navigation.ScreenId
-import com.natiqhaciyef.witapplication.presentation.screens.main.profile.CustomAlertDialogSample
 import com.natiqhaciyef.witapplication.ui.theme.AppDarkBlue
 import com.natiqhaciyef.witapplication.ui.theme.AppExtraLightBrown
 
@@ -183,4 +182,128 @@ fun CustomExamAlertDialog(isApplied: MutableState<Boolean>) {
         }
     }
 
+}
+
+@Composable
+private fun CustomAlertDialogSample(
+    openDialog: MutableState<Boolean>,
+    message: String = "",
+    messageId: Int = 0,
+    onClick: () -> Unit = { },
+) {
+    Column {
+        if (openDialog.value) {
+            AlertDialog(
+                onDismissRequest = {
+                    openDialog.value = false
+                },
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.alert),
+                        fontSize = 18.sp,
+                        color = AppDarkBlue,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier,
+                        textAlign = TextAlign.Center
+                    )
+                },
+                text = {
+                    if (message.isNotEmpty()) {
+                        Text(
+                            text = message,
+                            fontSize = 18.sp,
+                            color = AppDarkBlue,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier,
+                            textAlign = TextAlign.Center
+                        )
+                    } else if (messageId != 0) {
+                        Text(
+                            text = stringResource(id = messageId),
+                            fontSize = 18.sp,
+                            color = AppDarkBlue,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier,
+                            textAlign = TextAlign.Center
+                        )
+                    } else {
+                        Text(
+                            text = stringResource(id = R.string.alert_dialog_title),
+                            fontSize = 18.sp,
+                            color = AppDarkBlue,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+
+                },
+                confirmButton = {
+                    Button(
+                        modifier = Modifier
+                            .width(120.dp)
+                            .height(55.dp),
+                        onClick = {
+                            openDialog.value = false
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = AppDarkBlue
+                        ),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color.Transparent)
+                        ) {
+                            Text(
+                                modifier = Modifier
+                                    .align(Alignment.Center),
+                                text = stringResource(id = R.string.alert_dialog_negative_button),
+                                fontSize = 16.sp,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+
+                    }
+
+                },
+                dismissButton = {
+                    Button(
+                        modifier = Modifier
+                            .width(120.dp)
+                            .height(55.dp),
+                        onClick = {
+                            openDialog.value = false
+                            onClick()
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = AppDarkBlue
+                        ),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color.Transparent)
+                        ) {
+                            Text(
+                                modifier = Modifier
+                                    .align(Alignment.Center),
+                                text = stringResource(id = R.string.alert_dialog_positive_button),
+                                fontSize = 16.sp,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+                },
+                shape = RoundedCornerShape(15.dp),
+                containerColor = AppExtraLightBrown
+            )
+        }
+    }
 }

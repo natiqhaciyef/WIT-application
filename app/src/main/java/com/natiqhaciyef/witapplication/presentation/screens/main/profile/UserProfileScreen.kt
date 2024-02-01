@@ -331,7 +331,7 @@ private fun SubComponent(
 
 
 @Composable
-fun CustomAlertDialogSample(
+private fun CustomAlertDialogSample(
     openDialog: MutableState<Boolean>,
     message: String = "",
     messageId: Int = 0,
